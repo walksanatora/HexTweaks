@@ -29,18 +29,12 @@ configurations {
 
 repositories {
     mavenCentral()
-    maven { url "https://maven.shedaniel.me/" }
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
+    maven { url = "https://maven.blamejared.com/"}
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://dvs1.progwml6.com/files/maven/"}
+    maven { url = "https://modmaven.dev"}
     maven { url = "https://maven.theillusivec4.top" }
+    maven { url = 'https://thedarkcolour.github.io/KotlinForForge/'}
 }
 
 
@@ -52,6 +46,14 @@ dependencies {
     modImplementation("at.petra-k.hexcasting:hexcasting-forge-1.19.2:0.10.3") {
         transitive = false
     }
+
+    //modRuntimeOnly "top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0"
+    modRuntimeOnly "mezz.jei:jei-1.19.2-forge:11.4.0.282"
+    modRuntimeOnly "vazkii.patchouli:Patchouli:1.19.2-77"
+    modRuntimeOnly "at.petra-k.paucal:paucal-forge-1.19.2:0.5.0"
+    runtimeOnly "thedarkcolour:kotlinforforge:3.7.1"
+    //modRuntimeOnly "com.github.Virtuoel:Pehkui:3.6.0-1.19.2-forge"
+    modImplementation "vazkii.patchouli:Patchouli:1.19.2-77"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

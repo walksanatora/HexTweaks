@@ -11,7 +11,7 @@ public class PatternRegister {
     public static void registerPatterns() throws PatternRegistry.RegisterPatternException {
         //HexPattern(SOUTH_WEST qqaw)
         PatternRegistry.mapPattern(
-                HexPattern.fromAngles("qqaw", HexDir.SOUTH_EAST),
+                HexPattern.fromAngles("qqaw", HexDir.SOUTH_WEST),
                 new ResourceLocation("hextweaks","page/right"),
                 new OpNewFlip(true),false
         );
