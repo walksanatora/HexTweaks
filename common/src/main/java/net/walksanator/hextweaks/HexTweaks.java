@@ -3,6 +3,7 @@ package net.walksanator.hextweaks;
 import at.petrak.hexcasting.api.PatternRegistry;
 import com.google.common.base.Suppliers;
 import dev.architectury.registry.registries.Registries;
+import net.walksanator.hextweaks.iotas.HextweaksIotaType;
 import net.walksanator.hextweaks.patterns.PatternRegister;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,5 +33,8 @@ public class HexTweaks {
         } catch (PatternRegistry.RegisterPatternException e) {
             LOGGER.error("Failed to load patterns for hextweaks");
         }
+
+        HextweaksIotaType.registerTypes();
+
     }
 }

@@ -9,5 +9,8 @@
 
   "hexcasting.spell.hextweaks:suicide": "Suspicious Glyph",
   "hextweaks.page.spell.suicide": "It appears to be a inscription, I wonder what it does",
-  "death.attack.hextweaks.death.sus": "%s was called sus"
+  "death.attack.hextweaks.death.sus": "%s was called sus",
+
+  "hextweaks.iota.dictionary": "{%s}",
+  "hextweaks.mishap.notadict": "is not a dictionary"
 }

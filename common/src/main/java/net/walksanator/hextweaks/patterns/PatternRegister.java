@@ -37,6 +37,18 @@ public class PatternRegister {
                 new ResourceLocation("hextweaks","nausea"),
                 new OpPotionEffect(MobEffects.CONFUSION, MediaConstants.DUST_UNIT / 4,true,false,false),false
         );
+        //HexPattern(East ead)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("ead",HexDir.EAST),
+                new ResourceLocation("hextweaks","dict/new"),
+                new OpNewDict(), false
+        );
+        //HexPattern(East eade)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("eade",HexDir.EAST),
+                new ResourceLocation("hextweaks","dict/add"),
+                new OpDictPush(), false
+        );
         HexTweaks.LOGGER.info("finished loading hextweaks hexes");
     }
 }
