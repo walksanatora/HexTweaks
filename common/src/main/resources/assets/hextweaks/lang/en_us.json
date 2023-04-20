@@ -1,0 +1,13 @@
+{
+  "item.examplemod.example_item": "Example Item",
+  "hexcasting.spell.hextweaks:page/right": "Progress Gambit",
+  "hexcasting.spell.hextweaks:page/left": "Regress Gambit",
+  "hexcasting.spell.hextweaks:nausea": "Nadir of Nausea",
+  "hextweaks.entry.hextweaks_utility": "Hextweaks utility",
+  "hextweaks.page.hextweaks_utility.page/right": "Turns the spellbook that your are holding one page to the right",
+  "hextweaks.page.hextweaks_utility.page/left": "Turns the spellbook that your are holding one page to the left",
+
+  "hexcasting.spell.hextweaks:suicide": "Suspicious Glyph",
+  "hextweaks.page.spell.suicide": "It appears to be a inscription, I wonder what it does",
+  "death.attack.hextweaks.death.sus": "%s was called sus"
+}

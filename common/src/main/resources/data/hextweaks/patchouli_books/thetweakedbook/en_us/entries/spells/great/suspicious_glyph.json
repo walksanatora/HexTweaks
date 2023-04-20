@@ -1,0 +1,18 @@
+{
+	"name": "hexcasting.spell.hextweaks:suicide",
+	"category": "hexcasting:patterns/great_spells",
+	"icon": "minecraft:skeleton_skull",
+	"sortnum": 0,
+	"advancement": "hexcasting:root",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hextweaks:suicide",
+			"anchor": "hextweaks:suicide",
+			"input": "",
+			"output": "",
+			"text": "hextweaks.page.spell.suicide"
+		}
+	]
+}
