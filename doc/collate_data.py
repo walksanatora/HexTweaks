@@ -227,7 +227,6 @@ pattern_stubs = [(None, "net/walksanator/hextweaks/patterns/PatternRegister.java
 
 def fetch_patterns(root_data):
     registry = {}
-    print("fetching patterns")
     for loader, stub in pattern_stubs:
         filename = f"{root_data['src_dir']}/{stub}"
         if loader: filename = filename.replace("Common", loader)
@@ -236,7 +235,6 @@ def fetch_patterns(root_data):
             for mobj in re.finditer(pattern_pat, pattern_data):
                 string, start_angle, name, is_per_world = mobj.groups()
                 registry[root_data["modid"] + ":" + name] = (string, start_angle, is_per_world=="true")
-    print(registry)
     return registry
 
 
