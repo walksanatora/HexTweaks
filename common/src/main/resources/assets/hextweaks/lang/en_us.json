@@ -23,7 +23,7 @@
   "hexcasting.spell.hextweaks:dict/get": "Clerk's Surgeon's Exaltation",
   "hexcasting.spell.hextweaks:dict/remove": "Clerk's Excisor's Distillation",
   "hexcasting.action.book.hextweaks:dict/new": "Clerk's Vacant Rfln.",
-  "hexcasting.action.book.hextweaks:dict/set": "Clerk's Integration Rfln.",
+  "hexcasting.action.book.hextweaks:dict/set": "Clerk's Integration Exln.",
   "hexcasting.action.book.hextweaks:dict/get": "Clerk's Surgeon's Exln.",
   "hexcasting.action.book.hextweaks:dict/remove": "Clerk's Excisor's Dstl.",
   "hextweaks.page.hextweaks.dict.info": "Dictionary are a type of iota added by HexTweaks, similar to a portable akashic record although limited to 32 indexes,$(br)the type key indicates any type except dictionaries or list$(br)(as they cannot be used as keys)",
@@ -34,5 +34,5 @@
 
 
   "hexcasting.spell.hextweaks:itter": "Iterators Purification",
-  "hextweaks.page.hextweaks.utility.itter": "Takes a number and returns all number 0 to n-1"
+  "hextweaks.page.hextweaks.utility.itter": "Takes a number and returns all number 0 to n-1 (produces n values)"
 }
