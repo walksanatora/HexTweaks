@@ -1,0 +1,51 @@
+{
+	"name": "hextweaks.entry.hextweaks.dict",
+	"category": "hexcasting:patterns",
+	"icon": "minecraft:book",
+	"sortnum": 3,
+	"advancement": "hexcasting:root",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"title": "Dictionary Iotas",
+			"text": "hextweaks.page.hextweaks.dict.info"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hextweaks:dict/new",
+			"anchor": "hextweaks:dict/new",
+			"header": "hexcasting.action.book.hextweaks:dict/new",
+			"input": "",
+			"output": "dict",
+			"text": "hextweaks.page.hextweaks.dict.new"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hextweaks:dict/set",
+			"anchor": "hextweaks:dict/set",
+			"header": "hexcasting.action.book.hextweaks:dict/set",
+			"input": "dict,key,any",
+			"output": "dict",
+			"text": "hextweaks.page.hextweaks.dict.set"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hextweaks:dict/get",
+			"anchor": "hextweaks:dict/get",
+			"header": "hexcasting.action.book.hextweaks:dict/get",
+			"input": "dict,key",
+			"output": "dict,any",
+			"text": "hextweaks.page.hextweaks.dict.get"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hextweaks:dict/remove",
+			"anchor": "hextweaks:dict/remove",
+			"header": "hexcasting.action.book.hextweaks:dict/remove",
+			"input": "dict,key",
+			"output": "dict",
+			"text": "hextweaks.page.hextweaks.dict.remove"
+		}
+	]
+}

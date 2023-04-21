@@ -21,6 +21,14 @@
 			"input": "",
 			"output": "",
 			"text": "hextweaks.page.hextweaks_utility.page/left"
+		},
+		{
+			"type": "hexcasting:pattern",
+			"op_id": "hextweaks:itter",
+			"anchor": "hextweaks:itter",
+			"input": "Number",
+			"output": "[Number]",
+			"text": "hextweaks.page.hextweaks.utility.itter"
 		}
 	]
 }

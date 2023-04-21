@@ -2,6 +2,7 @@ package net.walksanator.hextweaks.iotas;
 
 import at.petrak.hexcasting.api.spell.iota.Iota;
 import at.petrak.hexcasting.api.spell.iota.IotaType;
+import at.petrak.hexcasting.api.spell.iota.NullIota;
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 public class DictionaryIota extends Iota {
@@ -129,5 +131,35 @@ public class DictionaryIota extends Iota {
             return 0xff_00ffaa;
         }
     };
+    public Iota get(Iota key) {
+        for (Iota idx : getPayload().keySet()) {
+            if (Iota.tolerates(idx,key)) {
+                return getPayload().get(idx);
+            }
+        }
+        return new NullIota();
+    }
+    public void set(Iota key, Iota value) {
+        var targetKey = key;
+        for (Iota idx: getPayload().keySet()) {
+            if (Iota.tolerates(idx, key)) {
+                targetKey = idx;
+                break;
+            }
+        }
+        getPayload().put(targetKey, value);
+    }
+
+    public void remove(Iota key) {
+        Iota tgt = null;
+        for (Iota idx: getPayload().keySet()) {
+            if (Iota.tolerates(idx,key)) {
+                tgt = idx;
+            }
+        }
+        if (tgt != null) {
+            getPayload().remove(tgt);
+        }
+    }
 
 }

@@ -1,9 +1,11 @@
 {
-  "item.examplemod.example_item": "Example Item",
+  "hexcasting.spell.hextweaks:nausea": "Nadir of Nausea",
+
+  "hextweaks.entry.hextweaks_utility": "Hextweaks utility",
+  "hextweaks.entry.hextweaks.dict": "Hextweaks Dictionary",
+
   "hexcasting.spell.hextweaks:page/right": "Progress Gambit",
   "hexcasting.spell.hextweaks:page/left": "Regress Gambit",
-  "hexcasting.spell.hextweaks:nausea": "Nadir of Nausea",
-  "hextweaks.entry.hextweaks_utility": "Hextweaks utility",
   "hextweaks.page.hextweaks_utility.page/right": "Turns the spellbook that your are holding one page to the right",
   "hextweaks.page.hextweaks_utility.page/left": "Turns the spellbook that your are holding one page to the left",
 
@@ -12,5 +14,25 @@
   "death.attack.hextweaks.death.sus": "%s was called sus",
 
   "hextweaks.iota.dictionary": "{%s}",
-  "hextweaks.mishap.notadict": "is not a dictionary"
+  "hextweaks.mishap.notadict": "is not a dictionary",
+  "hextweaks.mishap.cannotbekey": "cannot be a dictionary key",
+  "hextweaks.mishap.dicttoolarge": "%s cannot have a value inserted as it is too big",
+  "note.dictionary.name": "Clerk's <equivalent list name>",
+  "hexcasting.spell.hextweaks:dict/new": "Clerk's Vacant Reflection",
+  "hexcasting.spell.hextweaks:dict/set": "Clerk's Integration Exaltation",
+  "hexcasting.spell.hextweaks:dict/get": "Clerk's Surgeon's Exaltation",
+  "hexcasting.spell.hextweaks:dict/remove": "Clerk's Excisor's Distillation",
+  "hexcasting.action.book.hextweaks:dict/new": "Clerk's Vacant Rfln.",
+  "hexcasting.action.book.hextweaks:dict/set": "Clerk's Integration Rfln.",
+  "hexcasting.action.book.hextweaks:dict/get": "Clerk's Surgeon's Exln.",
+  "hexcasting.action.book.hextweaks:dict/remove": "Clerk's Excisor's Dstl.",
+  "hextweaks.page.hextweaks.dict.info": "Dictionary are a type of iota added by HexTweaks, similar to a portable akashic record although limited to 32 indexes,$(br)the type key indicates any type except dictionaries or list$(br)(as they cannot be used as keys)",
+  "hextweaks.page.hextweaks.dict.new": "Pushes a new empty dictionary to the stack",
+  "hextweaks.page.hextweaks.dict.set": "Adds the key/value pair to the dictionary (dictionary remains on stack)",
+  "hextweaks.page.hextweaks.dict.get": "Gets the value from the dictionary using key (dictionary remains on stack)",
+  "hextweaks.page.hextweaks.dict.remove": "Removes a key from the dictionary (dictionary remains on stack)",
+
+
+  "hexcasting.spell.hextweaks:itter": "Iterators Purification",
+  "hextweaks.page.hextweaks.utility.itter": "Takes a number and returns all number 0 to n-1"
 }
