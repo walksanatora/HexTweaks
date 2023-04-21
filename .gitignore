@@ -10,6 +10,8 @@ bin/
 libs/
 
 builds/*
+doc/data.json
+doc/docs.html
 
 .classpath
 .project
