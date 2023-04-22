@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.spell.iota.Iota;
 import at.petrak.hexcasting.api.spell.iota.IotaType;
 import at.petrak.hexcasting.api.spell.iota.NullIota;
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes;
+import kotlin.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -13,28 +14,25 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class DictionaryIota extends Iota {
-    public DictionaryIota(@NotNull Map<Iota,Iota> data) {
+    public DictionaryIota(@NotNull Pair<List<Iota>,List<Iota>> data) {
         super(HextweaksIotaType.DICTIONARY, data);
     }
     @Override
     public boolean isTruthy() {
-        return ! getPayload().isEmpty();
+        return getPayload().getFirst().size()!=0;
     }
 
-    public Map<Iota, Iota> getPayload() {
-        if (payload instanceof Map<?, ?>) {
+    public Pair<List<Iota>,List<Iota>> getPayload() {
+        if (payload instanceof Pair<?,?>) {
             @SuppressWarnings("unchecked")
-            Map<Iota, Iota> map = (Map<Iota, Iota>) payload;
+            Pair<List<Iota>,List<Iota>> map = (Pair<List<Iota>,List<Iota>>) payload;
             return map;
         }
-        return new HashMap<>();
+        return new Pair<>(new ArrayList<>(),new ArrayList<>());
     }
 
     @Override
@@ -44,12 +42,14 @@ public class DictionaryIota extends Iota {
 
     @Override
     public @NotNull Tag serialize() {
-        Map<Iota,Iota> data = getPayload();
+        Pair<List<Iota>,List<Iota>> data = getPayload();
         ListTag keys = new ListTag();
         ListTag vals = new ListTag();
-        for (Map.Entry<Iota,Iota> dat : data.entrySet() ) {
-            keys.add(HexIotaTypes.serialize(dat.getKey()));
-            vals.add(HexIotaTypes.serialize(dat.getValue()));
+        for (Iota dat : data.getFirst() ) {
+            keys.add(HexIotaTypes.serialize(dat));
+        }
+        for (Iota dat : data.getSecond() ) {
+            keys.add(HexIotaTypes.serialize(dat));
         }
         CompoundTag output = new CompoundTag();
         output.put("k",keys);
@@ -63,35 +63,22 @@ public class DictionaryIota extends Iota {
             if (!(tag instanceof CompoundTag)) {
                 throw new IllegalArgumentException("Expected this tag to be of type CompoundTag, but found %s".formatted(tag.getType().getName()));
             }
-            ListTag keys = ((CompoundTag) tag).getList("k",Tag.TAG_COMPOUND);
-            ListTag vals = ((CompoundTag) tag).getList("v",Tag.TAG_COMPOUND);
+            ListTag nbtkeys = ((CompoundTag) tag).getList("k",Tag.TAG_COMPOUND);
+            ListTag nbtvals = ((CompoundTag) tag).getList("v",Tag.TAG_COMPOUND);
 
-            ArrayList<Iota> keyiotas = new ArrayList<>();
-            for (Tag keytag : keys) {
-                keyiotas.add(
+            ArrayList<Iota> keys = new ArrayList<>();
+            for (Tag keytag : nbtkeys) {
+                keys.add(
                         HexIotaTypes.deserialize((CompoundTag) keytag, world)
                 );
             }
-            ArrayList<Iota> valueiotas = new ArrayList<>();
-            for (Tag valtag : vals) {
-                valueiotas.add(
+            ArrayList<Iota> values = new ArrayList<>();
+            for (Tag valtag : nbtvals) {
+                values.add(
                         HexIotaTypes.deserialize((CompoundTag) valtag, world)
                 );
             }
-            short idx = 0;
-            HashMap<Iota,Iota> output = new HashMap<>();
-            if (keyiotas.size() <= valueiotas.size()) {
-                for (Iota key : keyiotas) {
-                    output.put(key, valueiotas.get(idx));
-                    idx++;
-                }
-            } else {
-                for (Iota val : valueiotas) {
-                    output.put(keyiotas.get(idx), val);
-                    idx++;
-                }
-            }
-            return new DictionaryIota(output);
+            return new DictionaryIota(new Pair<>(keys,values));
         }
 
         @Override
@@ -101,27 +88,15 @@ public class DictionaryIota extends Iota {
             }
             ListTag keys = ((CompoundTag) tag).getList("k",Tag.TAG_COMPOUND);
             ListTag vals = ((CompoundTag) tag).getList("v",Tag.TAG_COMPOUND);
-            HashMap<Tag,Tag> kvs = new HashMap<>();
-            int idx = 0;
-            if (keys.size() <= vals.size()) {
-                for (Tag key : keys) {
-                    kvs.put(key,vals.get(idx));
-                    idx++;
-                }
-            } else {
-                for (Tag val : vals) {
-                    kvs.put(keys.get(idx),val);
-                    idx++;
-                }
-            }
             MutableComponent output = Component.empty();
-            int left = kvs.size()-1;
-            for (Map.Entry<Tag,Tag> dat : kvs.entrySet() ) {
-                output.append(HexIotaTypes.getDisplay((CompoundTag) dat.getKey()));
+            int left = keys.size()-1;
+            int idx = 0;
+            for (Tag dat : keys ) {
+                output.append(HexIotaTypes.getDisplay((CompoundTag) dat));
                 output.append(Component.literal(": ").withStyle(ChatFormatting.AQUA));
-                output.append(HexIotaTypes.getDisplay((CompoundTag) dat.getValue()));
+                output.append(HexIotaTypes.getDisplay((CompoundTag) vals.get(idx)));
                 if (!(left==0)) {output.append(Component.literal(",").withStyle(ChatFormatting.AQUA));}
-                left--;
+                left--; idx++;
             }
             return Component.translatable("hextweaks.iota.dictionary", output).withStyle(ChatFormatting.AQUA);
         }
@@ -132,34 +107,43 @@ public class DictionaryIota extends Iota {
         }
     };
     public Iota get(Iota key) {
-        for (Iota idx : getPayload().keySet()) {
+        Pair<List<Iota>,List<Iota>> data = getPayload();
+        for (int i = 0; i <= data.getFirst().size(); i++)
+        {
+            Iota idx = data.getFirst().get(i);
             if (Iota.tolerates(idx,key)) {
-                return getPayload().get(idx);
+                return data.getSecond().get(i);
             }
         }
         return new NullIota();
     }
     public void set(Iota key, Iota value) {
-        var targetKey = key;
-        for (Iota idx: getPayload().keySet()) {
-            if (Iota.tolerates(idx, key)) {
-                targetKey = idx;
-                break;
+        int targetKey = -1;
+        Pair<List<Iota>,List<Iota>> data = getPayload();
+        for (int i = 0; i <= data.getFirst().size(); i++)
+        {
+            Iota idx = data.getFirst().get(i);
+            if (Iota.tolerates(idx,key)) {
+                targetKey = i;
             }
         }
-        getPayload().put(targetKey, value);
+        if (targetKey == -1) {return;}
+        data.getSecond().set(targetKey,value);
     }
 
     public void remove(Iota key) {
-        Iota tgt = null;
-        for (Iota idx: getPayload().keySet()) {
+        int targetKey = -1;
+        Pair<List<Iota>,List<Iota>> data = getPayload();
+        for (int i = 0; i <= data.getFirst().size(); i++)
+        {
+            Iota idx = data.getFirst().get(i);
             if (Iota.tolerates(idx,key)) {
-                tgt = idx;
+                targetKey = i;
             }
         }
-        if (tgt != null) {
-            getPayload().remove(tgt);
-        }
+        if (targetKey == -1) {return;}
+        data.getFirst().remove(targetKey);
+        data.getSecond().remove(targetKey);
     }
 
 }
