@@ -25,7 +25,7 @@
 			"op_id": "hextweaks:dict/set",
 			"anchor": "hextweaks:dict/set",
 			"header": "hexcasting.action.book.hextweaks:dict/set",
-			"input": "dict,key,any",
+			"input": "dict, key, any",
 			"output": "dict",
 			"text": "hextweaks.page.hextweaks.dict.set"
 		},
@@ -34,8 +34,8 @@
 			"op_id": "hextweaks:dict/get",
 			"anchor": "hextweaks:dict/get",
 			"header": "hexcasting.action.book.hextweaks:dict/get",
-			"input": "dict,key",
-			"output": "dict,any",
+			"input": "dict, key",
+			"output": "dict, any",
 			"text": "hextweaks.page.hextweaks.dict.get"
 		},
 		{
@@ -43,7 +43,7 @@
 			"op_id": "hextweaks:dict/remove",
 			"anchor": "hextweaks:dict/remove",
 			"header": "hexcasting.action.book.hextweaks:dict/remove",
-			"input": "dict,key",
+			"input": "dict, key",
 			"output": "dict",
 			"text": "hextweaks.page.hextweaks.dict.remove"
 		}
