@@ -23,9 +23,9 @@ public class PatternRegister {
                 new ResourceLocation("hextweaks","page/left"),
                 new OpNewFlip(false), false
         );
-        //HexPattern(EAST deqwedaqedqeweqewwdweqa)
+        //HexPattern(WEST deqwedaqedqeweqewwdweqa)
         PatternRegistry.mapPattern(
-                HexPattern.fromAngles("dewdeqwwedaqedwadweqewwd",HexDir.EAST),
+                HexPattern.fromAngles("dewdeqwwedaqedwadweqewwd",HexDir.WEST),
                 new ResourceLocation("hextweaks","suicide"),
                 new OpSuicide(), true
         );
