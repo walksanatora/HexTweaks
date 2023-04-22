@@ -231,7 +231,7 @@ def identity(x):
 
 
 pattern_pat = re.compile(
-    r'PatternRegistry.mapPattern\([\n ]+HexPattern\.fromAngles\("([qweasd]+)", ?HexDir\.(.+)?\)[,\n ]+?new ResourceLocation\(".+"(.+)?"\),\n.+,(.+)'
+    r'PatternRegistry.mapPattern\([\n ]+HexPattern\.fromAngles\("([qweasd]+)", ?HexDir\.(.+)?\)[,\n ]+?new ResourceLocation\(".+"(.+)?"\),\n.+new (.+)\(.+, ?(true)?'
 )
 pattern_stubs = [(None, "net/walksanator/hextweaks/patterns/PatternRegister.java")]
 
@@ -245,11 +245,11 @@ def fetch_patterns(root_data):
         with open(filename, "r") as fh:
             pattern_data = fh.read()
             for mobj in re.finditer(pattern_pat, pattern_data):
-                string, start_angle, name, is_per_world = mobj.groups()
+                string, start_angle, name, _, is_per_world = mobj.groups()
                 registry[root_data["modid"] + ":" + name] = (
                     string,
                     start_angle,
-                    is_per_world == "true",
+                    bool(is_per_world),
                 )
     return registry
 
