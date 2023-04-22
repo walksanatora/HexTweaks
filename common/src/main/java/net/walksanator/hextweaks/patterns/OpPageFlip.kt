@@ -10,7 +10,7 @@ import at.petrak.hexcasting.common.items.ItemSpellbook
 import net.minecraft.network.chat.Component
 
 
-class OpNewFlip(
+class OpPageFlip(
         private val rotateRight: Boolean
 ) : ConstMediaAction {
     override val argc = 0

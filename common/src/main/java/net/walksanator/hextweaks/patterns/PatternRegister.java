@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.PatternRegistry;
 import at.petrak.hexcasting.api.spell.math.HexDir;
 import at.petrak.hexcasting.api.spell.math.HexPattern;
 import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.codec.binary.Hex;
 
 public class PatternRegister {
     public static void registerPatterns() throws PatternRegistry.RegisterPatternException {
@@ -15,13 +16,13 @@ public class PatternRegister {
         PatternRegistry.mapPattern(
                 HexPattern.fromAngles("qqaw", HexDir.SOUTH_WEST),
                 new ResourceLocation("hextweaks","page/right"),
-                new OpNewFlip(true),false
+                new OpPageFlip(true),false
         );
         //HexPattern(SOUTH_EAST eedw)
         PatternRegistry.mapPattern(
                 HexPattern.fromAngles("eedw",HexDir.SOUTH_EAST),
                 new ResourceLocation("hextweaks","page/left"),
-                new OpNewFlip(false), false
+                new OpPageFlip(false), false
         );
         //HexPattern(WEST deqwedaqedqeweqewwdweqa)
         PatternRegistry.mapPattern(
@@ -39,6 +40,24 @@ public class PatternRegister {
                 HexPattern.fromAngles("qaqwaq",HexDir.NORTH_EAST),
                 new ResourceLocation("hextweaks","dict/new"),
                 new OpNewDict(), false
+        );
+        //HexPattern(NORTH_EAST qaqwaqeqdweeew)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("qaqwaqeqdweeew",HexDir.NORTH_EAST),
+                new ResourceLocation("hextweaks","dict/from"),
+                new OpDictFrom(), false
+        );
+        //HexPattern(NORTH_EAST qaqwaqdwqqqwae)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("qaqwaqdwqqqwae",HexDir.NORTH_EAST),
+                new ResourceLocation("hextweaks","dict/break"),
+                new OpDictBreak(), false
+        );
+        //HexPattern(NORTH_EAST qaqwaqeewaqaeaq)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("qaqwaqeewaqaeaq",HexDir.NORTH_EAST),
+                new ResourceLocation("hextweaks","dict/size"),
+                new OpDictSize(), false
         );
         //HexPattern(North_East qaqwaqewaa)
         PatternRegistry.mapPattern(
