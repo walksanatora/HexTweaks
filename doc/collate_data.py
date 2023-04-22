@@ -668,6 +668,7 @@ def main(argv):
           hex_root = os.path.join(hex_repo_root, os.listdir(hex_repo_root)[0], 'Common', 'src', 'main', 'resources')
         else:
           hex_env_root = os.getenv("hexcasting_root")
+          assert hex_env_root is not None #appeasment
           hex_root = os.path.join(hex_env_root, 'Common', 'src', 'main', 'resources')
         root = argv[1]
         src_root = argv[2]
