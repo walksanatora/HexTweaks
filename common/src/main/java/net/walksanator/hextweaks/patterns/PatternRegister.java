@@ -84,6 +84,11 @@ public class PatternRegister {
                 new OpItterator(), false
         );
         //HexPattern(North_East qaqwaqedadad) Thoth but dictionary
+        //inorder to do this...
+        //I will either need to accesswiden ContinuationFrame to un-seal it + mixin to make it de-serialisabe
+        //or I will have to turn the dict into a list of single-key/value pairs and inject a instruction at the start
+        //that de-constructs those single key/value pairs into values at the top of the stack
+        
         //altrenate thoths idea: it runs the program but does not reset the stack or en-listify it
         HexTweaks.LOGGER.info("finished loading hextweaks hexes");
     }
