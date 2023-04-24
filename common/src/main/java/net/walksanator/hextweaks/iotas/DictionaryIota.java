@@ -1,8 +1,10 @@
 package net.walksanator.hextweaks.iotas;
 
+import at.petrak.hexcasting.api.spell.iota.EntityIota;
 import at.petrak.hexcasting.api.spell.iota.Iota;
 import at.petrak.hexcasting.api.spell.iota.IotaType;
 import at.petrak.hexcasting.api.spell.iota.NullIota;
+import at.petrak.hexcasting.api.spell.mishaps.MishapOthersName;
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes;
 import kotlin.Pair;
 import net.minecraft.ChatFormatting;
@@ -12,8 +14,11 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 
@@ -35,6 +40,11 @@ public class DictionaryIota extends Iota {
         return new Pair<>(new ArrayList<>(),new ArrayList<>());
     }
 
+    public DictionaryIota() {super(HextweaksIotaType.DICTIONARY,new Pair<>(
+            new ArrayList<>(),
+            new ArrayList<>()
+    ));}
+
     @Override
     protected boolean toleratesOther(Iota that) {
         return that.getClass() == getClass();
@@ -49,7 +59,7 @@ public class DictionaryIota extends Iota {
             keys.add(HexIotaTypes.serialize(dat));
         }
         for (Iota dat : data.getSecond() ) {
-            keys.add(HexIotaTypes.serialize(dat));
+            vals.add(HexIotaTypes.serialize(dat));
         }
         CompoundTag output = new CompoundTag();
         output.put("k",keys);
@@ -117,7 +127,15 @@ public class DictionaryIota extends Iota {
         }
         return new NullIota();
     }
-    public void set(Iota key, Iota value) {
+
+    public void set(Iota key, Iota value) throws MishapOthersName {set(key,value,null)}
+
+    public void set(Iota key, Iota value, @Nullable Player caster) throws MishapOthersName {
+        if (((key instanceof EntityIota) || (value instanceof EntityIota)) && caster != null) {
+            Player truename = MishapOthersName.getTrueNameFromArgs(List.of(key,value),caster);
+            if (truename != null)
+                throw new MishapOthersName(truename);
+        }
         int targetKey = -1;
         Pair<List<Iota>,List<Iota>> data = getPayload();
         for (int i = 0; i <= data.getFirst().size(); i++)

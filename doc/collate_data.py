@@ -779,13 +779,14 @@ def main(argv):
         with open(template_file, "r") as fh:
             with open(argv[6], "w", encoding="utf-8") as out:
                 for line in fh:
-                    if line.startswith("#DO_NOT_RENDER"):
+                    trimmed = line.strip()
+                    if trimmed.startswith("#DO_NOT_RENDER"):
                         _, *blacklist = line.split()
                         book["blacklist"].update(blacklist)
-                    if line.startswith("#SPOILER"):
+                    if trimmed.startswith("#SPOILER"):
                         _, *spoilers = line.split()
                         book["spoilers"].update(spoilers)
-                    elif line == "#DUMP_BODY_HERE\n":
+                    elif trimmed.startswith("#DUMP_BODY_HERE"):
                         write_book(Stream(out), book)
                         print("", file=out)
                     else:

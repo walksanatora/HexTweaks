@@ -23,10 +23,10 @@ class OpDictSet : ConstMediaAction {
             if (HexTweaks.cannotBeDictKey.contains(key.javaClass)) {
                 throw MishapInvalidIota(key,1, Component.translatable("hextweaks.mishap.cannotbekey"))
             } else {
-                if ((dict as DictionaryIota).payload.size >= HexTweaks.MaxKeysInDictIota) {
+                if ((dict as DictionaryIota).payload.first.size >= HexTweaks.MaxKeysInDictIota) {
                     throw MishapDictionaryTooBig(dict)
                 }
-                dict.set(key,value)
+                dict.set(key,value,ctx.caster)
                 return listOf(dict)
             }
         } else {

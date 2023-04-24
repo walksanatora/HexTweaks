@@ -8,7 +8,6 @@ import at.petrak.hexcasting.api.spell.mishaps.MishapInvalidIota
 import net.minecraft.network.chat.Component
 import net.walksanator.hextweaks.HexTweaks
 import net.walksanator.hextweaks.iotas.DictionaryIota
-import java.util.ArrayList
 
 class OpDictFrom : ConstMediaAction {
     override val argc = 2
@@ -19,33 +18,27 @@ class OpDictFrom : ConstMediaAction {
         if (first !is ListIota) {throw MishapInvalidIota(first,0, Component.translatable("hextweaks.list.expected"))}
         if (second !is ListIota) {throw MishapInvalidIota(second,0, Component.translatable("hextweaks.list.expected"))}
 
-        val ikeys =  ArrayList<Iota>()
-        first.list.iterator().forEachRemaining(ikeys::add)
-        val ivals = ArrayList<Iota>()
-        first.list.iterator().forEachRemaining(ivals::add)
+        //just the iotas
+        val ikeys = first.list.toList()
+        val ivals = first.list.toList()
 
-        val keys = ArrayList<Iota>()
-        val values = ArrayList<Iota>()
+        //real output
+        val iota = DictionaryIota()
 
-        var size = 0
+        //apply the constraints on key types
         if (ikeys.size >= ivals.size) {
             for ((i,v) in ikeys.withIndex()) {
-                if (size >= HexTweaks.MaxKeysInDictIota) {break}
                 if (v.javaClass in HexTweaks.cannotBeDictKey) {continue}
-                keys.add(v)
-                values.add(ivals[i])
-                size ++
+                iota.set(v,ivals[i],ctx.caster)
             }
         } else {
             for ((i,v) in ivals.withIndex()) {
-                if (size >= HexTweaks.MaxKeysInDictIota) {break}
                 if (ikeys[i].javaClass in HexTweaks.cannotBeDictKey) {continue}
-                keys.add(ikeys[i])
-                values.add(v)
-                size ++
+                iota.set(ikeys[i],v,ctx.caster)
             }
         }
 
-        return listOf(DictionaryIota(Pair<List<Iota>,List<Iota>>(keys,values)))
+        //return the dictionary
+        return listOf(iota)
     }
 }

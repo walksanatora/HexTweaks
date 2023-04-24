@@ -10,6 +10,8 @@ import at.petrak.hexcasting.api.spell.math.HexPattern;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.codec.binary.Hex;
 
+import java.util.regex.Pattern;
+
 public class PatternRegister {
     public static void registerPatterns() throws PatternRegistry.RegisterPatternException {
         //HexPattern(SOUTH_WEST qqaw)
@@ -52,6 +54,18 @@ public class PatternRegister {
                 HexPattern.fromAngles("qaqwaqdwqqqwae",HexDir.NORTH_EAST),
                 new ResourceLocation("hextweaks","dict/break"),
                 new OpDictBreak(), false
+        );
+        //HexPattern(NORTH_EAST qaqwaqdwqqqwq)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("qaqwaqdwqqqwq",HexDir.NORTH_EAST),
+                new ResourceLocation("hextweaks","dict/break/single"),
+                new OpDictBreakSingle(), false
+        );
+        //HexPattern(North_East qaqwaqedadad) Thoth but dictionary
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("qaqwaqedadad",HexDir.NORTH_EAST),
+                new ResourceLocation("hextweaks","dict/thoths"),
+                new OpDictThoths(), false
         );
         //HexPattern(NORTH_EAST qaqwaqeewaqaeaq)
         PatternRegistry.mapPattern(
