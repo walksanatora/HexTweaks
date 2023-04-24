@@ -18,8 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.text.html.parser.Entity;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DictionaryIota extends Iota {
@@ -128,7 +128,7 @@ public class DictionaryIota extends Iota {
         return new NullIota();
     }
 
-    public void set(Iota key, Iota value) throws MishapOthersName {set(key,value,null)}
+    public void set(Iota key, Iota value) throws MishapOthersName {set(key,value,null);}
 
     public void set(Iota key, Iota value, @Nullable Player caster) throws MishapOthersName {
         if (((key instanceof EntityIota) || (value instanceof EntityIota)) && caster != null) {
