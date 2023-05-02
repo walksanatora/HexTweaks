@@ -8,9 +8,7 @@ import at.petrak.hexcasting.api.PatternRegistry;
 import at.petrak.hexcasting.api.spell.math.HexDir;
 import at.petrak.hexcasting.api.spell.math.HexPattern;
 import net.minecraft.resources.ResourceLocation;
-import org.apache.commons.codec.binary.Hex;
-
-import java.util.regex.Pattern;
+import net.walksanator.hextweaks.patterns.dict.*;
 
 public class PatternRegister {
     public static void registerPatterns() throws PatternRegistry.RegisterPatternException {
@@ -97,11 +95,30 @@ public class PatternRegister {
                 new ResourceLocation("hextweaks","itter"),
                 new OpItterator(), false
         );
-        //HexPattern(North_East qaqwaqedadad) Thoth but dictionary
-        //inorder to do this...
-        //I will either need to accesswiden ContinuationFrame to un-seal it + mixin to make it de-serialisabe
-        //or I will have to turn the dict into a list of single-key/value pairs and inject a instruction at the start
-        //that de-constructs those single key/value pairs into values at the top of the stack
+
+        //Grand Spells
+        // used by "mind"flaying a ancient scroll into a budding amethyst
+        // Idea for Grand spells:
+        //  Reroll: (entity/mote ->)
+        //   takes a Ancient/Grand scroll and re-rolls the pattern on it (getting more expensive each time it is used on the same scroll)
+        //   Cost: 100(dust) * 1.25^x (where x is the number of times re-rolled)
+        //  MindFlay+: ([entity],Vec->) +circle
+        //   takes a bunch of entities (which will be sacrificed no matter the outcome)
+        //   Cost: 1 shard per entity used in the ritual
+        //   "Experience levels" are determined as follows (nitwit is always novice)
+        //   `novice, apprentice, journeyman, expert, master`
+        //    1       2           4           8       16
+        //   Recipes: levels = result
+        //    16 = Collapse/Remove Slipway
+        //    80 = Spawn Slipway
+        // Mark: (Vec->) +mixin (to extend ambit in CastingContext)
+        //  it is basically a Greater sentinel, but,  you can summon multiple
+        //  (cost increases the more you summon)
+        //  you can destroy them to bring the cost back-down
+        // UnMark: (Vec->)
+        //  removes a "mark" placed by mark
+        // Mark's Refl. (->[Vec])
+        //  returns a list of the locations of all your marks.
 
         //altrenate thoths idea: it runs the program but does not reset the stack or en-listify it
         HexTweaks.LOGGER.info("finished loading hextweaks hexes");

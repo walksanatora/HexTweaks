@@ -1,4 +1,4 @@
-package net.walksanator.hextweaks.patterns
+package net.walksanator.hextweaks.patterns.dict
 
 import at.petrak.hexcasting.api.spell.ConstMediaAction
 import at.petrak.hexcasting.api.spell.casting.CastingContext

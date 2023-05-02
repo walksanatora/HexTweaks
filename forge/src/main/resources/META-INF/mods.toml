@@ -1,15 +1,15 @@
 modLoader = "javafml"
 loaderVersion = "[43,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/walksanatora/HexTweaks/issues"
+license = "MIT"
 
 [[mods]]
-modId = "examplemod"
+modId = "hextweaks"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "HexTweaks"
+authors = "walksanator"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+A mildly opniated HexCasting addon (although I will take responses)
 '''
 #logoFile = ""
 
