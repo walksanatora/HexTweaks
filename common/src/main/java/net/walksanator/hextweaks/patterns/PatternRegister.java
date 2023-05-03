@@ -100,6 +100,9 @@ public class PatternRegister {
         // used by "mind"flaying a ancient scroll into a budding amethyst
         // Idea for Grand spells:
         //  Reroll: (entity/mote ->)
+        //   Possible Patterns:
+        //    NORTH_EAST qaqqqqwwawwqqeaddwwdda
+        //    NORTH_EAST qaqwawqwwawwqwaaqawwaq
         //   takes a Ancient/Grand scroll and re-rolls the pattern on it (getting more expensive each time it is used on the same scroll)
         //   Cost: 100(dust) * 1.25^x (where x is the number of times re-rolled)
         //  MindFlay+: ([entity],Vec->) +circle

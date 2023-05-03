@@ -145,8 +145,12 @@ public class DictionaryIota extends Iota {
                 targetKey = i;
             }
         }
-        if (targetKey == -1) {return;}
-        data.getSecond().set(targetKey,value);
+        if (targetKey == -1) { //key is not in the DictIota, add it
+            data.getFirst().add(key);
+            data.getSecond().add(key);
+            return;
+        }
+        data.getSecond().set(targetKey,value); //since key is allready in the dict we can just set the value
     }
 
     public void remove(Iota key) {
@@ -159,7 +163,7 @@ public class DictionaryIota extends Iota {
                 targetKey = i;
             }
         }
-        if (targetKey == -1) {return;}
+        if (targetKey == -1) {return;} //key is not in dictionary
         data.getFirst().remove(targetKey);
         data.getSecond().remove(targetKey);
     }

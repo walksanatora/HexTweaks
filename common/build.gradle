@@ -1,5 +1,5 @@
 architectury {
-    common(rootProject.enabled_platforms.split(","))
+    common(rootProject.enabled_platforms.split("," as Closure))
 }
 
 loom {
@@ -25,5 +25,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+
     modApi "at.petra-k.hexcasting:hexcasting-common-1.19.2:0.10.3"
 }
