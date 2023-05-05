@@ -28,8 +28,10 @@ class OpDictSet : ConstMediaAction {
                 }
                 try {
                     dict.set(key,value,ctx.caster)
-                } catch (_: Exception) {
-                    HexTweaks.LOGGER.error("Failed to put value into iota, %s, %s, %s".format(dict,key,value))
+                } catch (exc: Exception) {
+                    HexTweaks.LOGGER.warn("Failed to put value into iota, %s, %s, %s".format(dict,key,value))
+                    exc.printStackTrace()
+
                 }
                 return listOf(dict)
             }

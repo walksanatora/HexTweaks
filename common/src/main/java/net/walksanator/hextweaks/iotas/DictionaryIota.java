@@ -136,9 +136,9 @@ public class DictionaryIota extends Iota {
             if (truename != null)
                 throw new MishapOthersName(truename);
         }
-        int targetKey = -1;
         Pair<List<Iota>,List<Iota>> data = getPayload();
-        for (int i = 0; i <= data.getFirst().size(); i++)
+        int targetKey = -1;
+        for (int i = 0; i < data.getFirst().size(); i++)
         {
             Iota idx = data.getFirst().get(i);
             if (Iota.tolerates(idx,key)) {
@@ -150,7 +150,7 @@ public class DictionaryIota extends Iota {
             data.getSecond().add(key);
             return;
         }
-        data.getSecond().set(targetKey,value); //since key is allready in the dict we can just set the value
+        data.getSecond().set(targetKey,value); //since key is already in the dict we can just set the value
     }
 
     public void remove(Iota key) {
