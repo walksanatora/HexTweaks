@@ -1,0 +1,7 @@
+{
+	"name": "hextweaks.entry.grand_spells",
+	"icon": "minecraft:textures/mob_effect/wither.png",
+	"description": "hextweaks.entry.grand_spells.desc",
+	"parent": "hexcasting:patterns",
+	"sortnum": 2
+}

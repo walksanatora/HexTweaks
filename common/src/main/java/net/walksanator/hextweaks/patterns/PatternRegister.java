@@ -1,17 +1,51 @@
 package net.walksanator.hextweaks.patterns;
 
-import at.petrak.hexcasting.api.misc.MediaConstants;
-import at.petrak.hexcasting.common.casting.operators.spells.OpPotionEffect;
-import net.minecraft.world.effect.MobEffects;
-import net.walksanator.hextweaks.HexTweaks;
 import at.petrak.hexcasting.api.PatternRegistry;
+import at.petrak.hexcasting.api.misc.MediaConstants;
+import at.petrak.hexcasting.api.spell.Action;
+import at.petrak.hexcasting.api.spell.math.EulerPathFinder;
+import at.petrak.hexcasting.api.spell.math.HexAngle;
 import at.petrak.hexcasting.api.spell.math.HexDir;
 import at.petrak.hexcasting.api.spell.math.HexPattern;
+import at.petrak.hexcasting.common.casting.operators.spells.OpPotionEffect;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
+import net.walksanator.hextweaks.HexTweaks;
+import net.walksanator.hextweaks.mixin.MixinPatternRegistry;
+import net.walksanator.hextweaks.mixin.MixinPerWorldEntry;
+import net.walksanator.hextweaks.mixin.MixinRegularEntry;
+import net.walksanator.hextweaks.patterns.craft.OpCraftGrandScroll;
 import net.walksanator.hextweaks.patterns.dict.*;
+import net.walksanator.hextweaks.patterns.grand.OpReroll;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentMap;
+
+
+//Grand Spells
+//  MindFlay+: ([entity],Vec->) +circle
+//   takes a bunch of entities (which will be sacrificed no matter the outcome)
+//   Cost: 1 shard per entity used in the ritual
+//   "Experience levels" are determined as follows (nitwit is always novice)
+//   `novice, apprentice, journeyman, expert, master`
+//    1       2           4           8       16
+//   Recipes: levels = result
+//    16 = Collapse/Remove Slipway
+//    80 = Spawn Slipway
+// Mark: (Vec->) +mixin (to extend ambit in CastingContext)
+//  it is basically a Greater sentinel, but,  you can summon multiple
+//  (cost increases the more you summon)
+//  you can destroy them to bring the cost back-down
+// UnMark: (Vec->)
+//  removes a "mark" placed by mark
+// Mark's Refl. (->[Vec])
+//  returns a list of the locations of all your marks.
+
 
 public class PatternRegister {
     public static void registerPatterns() throws PatternRegistry.RegisterPatternException {
+
         //HexPattern(SOUTH_WEST qqaw)
         PatternRegistry.mapPattern(
                 HexPattern.fromAngles("qqaw", HexDir.SOUTH_WEST),
@@ -95,35 +129,59 @@ public class PatternRegister {
                 new ResourceLocation("hextweaks","itter"),
                 new OpItterator(), false
         );
-
-        //Grand Spells
-        // used by "mind"flaying a ancient scroll into a budding amethyst
-        // Idea for Grand spells:
-        //  Reroll: (entity/mote ->)
-        //   Possible Patterns:
-        //    NORTH_EAST qaqqqqwwawwqqeaddwwdda
-        //    NORTH_EAST qaqwawqwwawwqwaaqawwaq
-        //   takes a Ancient/Grand scroll and re-rolls the pattern on it (getting more expensive each time it is used on the same scroll)
-        //   Cost: 100(dust) * 1.25^x (where x is the number of times re-rolled)
-        //  MindFlay+: ([entity],Vec->) +circle
-        //   takes a bunch of entities (which will be sacrificed no matter the outcome)
-        //   Cost: 1 shard per entity used in the ritual
-        //   "Experience levels" are determined as follows (nitwit is always novice)
-        //   `novice, apprentice, journeyman, expert, master`
-        //    1       2           4           8       16
-        //   Recipes: levels = result
-        //    16 = Collapse/Remove Slipway
-        //    80 = Spawn Slipway
-        // Mark: (Vec->) +mixin (to extend ambit in CastingContext)
-        //  it is basically a Greater sentinel, but,  you can summon multiple
-        //  (cost increases the more you summon)
-        //  you can destroy them to bring the cost back-down
-        // UnMark: (Vec->)
-        //  removes a "mark" placed by mark
-        // Mark's Refl. (->[Vec])
-        //  returns a list of the locations of all your marks.
-
+        //HexPattern(NORTH_EAST qaqqqqwwawwqqeaddwwddas)
+        PatternRegistry.mapPattern(
+                fromAnglesIllegal("qaqqqqwwawwqqeaddwwddas", HexDir.NORTH_EAST),
+                new ResourceLocation("hextweaks","grand/reroll"),
+                new OpReroll(), false
+        );
+        //HexPattern(WEST wqqewawqwqedawdweewaeqwawdaqwdewawdadwawqwawdadwaw)
+        PatternRegistry.mapPattern(
+                HexPattern.fromAngles("wqqewawqwqedawdweewaeqwawdaqwdewawdadwawqwawdadwaw",HexDir.WEST),
+                new ResourceLocation("hextweaks","craft/grandscroll"),
+                new OpCraftGrandScroll(), true
+        );
         //altrenate thoths idea: it runs the program but does not reset the stack or en-listify it
         HexTweaks.LOGGER.info("finished loading hextweaks hexes");
+    }
+
+    public static PatternRegistry.PatternEntry lookupPatternIllegal(ResourceLocation opId) {
+        ConcurrentMap<ResourceLocation,?>  perWorldPatternLookup = MixinPatternRegistry.getPerWorldPatternLookup();
+        ConcurrentMap<String,?> regularPatternLookup = MixinPatternRegistry.getRegularPatternLookup();
+        ConcurrentMap<ResourceLocation, Action> actionLookup = MixinPatternRegistry.getActionLookup();
+
+        if (perWorldPatternLookup.containsKey(opId)) {
+            MixinPerWorldEntry it = (MixinPerWorldEntry) perWorldPatternLookup.get(opId);
+            return new PatternRegistry.PatternEntry(it.getPrototype(), actionLookup.get(it.getOpId()), true);
+        }
+        for (var kv : regularPatternLookup.entrySet()) {
+            String sig = kv.getKey();
+            MixinRegularEntry entry = (MixinRegularEntry) kv.getValue();
+            if (entry.getOpId().equals(opId)) {
+                HexPattern pattern = fromAnglesIllegal(sig, entry.getPreferredStart());
+                return new PatternRegistry.PatternEntry(pattern, actionLookup.get(entry.getOpId()), false);
+            }
+        }
+
+        throw new IllegalArgumentException("could not find a pattern for " + opId);
+    }
+
+    public static HexPattern fromAnglesIllegal(String pattern, HexDir dir) {
+        List<HexAngle> angles = new ArrayList<>();
+        for (int i = 0; i < pattern.length(); i++) {
+            char letter = pattern.charAt(i);
+            HexAngle angle = switch (letter) {
+                case 'w' -> HexAngle.FORWARD;
+                case 'e' -> HexAngle.RIGHT;
+                case 'd' -> HexAngle.RIGHT_BACK;
+                case 's' -> HexAngle.BACK;
+                case 'a' -> HexAngle.LEFT_BACK;
+                case 'q' -> HexAngle.LEFT;
+                default ->
+                        throw new IllegalArgumentException("Cannot match %s at idx $idx to a direction".formatted(letter));
+            };
+            angles.add(angle);
+        }
+        return new HexPattern(dir,angles);
     }
 }

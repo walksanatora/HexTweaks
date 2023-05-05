@@ -2,6 +2,21 @@
   "hexcasting.spell.hextweaks:nausea": "Nadir of Nausea",
   "hextweaks.page.spell.nausea": "Takes a entity, potency, and time and inflicts nausea$(br2)totally not a weed joke $(l:https://discord.com/channels/936370934292549712/1011455473528098857/1098374462333788242)link$(/l)",
 
+  "hextweaks.entry.grand_spells": "Grand Spells",
+  "hextweaks.entry.grand_spells.desc": "Grand Spells are spells that are truly lost$(br)this means that they have to be fished from nature$(br)Sadly I am gonna have to sacrifice a Media Source and a Ancient scroll to even try",
+
+  "hextweaks.page.spell.craft.grandscroll": "Takes a Ancient Scroll and a Budding amethyst and searches for a random Grand spell",
+  "hexcasting.spell.hextweaks:craft/grandscroll": "Natural Search",
+
+  "block.hextweaks.crystallizedbookblock": "Grand Spell Dropper Block",
+  "item.hextweaks.crystallized_scroll": "Crystallized Scroll",
+  "item.hextweaks.crystallized_scroll.of": "Crystallized Scroll of %s",
+  "item.scroll.great_or_better": "a Great Scroll or better",
+  "hextweaks.entry.grand.reroll": "Reroll Pattern",
+  "hextweaks.page.grand.reroll": "allows you to change the pattern on a scroll$(br)it takes a Entity (Ancient/Crystallized scroll) and rerolls the pattern upon it$(br)the cost increases with the equation being$(br)100*1.25^x$(br)where x is the number of times you rerolled",
+
+  "hexcasting.spell.hextweaks:grand/reroll": "Reroll Pattern",
+
   "hextweaks.entry.hextweaks_utility": "Hextweaks utility",
   "hextweaks.entry.hextweaks.dict": "Hextweaks Dictionary",
 

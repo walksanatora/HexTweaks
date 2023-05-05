@@ -1,0 +1,15 @@
+{
+	"name": "hextweaks.entry.grand.reroll",
+	"category": "hextweaks:patterns/grand_spells",
+	"icon": "minecraft:dispenser",
+	"sortnum": 3,
+	"advancement": "hexcasting:root",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"title": "Reroll Pattern",
+			"text": "hextweaks.page.grand.reroll"
+		}
+	]
+}
