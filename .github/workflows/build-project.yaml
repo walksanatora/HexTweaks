@@ -17,7 +17,9 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: extract project info
         id: regex
-        run: echo ${{ steps.regex.outputs.group1 }} | pcre2grep -o1 "\[.*project:(\w+)\].*" | tee "$GITHUB_OUTPUT"
+        run: |
+          apt update -y && apt-get install -y pcregrep
+          echo ${{ steps.regex.outputs.group1 }} | pcre2grep -o1 "\[.*project:(\w+)\].*" | tee "$GITHUB_OUTPUT"
       - name: Build project
         run: ./gradlew ${{steps.regex.outputs.test}}:build
         id: build
