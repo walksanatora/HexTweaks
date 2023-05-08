@@ -15,11 +15,11 @@ jobs:
           java-version: 17
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: extract project info
-        id: regex
-        run: |
-          apt update -y && apt-get install -y pcregrep
-          echo ${{ steps.regex.outputs.group1 }} | pcre2grep -o1 "\[.*project:(\w+)\].*" | tee "$GITHUB_OUTPUT"
+      - name: Extract Regex Action
+        uses: tmelliottjr/extract-regex-action@v1.4.0
+        with:
+          regex: \[.*project:(\w+)\].*
+          input:  ${{ github.event.head_commit.message }}
       - name: Build project
         run: ./gradlew ${{steps.regex.outputs.test}}:build
         id: build
