@@ -22,7 +22,7 @@ jobs:
           text: ${{ github.event.head_commit.message }}
           regex: '\\[.*project:(\\w+)\\].*'
       - name: print extracted project info
-        run: echo ${{ steps.regex.output.group1 }}
+        run: echo ${{ steps.regex.outputs.group1 }}
       - name: Build project
         run: ./gradlew ${{steps.regex.outputs.group1}}:build
         id: build
