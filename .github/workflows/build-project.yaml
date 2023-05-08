@@ -15,9 +15,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: Build project
-        run: ./gradlew ${{{replace(github.event.head_commit.message, '\\[.*project:(\\w+)\\].*', '$1')}}:build}
+        run: ./gradlew ${{replace(github.event.head_commit.message, '\\[.*project:(\\w+)\\].*', '$1')}}:build
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: artifact
-          path: ${{{{replace(github.event.head_commit.message, '\\[.*project:(\\w+)\\].*', '$1')}}/build/libs}}
+          path: ${{replace(github.event.head_commit.message, '\\[.*project:(\\w+)\\].*', '$1')}}/build/libs
