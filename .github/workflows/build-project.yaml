@@ -1,35 +1,23 @@
-name: Run Gradle on commit
-
+name: Run Gradle on tag
 on:
   push:
-    branches: master
-
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '[build]')"
+    if: contains(github.event.head_commit.message, '[build]')
     steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
         with:
-          distribution: temurin
           java-version: 17
-        
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-        
-      - name: Execute Gradle build
-        run: ./gradlew build
-      
-      - name: 'Upload Forge Artifact'
-        uses: actions/upload-artifact@v3
+      - name: Build project
+        run: ./gradlew ${{{replace(github.event.head_commit.message, '\\[.*project:(\\w+)\\].*', '$1')}}:build}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
         with:
-          name: forge
-          path: forge/build/libs
-          
-      - name: "Upload Fabric Artifact"
-        uses: actions/upload-artifact@v3
-        with:
-          name: fabric
-          path: fabric/build/libs
+          name: artifact
+          path: ${{{{replace(github.event.head_commit.message, '\\[.*project:(\\w+)\\].*', '$1')}}/build/libs}}
