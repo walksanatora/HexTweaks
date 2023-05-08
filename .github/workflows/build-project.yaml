@@ -46,5 +46,5 @@ jobs:
         uses: actions/upload-artifact@v3
         if: steps.gradle.outputs.artifact != ''
         with:
-          name: ${{ join(fromJSON(steps.gradle.outputs.artifact),",") }}
+          name: ${{ join(fromJSON(steps.gradle.outputs.artifact), ',') }}
           path: ${{ fromJSON(steps.gradle.outputs.artifact) }}
