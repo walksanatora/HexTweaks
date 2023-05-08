@@ -21,8 +21,10 @@ jobs:
         with:
           text: ${{ github.event.head_commit.message }}
           regex: '\\[.*project:(\\w+)\\].*'
+      - name: print extracted project info
+        run: echo ${{ steps.regex.output.group1 }}
       - name: Build project
-        run: ./gradlew ${{steps.project.outputs.project}}:build
+        run: ./gradlew ${{steps.regex.outputs.group1}}:build
         id: build
       - name: Upload artifact both
         if: ${{ ! steps.regex.outputs.group1 }}
