@@ -2,6 +2,6 @@
 	"name": "hextweaks.entry.mass_mindflay",
 	"icon": "minecraft:wither_skeleton_skull",
 	"description": "hextweaks.entry.mass_mindflay.desc",
-	"parent": "hexcasting:patterns/grand_spells",
+	"parent": "hextweaks:patterns/grand_spells",
 	"sortnum": 2
 }
