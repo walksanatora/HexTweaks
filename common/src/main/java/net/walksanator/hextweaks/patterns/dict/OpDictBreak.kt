@@ -14,7 +14,7 @@ class OpDictBreak : ConstMediaAction {
     override fun execute(args: List<Iota>, ctx: CastingContext): List<Iota> {
         val d = args[0]
         if (d !is DictionaryIota) {throw MishapInvalidIota(d,0, Component.translatable("hextweaks.mishap.notadict"))}
-        var p = d.payload
+        val p = d.payload
         return listOf(ListIota(p.first),ListIota(p.second))
     }
 }

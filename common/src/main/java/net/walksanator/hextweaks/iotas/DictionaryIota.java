@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.spell.iota.EntityIota;
 import at.petrak.hexcasting.api.spell.iota.Iota;
 import at.petrak.hexcasting.api.spell.iota.IotaType;
 import at.petrak.hexcasting.api.spell.iota.NullIota;
+import at.petrak.hexcasting.api.spell.mishaps.MishapInvalidIota;
 import at.petrak.hexcasting.api.spell.mishaps.MishapOthersName;
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes;
 import kotlin.Pair;
@@ -15,12 +16,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
+import net.walksanator.hextweaks.HexTweaks;
+import net.walksanator.hextweaks.mishap.MishapDictionaryTooBig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.walksanator.hextweaks.HexTweaks.cannotBeDictKey;
+import static net.walksanator.hextweaks.HexTweaks.cannotBeDictValue;
 
 public class DictionaryIota extends Iota {
     public DictionaryIota(@NotNull Pair<List<Iota>,List<Iota>> data) {
@@ -67,7 +72,7 @@ public class DictionaryIota extends Iota {
         return output;
     }
 
-    public static IotaType<DictionaryIota> TYPE = new IotaType<>() {
+    public static final IotaType<DictionaryIota> TYPE = new IotaType<>() {
         @Override
         public DictionaryIota deserialize(Tag tag, ServerLevel world) throws IllegalArgumentException {
             if (!(tag instanceof CompoundTag)) {
@@ -128,10 +133,22 @@ public class DictionaryIota extends Iota {
         return new NullIota();
     }
 
-    public void set(Iota key, Iota value) throws MishapOthersName {set(key,value,null);}
+    // --Commented out by Inspection (5/5/23, 3:08 PM):public void set(Iota key, Iota value) throws MishapOthersName, MishapInvalidIota, MishapDictionaryTooBig {set(key,value,null);}
 
-    public void set(Iota key, Iota value, @Nullable Player caster) throws MishapOthersName {
-        if (((key instanceof EntityIota) || (value instanceof EntityIota)) && caster != null) {
+    public void set(Iota key, Iota value, @Nullable Player caster) throws MishapOthersName, MishapInvalidIota, MishapDictionaryTooBig {
+        set(key,value,caster,false);
+    }
+
+    public void set(Iota key, Iota value, @Nullable Player caster, Boolean sudo) throws MishapOthersName, MishapInvalidIota, MishapDictionaryTooBig {
+        if (getPayload().getFirst().size() >= HexTweaks.MaxKeysInDictIota && !sudo) {
+            throw new MishapDictionaryTooBig(this);
+        }
+        if (cannotBeDictKey.contains(key.getClass())&& !sudo) {
+            throw new MishapInvalidIota(key,0,Component.translatable("hextweaks.mishap.cannotbekey"));
+        } else if (cannotBeDictValue.contains(value.getClass())&& !sudo){
+            throw new MishapInvalidIota(value,1,Component.translatable("hextweaks.mishap.cannotbevalue"));
+        }
+        if (((key instanceof EntityIota) || (value instanceof EntityIota)) && caster != null && !sudo) {
             Player truename = MishapOthersName.getTrueNameFromArgs(List.of(key,value),caster);
             if (truename != null)
                 throw new MishapOthersName(truename);
@@ -147,7 +164,7 @@ public class DictionaryIota extends Iota {
         }
         if (targetKey == -1) { //key is not in the DictIota, add it
             data.getFirst().add(key);
-            data.getSecond().add(key);
+            data.getSecond().add(value);
             return;
         }
         data.getSecond().set(targetKey,value); //since key is already in the dict we can just set the value

@@ -17,6 +17,17 @@ repositories {
         name = 'BlameJared Maven'
         url = 'https://maven.blamejared.com'
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -26,6 +37,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-
-    modApi "at.petra-k.hexcasting:hexcasting-common-1.19.2:0.10.3"
+    modCompileOnly "at.petra-k.hexcasting:hexcasting-common-1.19.2:0.10.3"
+    modCompileOnly "maven.modrinth:aBVJ6Q36:XMX5kXcI" //Hexal 0.2.14-fabric
 }

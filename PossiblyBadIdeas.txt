@@ -1,0 +1,17 @@
+AntiAmbitField (grand spell): Vec, Number, Number ->
+    takes a position, diameter, and duration
+    during that time the affected area will *always* be out of ambit
+
+Phial Enchantments:
+    probably a new grand spell (or mass mindflay allows the Vec to be an entity)
+    `l` is the enchantment level in the equations
+    There could be some Phial enchantments, that would determine its level based on villager count. For ex
+    Greed -> increases capacity, but media taken isn't linear, take 1 dust, it eats 1 dust, but take 1 charged, and it eats 1.5 charged
+    Optimal design -> when you charge it, it gets slightly more media, could also be nonlinear
+    Hardwork -> decreases media consumption from the phial, but the more media you put in it at once the less you get from one recharge cast
+    Ambient Extraction -> the phial slightly recharges very slowly
+    Overcharge -> you can overcharge your Phial, but media over the limit either gets recharged less efficiently or it slowly dissipates
+    Stretch -> you can overcharge your phial, but it slightly increases the max media in the phial (everything else extra is discarded)
+
+Pointer Iota:
+    basically a Rc<Iota> so that you can borrow iotas

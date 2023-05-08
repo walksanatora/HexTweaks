@@ -25,7 +25,7 @@
   ],
   "depends": {
 	  "fabric": "*",
-	  "minecraft": ">=1.19.2",
+	  "minecraft": "1.19.2",
 	  "architectury": ">=6.2.43",
 	  "hexcasting": "0.10.3",
 	  "patchouli": ">=1.19.2-77"

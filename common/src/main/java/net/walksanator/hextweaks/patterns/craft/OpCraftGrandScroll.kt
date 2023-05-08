@@ -23,6 +23,7 @@ class OpCraftGrandScroll : SpellAction {
         if (item.item.tag == null || item.item.tag!!["op_id"] == null) { throw MishapBadItem(item,Component.translatable("item.scroll.great")) }
 
         val block = args.getBlockPos(1)
+        ctx.assertVecInRange(block)
         val blockstate =ctx.world.level.getBlockState(block)
         if (!blockstate.`is`(Blocks.BUDDING_AMETHYST)) {throw MishapBadBlock(block, Component.translatable("block.budding_amethyst"))}
 
@@ -47,7 +48,7 @@ class OpCraftGrandScroll : SpellAction {
             //we allready know that target is
             // 1. the scroll is great
             // 2. we know we are targeting a budding amethyst
-            scroll.kill();
+            scroll.kill()
             val block1 = BlockRegister.CRYSTALLIZED_SCROLL_BLOCK.get()
             ctx.world.level.setBlockAndUpdate(block,block1.defaultBlockState())
         }

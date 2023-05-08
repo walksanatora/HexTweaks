@@ -22,7 +22,7 @@ object HextweaksIotaType {
     private val TYPES: MutableMap<ResourceLocation, IotaType<*>> = LinkedHashMap()
     @JvmField
     val DICTIONARY: IotaType<DictionaryIota> = type("dictionary",DictionaryIota.TYPE)
-    private fun <U : Iota, T : IotaType<U>> type(name: String, type: T): T {
+    private fun <U : Iota, T : IotaType<U>> type(@Suppress("SameParameterValue", "SameParameterValue") name: String, type: T): T {
         val old = TYPES.put(ResourceLocation(HexTweaks.MOD_ID, name), type)
         require(old == null) { "Typo? Duplicate id $name" }
         return type

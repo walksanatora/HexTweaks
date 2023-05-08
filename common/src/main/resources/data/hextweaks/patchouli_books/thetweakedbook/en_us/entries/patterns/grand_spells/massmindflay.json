@@ -1,0 +1,19 @@
+{
+	"name": "hexcasting.spell.hextweaks:grand/massbrainsweep",
+	"category": "hextweaks:patterns/grand_spells",
+	"icon": "minecraft:wither_skeleton_skull",
+	"sortnum": 3,
+	"advancement": "hexcasting:root",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"title": "Mass Mindflay",
+			"text": "hextweaks.page.grand.massmindflay",
+			"op_id": "hextweaks:grand/massmindflay",
+			"anchor": "hextweaks:grand/massmindflay",
+			"input": "[Entity], Vec3|Entity",
+			"output": ""
+		}
+	]
+}

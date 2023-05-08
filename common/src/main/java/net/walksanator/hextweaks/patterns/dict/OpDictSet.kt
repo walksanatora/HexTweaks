@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component
 import net.walksanator.hextweaks.HexTweaks
 import net.walksanator.hextweaks.iotas.DictionaryIota
 import net.walksanator.hextweaks.iotas.HextweaksIotaType
-import net.walksanator.hextweaks.mishap.MishapDictionaryTooBig
 
 class OpDictSet : ConstMediaAction {
     override val argc = 3
@@ -20,21 +19,13 @@ class OpDictSet : ConstMediaAction {
         val key = args[1].orNull()
         val value = args[2].orNull()
         if (dict.type == HextweaksIotaType.DICTIONARY) {
-            if (HexTweaks.cannotBeDictKey.contains(key.javaClass)) {
-                throw MishapInvalidIota(key,1, Component.translatable("hextweaks.mishap.cannotbekey"))
-            } else {
-                if ((dict as DictionaryIota).payload.first.size >= HexTweaks.MaxKeysInDictIota) {
-                    throw MishapDictionaryTooBig(dict)
-                }
                 try {
-                    dict.set(key,value,ctx.caster)
+                    (dict as DictionaryIota).set(key,value,ctx.caster)
                 } catch (exc: Exception) {
-                    HexTweaks.LOGGER.warn("Failed to put value into iota, %s, %s, %s".format(dict,key,value))
+                    HexTweaks.LOGGER.warn("Failed to put value into iota, %s, %s, %s".format(dict, key, value))
                     exc.printStackTrace()
-
                 }
                 return listOf(dict)
-            }
         } else {
             throw MishapInvalidIota(dict,2, Component.translatable("hextweaks.mishap.notadict"))
         }
