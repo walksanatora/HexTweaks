@@ -18,20 +18,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
       
       - name: Build
-        run: |
-            if echo $* | grep "[forge]"; then
-              echo "Building forge:build"
-              ./gradlew forge:uild
-            elif echo $* | grep "[fabric]"; then
-              echo "Building fabric:build"
-              ./gradlew fabric:build
-            else
-              echo "Building Forge and Fabric"
-              ./gradlew build
-            fi
-        shell: bash
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
+        run: ./gradlew build
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
