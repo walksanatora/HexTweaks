@@ -19,23 +19,16 @@ jobs:
       
       - name: Build
         run: |
-          if [[ "$GITHUB_ACTOR" != "dependabot[bot]" ]]; then
-            if [[ "$*" == *" [forge]"* ]]; then
+            if echo $* | grep "[forge]"; then
               echo "Building forge:build"
               ./gradlew forge:uild
-              echo 'artifact = ["forge/build/libs"]' >> "$GITHUB_OUTPUT"
-            elif [[ "$*" == *" [fabric]"* ]]; then
+            elif echo $* | grep "[fabric]"; then
               echo "Building fabric:build"
               ./gradlew fabric:build
-              echo 'artifact = ["fabric/build/libs"]' >> "$GITHUB_OUTPUT"
             else
               echo "Building Forge and Fabric"
               ./gradlew build
-              echo 'artifact = ["forge/build/libs","fabric/build/libs"]' >> "$GITHUB_OUTPUT"
             fi
-          else
-            echo "No build necessary"
-          fi
         shell: bash
         env:
           GITHUB_ACTOR: ${{ github.actor }}
@@ -45,4 +38,4 @@ jobs:
         if: steps.gradle.outputs.artifact != ''
         with:
           name: ${{ join(fromJSON(steps.gradle.outputs.artifact), ',') }}
-          path: ${{ fromJSON(steps.gradle.outputs.artifact) }}
+          path: "*/build/libs"
