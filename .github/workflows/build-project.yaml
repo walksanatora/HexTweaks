@@ -15,26 +15,21 @@ jobs:
           java-version: 17
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Extract project name
+      - name: extract project info
         id: regex
-        uses: actions-ecosystem/action-regex-match@v2
-        with:
-          text: ${{ github.event.head_commit.message }}
-          regex: '\\[.*project:(\\w+)\\].*'
-      - name: print extracted project info
-        run: echo ${{ steps.regex.outputs.group1 }}
+        run: echo ${{ steps.regex.outputs.group1 }} | pcregrep -o1 "\[.*project:(\w+)\].*" | tee "$GITHUB_OUTPUT"
       - name: Build project
-        run: ./gradlew ${{steps.regex.outputs.group1}}:build
+        run: ./gradlew ${{steps.regex.outputs.test}}:build
         id: build
       - name: Upload artifact both
-        if: ${{ ! steps.regex.outputs.group1 }}
+        if: ${{ ! steps.regex.outputs.test }}
         uses: actions/upload-artifact@v2
         with:
           name: artifact
           path: "*/build/libs"
       - name: Upload Artifacts for project
-        if: ${{ steps.regex.outputs.group1 }}
+        if: ${{ steps.regex.outputs.test }}
         uses: actions/upload-artifact@v2
         with:
-          name: ${{steps.regex.outputs.group1}}
-          path: ${{steps.regex.outputs.group1}}/build/libs
+          name: ${{steps.regex.outputs.test}}
+          path: ${{steps.regex.outputs.test}}/build/libs
