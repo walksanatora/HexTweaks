@@ -36,5 +36,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ join(fromJSON(steps.gradle.outputs.artifact), ',') }}
+          name: "outputs"
           path: "*/build/libs"
