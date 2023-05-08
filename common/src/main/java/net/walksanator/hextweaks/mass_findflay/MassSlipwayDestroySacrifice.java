@@ -6,10 +6,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Blocks;
 import ram.talia.hexal.common.blocks.BlockSlipway;
-import ram.talia.hexal.common.lib.HexalBlocks;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class MassSlipwayDestroySacrifice implements MassSacrificeHandler {
     @Override
     public boolean call(List<Entity> sacrifices, BlockPos position, Integer totalLevel, CastingContext ctx) {

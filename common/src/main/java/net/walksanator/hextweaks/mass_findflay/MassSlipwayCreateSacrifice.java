@@ -8,6 +8,7 @@ import ram.talia.hexal.common.lib.HexalBlocks;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class MassSlipwayCreateSacrifice implements MassSacrificeHandler {
     @Override
     public boolean call(List<Entity> sacrifices, BlockPos position, Integer totalLevel, CastingContext ctx) {

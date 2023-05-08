@@ -65,8 +65,5 @@ public class HexTweaks {
 
         BlockRegister.register();
         ItemRegister.register();
-
-        Advancement.Builder mass_brainsweep_builder = Advancement.Builder.advancement();
-
     }
 }
