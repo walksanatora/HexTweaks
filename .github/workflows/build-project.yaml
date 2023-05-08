@@ -22,16 +22,16 @@ jobs:
           if [[ "$GITHUB_REF" == "refs/heads/main" && "$GITHUB_EVENT_NAME" == "push" && "$GITHUB_ACTOR" != "dependabot[bot]" ]]; then
             if [[ "$*" == *" [forge]"* ]]; then
               echo "Building forge:build"
-              ./gradlew buildForge
-              echo "::set-output name=artifact::forge/build/libs"
+              ./gradlew forge:uild
+              echo "artifact = forge/build/libs" >> "$GITHUB_OUTPUT"
             elif [[ "$*" == *" [fabric]"* ]]; then
               echo "Building fabric:build"
-              ./gradlew buildFabric
-              echo "::set-output name=artifact::fabric/build/libs"
+              ./gradlew fabric:build
+              echo "artifact = fabric/build/libs" >> "$GITHUB_OUTPUT"
             else
               echo "Building Forge and Fabric"
               ./gradlew build
-              echo "::set-output name=artifact::forge/build/libs,fabric/build/libs"
+              echo "artifact = forge/build/libs,fabric/build/libs" >> "$GITHUB_OUTPUT"
             fi
           else
             echo "No build necessary"
@@ -43,8 +43,8 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
       
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: steps.gradle.outputs.artifact != ''
         with:
-          name: ${{ join(split(steps.gradle.outputs.artifact, ','), ', ') }}
-          path: ${{ join(split(steps.gradle.outputs.artifact, ','), '\n') }}
+          name: ${{ steps.gradle.outputs.artifact }}
+          path: ${{ split(steps.gradle.outputs.artifact, ',') }}
