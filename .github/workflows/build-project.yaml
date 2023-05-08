@@ -14,20 +14,24 @@ jobs:
           java-version: 17
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Replace project name
-        uses: michaelwittig/str-replace-action@v1.0.0
+      - name: Extract project name
+        id: regex
+        uses: actions-ecosystem/action-regex-match@v2
         with:
-          pattern: '\[.*project:(\w+)\].*'
-          replacement: '$1'
-          subject: ${{ github.event.head_commit.message }}
-          global: true
-          multiline: true
-          ignoreCase: false
-        id: replace
+          text: ${{ github.event.head_commit.message }}
+          regex: '\\[.*project:(\\w+)\\].*'
       - name: Build project
-        run: ./gradlew ${{ steps.replace.outputs.replaced }}:build
-      - name: Upload artifact
+        run: ./gradlew ${{steps.project.outputs.project}}:build
+        id: build
+      - name: Upload artifact both
+        if: ${{ ! steps.regex.outputs.group1 }}
         uses: actions/upload-artifact@v2
         with:
           name: artifact
-          path: ${{ steps.replace.outputs.replaced }}/build/libs
+          path: "*/build/libs"
+      - name: Upload Artifacts for project
+        if: ${{ steps.regex.outputs.group1 }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{steps.regex.outputs.group1}}
+          path: ${{steps.regex.outputs.group1}}/build/libs
