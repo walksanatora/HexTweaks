@@ -19,7 +19,7 @@ jobs:
       
       - name: Build
         run: |
-          if [[ "$GITHUB_REF" == "refs/heads/main" && "$GITHUB_EVENT_NAME" == "push" && "$GITHUB_ACTOR" != "dependabot[bot]" ]]; then
+          if [[ "$GITHUB_ACTOR" != "dependabot[bot]" ]]; then
             if [[ "$*" == *" [forge]"* ]]; then
               echo "Building forge:build"
               ./gradlew forge:uild
@@ -38,8 +38,6 @@ jobs:
           fi
         shell: bash
         env:
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_ACTOR: ${{ github.actor }}
       
       - name: Upload Artifact
