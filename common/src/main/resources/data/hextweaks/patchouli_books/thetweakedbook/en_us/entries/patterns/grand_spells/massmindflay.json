@@ -12,7 +12,7 @@
 			"text": "hextweaks.page.grand.massmindflay",
 			"op_id": "hextweaks:grand/massmindflay",
 			"anchor": "hextweaks:grand/massmindflay",
-			"input": "[Entity], Vec3|Entity",
+			"input": "[Entity], any",
 			"output": ""
 		}
 	]
