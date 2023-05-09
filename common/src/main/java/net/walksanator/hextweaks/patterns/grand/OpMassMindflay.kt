@@ -67,7 +67,7 @@ class OpMassMindflay : SpellAction {
             // 1. a List of sacrifices that are within ambit
             // 2. the position is within ambit
             var accu = 0
-            for (v in targets.filterIsInstance<Villager>()) {
+            for (v in targets.filterIsInstance<Villager>().filter{v -> !Brainsweeping.isBrainswept(v) }) {
                 accu += (2.0.pow(v.villagerData.level-1)).roundToInt()
             }
             val validSacrificeOperators = HexTweaks.massSacrificeHandlers.filterKeys { key -> key <= accu }
