@@ -48,11 +48,16 @@ class OpMassMindflay : SpellAction {
             ParticleSpray.burst(villager.position(),1.0,5)
         }
 
+        var accu = 0
+        for (v in filteredSacrifices) {
+            accu += (2.0.pow(v.villagerData.level-1)).roundToInt()
+        }
+
         return Triple(
              if (target is Vec3Iota) {
-                 MassMindflayBlockSpell(newSacrifices.filterIsInstance<EntityIota>().map{ v -> v.entity},BlockPos(target.vec3))
+                 MassMindflayBlockSpell(accu,newSacrifices.filterIsInstance<EntityIota>().map{ v -> v.entity},BlockPos(target.vec3))
              } else {
-                MassMindflayItemSpell(newSacrifices.filterIsInstance<EntityIota>().map{ v -> v.entity},target as EntityIota)
+                MassMindflayItemSpell(accu,newSacrifices.filterIsInstance<EntityIota>().map{ v -> v.entity},target as EntityIota)
                     },
             MediaConstants.SHARD_UNIT * poofs.size,
             listOf(
@@ -61,18 +66,14 @@ class OpMassMindflay : SpellAction {
         )
     }
 
-    private data class MassMindflayBlockSpell(val targets: List<Entity>, val position: BlockPos) : RenderedSpell {
+    private data class MassMindflayBlockSpell(val points: Int, val targets: List<Entity>, val position: BlockPos) : RenderedSpell {
         override fun cast(ctx: CastingContext) {
             //we already know that target is
             // 1. a List of sacrifices that are within ambit
             // 2. the position is within ambit
-            var accu = 0
-            for (v in targets.filterIsInstance<Villager>().filter{v -> !Brainsweeping.isBrainswept(v) }) {
-                accu += (2.0.pow(v.villagerData.level-1)).roundToInt()
-            }
-            val validSacrificeOperators = HexTweaks.massSacrificeHandlers.filterKeys { key -> key <= accu }
+            val validSacrificeOperators = HexTweaks.massSacrificeHandlers.filterKeys { key -> key <= points }
             for (sacrificeOperation in validSacrificeOperators.keys.sorted().reversed()) {
-                if (validSacrificeOperators[sacrificeOperation]?.call(targets,position,accu,ctx) == true) {
+                if (validSacrificeOperators[sacrificeOperation]?.call(targets,position,points,ctx) == true) {
                     for (poorSchmuck in targets.filterIsInstance<Mob>().filter { v -> Brainsweeping.isValidTarget(v)}) {
                         Brainsweeping.brainsweep(poorSchmuck)//forced brainsweep
                     }
@@ -81,15 +82,11 @@ class OpMassMindflay : SpellAction {
             }
         }
     }
-    private data class MassMindflayItemSpell(val targets: List<Entity>, val target: EntityIota) : RenderedSpell {
+    private data class MassMindflayItemSpell(val points: Int,val targets: List<Entity>, val target: EntityIota) : RenderedSpell {
         override fun cast(ctx: CastingContext) {
             //we already know that target is
-            // 1. a List of entities
+            // 1. a List of entities within ambit
             // 2. the target is within ambit
-            var accu = 0
-            for (v in targets.filterIsInstance<Villager>()) {
-                accu += (2.0.pow(v.villagerData.level)).roundToInt()
-            }
 
         }
     }
