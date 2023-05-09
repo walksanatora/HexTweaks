@@ -1,0 +1,16 @@
+{
+	"name": "hextweaks.page.mass_mindflay.destroy_slipway",
+	"category": "hextweaks:patterns/grand_spells/mass_mindflay",
+	"icon": "hexcasting:amethyst_dust_block",
+	"sortnum": 16,
+	"advancement": "hexcasting:root",
+	"read_by_default": true,
+	"flag": "mod:hexal",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"title": "hextweaks.page.mass_mindflay.destroy_slipway",
+			"text": "hextweaks.page.mass_mindflay.destroy_slipway.content"
+		}
+	]
+}

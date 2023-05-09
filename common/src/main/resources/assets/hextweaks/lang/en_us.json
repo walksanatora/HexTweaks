@@ -5,7 +5,7 @@
   "hextweaks.entry.grand_spells": "Grand Spells",
   "hextweaks.entry.grand_spells.desc": "Grand Spells are spells that are truly lost$(br)this means that they have to be fished from nature$(br)Sadly I am gonna have to sacrifice a Media Source and a Ancient scroll to even try",
   "hextweaks.entry.mass_mindflay": "Mass Mindflay Rituals",
-  "hextweaks.entry.mass_mindflay.desc": "From my research it appears that I will need a mass of sacrifices $(br) vilagers shall do and their experence can be summarized as a \"level\" value$(br)novices and nitwits are 1 level$(br)apprentices are 2$(br)journeyman is 4$(br)experts are 8 and masters 16 levels$(br)it appears each ritual will be cast starting with the highest value, and if it succeeds it will not run any lower then it",
+  "hextweaks.entry.mass_mindflay.desc": "From my research it appears that I would need a mass of living media.$(br)Villagers, from experience, serve as a good high-density source of media. Minimally-trained villagers contribute minimally to the ritual, with each level they gain doubling their contribution.$(br)It also appears that there is a natural order, with the ones requiring the most sacrifices being performed over lower-cost ones.$(br)It also appears that only one ritual can be performed per each cast.",
 
   "hextweaks.page.spell.craft.grandscroll": "Takes a Ancient Scroll and a Budding amethyst and searches for a random Grand spell",
   "hexcasting.spell.hextweaks:craft/grandscroll": "Natural Search",
@@ -20,7 +20,11 @@
   "hextweaks.page.grand.reroll": "allows you to change the pattern on a scroll$(br)it takes a Entity (Ancient/Crystallized scroll) and rerolls the pattern upon it$(br)the cost increases with the equation being$(br)100*1.25^x$(br)where x is the number of times you rerolled",
 
   "hexcasting.spell.hextweaks:grand/massbrainsweep": "Mass Mindflay",
-  "hextweaks.page.grand.massmindflay": "All I can tell it takes a List of Entites (that will probally be consumed) and another value$(br)I think I have some notes on this ",
+  "hextweaks.page.grand.massmindflay": "All I can tell it takes a List of Entites (that will probally be consumed) and another value$(br)I think I have some notes on this, too much power to be wielded by hand",
+  "hextweaks.page.mass_mindflay.create_slipway": "Create Slipway",
+  "hextweaks.page.mass_mindflay.create_slipway.content": "takes a position which is where the slipway will be created, it must be empty air otherwise nothing will happen.$(br)consumes 5 masters",
+  "hextweaks.page.mass_mindflay.destroy_slipway": "Collapse Slipway",
+  "hextweaks.page.mass_mindflay.destroy_slipway.content": "takes a position where the slipway is located. $(br)consumes a master",
 
   "hextweaks.entry.hextweaks_utility": "Hextweaks utility",
   "hextweaks.entry.hextweaks.dict": "Hextweaks Dictionary",

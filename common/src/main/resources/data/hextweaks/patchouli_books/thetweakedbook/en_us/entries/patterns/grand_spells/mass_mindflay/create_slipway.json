@@ -1,0 +1,16 @@
+{
+	"name": "hextweaks.page.mass_mindflay.create_slipway",
+	"category": "hextweaks:patterns/grand_spells/mass_mindflay",
+	"icon": "minecraft:amethyst_block",
+	"sortnum": 80,
+	"advancement": "hexcasting:root",
+	"read_by_default": true,
+	"flag": "mod:hexal",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"title": "hextweaks.page.mass_mindflay.create_slipway",
+			"text": "hextweaks.page.mass_mindflay.create_slipway.content"
+		}
+	]
+}
