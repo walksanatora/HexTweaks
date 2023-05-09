@@ -22,27 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
-
-//Grand Spells
-//  MindFlay+: ([entity],Vec->) +circle
-//   takes a bunch of entities (which will be sacrificed no matter the outcome)
-//   Cost: 1 shard per entity used in the ritual
-//   "Experience levels" are determined as follows (nitwit is always novice)
-//   `novice, apprentice, journeyman, expert, master`
-//    1       2           4           8       16
-//   Recipes: levels = result
-//    16 = Collapse/Remove Slipway
-//    80 = Spawn Slipway
-// Mark: (Vec->) +mixin (to extend ambit in CastingContext)
-//  it is basically a Greater sentinel, but,  you can summon multiple
-//  (cost increases the more you summon)
-//  you can destroy them to bring the cost back-down
-// UnMark: (Vec->)
-//  removes a "mark" placed by mark
-// Mark's Refl. (->[Vec])
-//  returns a list of the locations of all your marks.
-
-
 public class PatternRegister {
     public static void registerPatterns() throws PatternRegistry.RegisterPatternException {
 

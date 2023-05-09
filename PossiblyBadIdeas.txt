@@ -13,5 +13,17 @@ Phial Enchantments:
     Overcharge -> you can overcharge your Phial, but media over the limit either gets recharged less efficiently or it slowly dissipates
     Stretch -> you can overcharge your phial, but it slightly increases the max media in the phial (everything else extra is discarded)
 
+Mark: (Vec,number->) +mixin (to extend ambit in CastingContext)
+    it is basically a Greater sentinel, but,  you can summon multiple
+    and only valid for a specific time
+    (cost increases the more you summon, and cost increases if summoned out of ambit))
+    you can destroy them to bring the cost back-down
+UnMark: (Vec->)
+    removes a "mark" placed by mark (does not become inactive)
+Mark's Refl. (->[Vec])
+    returns a list of the locations of all your active marks.
+Mark's Refl. II (->[Vec])
+    returns a list of the locations of all your expired marks
+
 Pointer Iota:
     basically a Rc<Iota> so that you can borrow iotas
