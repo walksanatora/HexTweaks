@@ -1,30 +1,31 @@
 {
   "hexcasting.spell.hextweaks:nausea": "Nadir of Nausea",
-  "hextweaks.page.spell.nausea": "Takes a entity, potency, and time and inflicts nausea$(br2)totally not a weed joke $(l:https://discord.com/channels/936370934292549712/1011455473528098857/1098374462333788242)link$(/l)",
+  "hextweaks.page.spell.nausea": "Inflicts $(thing)nausea/$. Base cost is one Amethyst Dust per 4 seconds.",
 
   "hextweaks.entry.grand_spells": "Grand Spells",
   "hextweaks.entry.grand_spells.desc": "Grand Spells are spells that are truly lost$(br)this means that they have to be fished from nature$(br)Sadly I am gonna have to sacrifice a Media Source and a Ancient scroll to even try",
   "hextweaks.entry.mass_mindflay": "Mass Mindflay Rituals",
   "hextweaks.entry.mass_mindflay.desc": "From my research it appears that I would need a mass of living media.$(br)Villagers, from experience, serve as a good high-density source of media. Minimally-trained villagers contribute minimally to the ritual, with each level they gain doubling their contribution.$(br)It also appears that there is a natural order, with the ones requiring the most sacrifices being performed over lower-cost ones.$(br)It also appears that only one ritual can be performed per each cast.",
 
-  "hextweaks.page.spell.craft.grandscroll": "Takes a Ancient Scroll and a Budding amethyst and searches for a random Grand spell",
   "hexcasting.spell.hextweaks:craft/grandscroll": "Natural Search",
+  "hextweaks.page.spell.craft.grandscroll": "Takes a Ancient Scroll and a Budding amethyst and searches for a random Grand spell",
 
   "block.hextweaks.crystallizedbookblock": "Grand Spell Dropper Block",
   "item.hextweaks.crystallized_scroll": "Crystallized Scroll",
+  "item.hextweaks.crystallized_scroll.empty": "Blank Crystallized Scroll",
   "item.hextweaks.crystallized_scroll.of": "Crystallized Scroll of %s",
   "item.scroll.great_or_better": "a Great Scroll or better",
 
   "hexcasting.spell.hextweaks:grand/reroll": "Reroll Pattern",
   "hextweaks.entry.grand.reroll": "Reroll Pattern",
-  "hextweaks.page.grand.reroll": "allows you to change the pattern on a scroll$(br)it takes a Entity (Ancient/Crystallized scroll) and rerolls the pattern upon it$(br)the cost increases with the equation being$(br)100*1.25^x$(br)where x is the number of times you rerolled",
+  "hextweaks.page.grand.reroll": "takes a Entity (Ancient/Crystallized scroll) and changes the pattern upon it$(br)the cost increasing exponentially with the each cast",
 
   "hexcasting.spell.hextweaks:grand/massbrainsweep": "Mass Mindflay",
-  "hextweaks.page.grand.massmindflay": "All I can tell it takes a List of Entites (that will probally be consumed) and another value$(br)I think I have some notes on this, too much power to be wielded by hand",
+  "hextweaks.page.grand.massmindflay": "sacrifices some mobs and performs a ritual using them$(br)I cannot cast this by hand$(br)$(l:hextweaks:patterns/grand_spells/mass_mindflay)I have some notes on this$()",
   "hextweaks.page.mass_mindflay.create_slipway": "Create Slipway",
-  "hextweaks.page.mass_mindflay.create_slipway.content": "takes a position which is where the slipway will be created, it must be empty air otherwise nothing will happen.$(br)consumes 5 masters",
+  "hextweaks.page.mass_mindflay.create_slipway.content": "takes a position which is where the slipway will be created, The location must be empty$(br)consumes 5 masters",
   "hextweaks.page.mass_mindflay.destroy_slipway": "Collapse Slipway",
-  "hextweaks.page.mass_mindflay.destroy_slipway.content": "takes a position where the slipway is located. $(br)consumes a master",
+  "hextweaks.page.mass_mindflay.destroy_slipway.content": "takes a position which must be a slipway.$(br)consumes a master",
 
   "hextweaks.entry.hextweaks_utility": "Hextweaks utility",
   "hextweaks.entry.hextweaks.dict": "Hextweaks Dictionary",
@@ -35,7 +36,7 @@
   "hextweaks.page.hextweaks_utility.page/left": "Turns the spellbook that your are holding one page to the left",
 
   "hexcasting.spell.hextweaks:suicide": "Suspicious Glyph",
-  "hextweaks.page.spell.suicide": "It appears to be a inscription, I wonder what it does",
+  "hextweaks.page.spell.suicide": "It appears to be a pattern, I wonder what happens if I cast it",
   "death.attack.hextweaks.death.sus": "%s was called sus",
 
   "hextweaks.iota.dictionary": "{%s}",

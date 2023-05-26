@@ -13,6 +13,7 @@ compileKotlin {
 }
 
 repositories {
+    maven { url = "https://maven.shedaniel.me/" }
     maven {
         name = 'BlameJared Maven'
         url = 'https://maven.blamejared.com'
@@ -39,4 +40,7 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
     modCompileOnly "at.petra-k.hexcasting:hexcasting-common-1.19.2:0.10.3"
     modCompileOnly "maven.modrinth:aBVJ6Q36:XMX5kXcI" //Hexal 0.2.14-fabric
+    modApi("me.shedaniel.cloth:cloth-config:8.2.88") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }

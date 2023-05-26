@@ -51,6 +51,10 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
     modImplementation "maven.modrinth:hexal:XMX5kXcI" //Hexal 0.2.14-fabric
 
+    modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
