@@ -1,28 +1,29 @@
 {
   "hexcasting.spell.hextweaks:nausea": "反胃之西沉",
-  "hextweaks.page.spell.nausea": "接受栈顶实体、效果强度数、持续时间数，给予所给实体相应时间和强度的反胃。$(br2)绝对不是什么weed笑话，$(l:https://discord.com/channels/936370934292549712/1011455473528098857/1098374462333788242)链接$(/l)",
+  "hextweaks.page.spell.nausea": "给予$(thing)反胃/$。每 4 秒持续时间的基础消耗为 1 个紫水晶粉。",
 
   "hextweaks.entry.grand_spells": "卓伟法术",
   "hextweaks.entry.grand_spells.desc": "卓伟法术是真正遗落散尽的法术。$(br)这意味着它们只能在自然那里找到了。$(br)但仅是尝试搜索一次就需要牺牲一个媒质源和一张远古卷轴。",
   "hextweaks.entry.mass_mindflay": "群体剥离意识仪式",
   "hextweaks.entry.mass_mindflay.desc": "研究表明，我会需要大量的活体媒质。$(br)村民的熟练度是不错的高密度媒质源。交易极少的村民对仪式的贡献也极少，熟练度每增一级贡献就会翻倍。$(br)而且似乎仪式间存在着某种自然顺序，所需较多的仪式会优先于所需较少的仪式执行。$(br)并且每次施法貌似只能执行一次仪式。",
 
-  "hextweaks.page.spell.craft.grandscroll": "接受远古卷轴物品实体和紫水晶母岩，并随机搜索出一张卓伟法术卷轴。",
   "hexcasting.spell.hextweaks:craft/grandscroll": "自然搜索",
+  "hextweaks.page.spell.craft.grandscroll": "接受远古卷轴物品实体和紫水晶母岩，并随机搜索出一张卓伟法术卷轴。",
 
   "block.hextweaks.crystallizedbookblock": "卓伟法术生成方块",
   "item.hextweaks.crystallized_scroll": "晶化卷轴",
+  "item.hextweaks.crystallized_scroll.empty": "空白晶化卷轴",
   "item.hextweaks.crystallized_scroll.of": "%s之晶化卷轴",
   "item.scroll.great_or_better": "远古卷轴或更高级的卷轴",
 
   "hexcasting.spell.hextweaks:grand/reroll": "重骰图案",
   "hextweaks.entry.grand.reroll": "重骰图案",
-  "hextweaks.page.grand.reroll": "允许改变卷轴上所记载的图案。$(br)接受一个远古卷轴或晶化卷轴实体，并重骰其上图案。$(br)消耗会随计算式 100 * 1.25 ^ x 增加，其中 x 为重骰次数。",
+  "hextweaks.page.grand.reroll": "接受一个远古卷轴或晶化卷轴实体，并改变其上图案。$(br)每次施法中消耗会指数增加。",
 
   "hexcasting.spell.hextweaks:grand/massbrainsweep": "群体剥离意识",
-  "hextweaks.page.grand.massmindflay": "我所能总结出来全部便是这些仪式会接受一个实体列表（大概会被用来消耗）和其他元素。$(br)我应该记下了一些笔记，这种宏伟的力量已超出我意识的承受极限了。",
+  "hextweaks.page.grand.massmindflay": "牺牲一些生物并以其施展仪式$(br)我无法手动施放这个法术。$(br)$(l:hextweaks:patterns/grand_spells/mass_mindflay)我记下了些相关的笔记。$()",
   "hextweaks.page.mass_mindflay.create_slipway": "创造质道",
-  "hextweaks.page.mass_mindflay.create_slipway.content": "接受一个位置向量，并在该位置处创造质道，且该位置需是空气，否则会导致失效。$(br)消耗 5 个大师村民。",
+  "hextweaks.page.mass_mindflay.create_slipway.content": "接受一个位置向量，并在该位置处创造质道，且该位置需无方块。$(br)消耗 5 个大师村民。",
   "hextweaks.page.mass_mindflay.destroy_slipway": "坍缩质道",
   "hextweaks.page.mass_mindflay.destroy_slipway.content": "接受质道位置向量，并将其摧毁。$(br)消耗 1 个大师村民。",
 
@@ -35,7 +36,7 @@
   "hextweaks.page.hextweaks_utility.page/left": "将我所持的法术书向左翻一页。",
 
   "hexcasting.spell.hextweaks:suicide": "可疑的图案",
-  "hextweaks.page.spell.suicide": "似乎是某种刻记，真想知道它有什么效果。",
+  "hextweaks.page.spell.suicide": "似乎是某种图案，真想知道它有什么效果。",
   "death.attack.hextweaks.death.sus": "%s被认为相当可疑",
 
   "hextweaks.iota.dictionary": "{%s}",
