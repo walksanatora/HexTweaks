@@ -130,6 +130,8 @@ public class PatternRegister {
                 new ResourceLocation("hextweaks","grand/massbrainsweep"),
                 new OpMassMindflay(), false
         );
+        
+
         //altrenate thoths idea: it runs the program but does not reset the stack or en-listify it
         HexTweaks.LOGGER.info("finished loading hextweaks hexes");
     }
