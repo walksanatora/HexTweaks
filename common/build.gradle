@@ -43,4 +43,6 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config:8.2.88") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    //warning: things are about to get *bespoke*
+    compileOnly('com.blamejared.crafttweaker:CraftTweaker-common-1.19.2:10.1.44')
 }

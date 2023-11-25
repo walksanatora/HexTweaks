@@ -123,7 +123,8 @@ public class DictionaryIota extends Iota {
     };
     public Iota get(Iota key) {
         Pair<List<Iota>,List<Iota>> data = getPayload();
-        for (int i = 0; i <= data.getFirst().size(); i++)
+        if (data.getFirst().isEmpty()) {return new NullIota();}
+        for (int i = 0; i < data.getFirst().size(); i++)
         {
             Iota idx = data.getFirst().get(i);
             if (Iota.tolerates(idx,key)) {
@@ -173,7 +174,8 @@ public class DictionaryIota extends Iota {
     public void remove(Iota key) {
         int targetKey = -1;
         Pair<List<Iota>,List<Iota>> data = getPayload();
-        for (int i = 0; i <= data.getFirst().size(); i++)
+        if (data.getFirst().isEmpty()) {return;}
+        for (int i = 0; i < data.getFirst().size(); i++)
         {
             Iota idx = data.getFirst().get(i);
             if (Iota.tolerates(idx,key)) {

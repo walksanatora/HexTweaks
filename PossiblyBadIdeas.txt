@@ -27,3 +27,13 @@ Mark's Refl. II (->[Vec])
 
 Pointer Iota:
     basically a Rc<Iota> so that you can borrow iotas
+
+Casting Item actions: (can only be casted inside the casting item)
+    get remaing media (dust, or media remaing?)
+    read trinket contents (allows for funny reflection inside a trinket)
+    write trinket contents (again, funny reflection)
+
+CraftTweaker setup
+What I gotta do to CastingContext
+https://github.com/CraftTweaker/CraftTweaker/blob/1.19/Common/src/main/java/com/blamejared/crafttweaker/natives/item/ExpandItem.java
+https://github.com/CraftTweaker/CraftTweaker/blob/1.19/Common/src/main/java/com/blamejared/crafttweaker/api/ingredient/IIngredient.java
