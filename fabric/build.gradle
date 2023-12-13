@@ -22,7 +22,7 @@ configurations {
 repositories {
     mavenCentral()
     maven { url = "https://maven.shedaniel.me/" }
-    maven { url = 'https://ladysnake.jfrog.io/artifactory/mods' }
+    maven { url = 'https://maven.ladysnake.org/releases' }
     maven { url = "https://maven.jamieswhiteshirt.com/libs-release/" }
     maven { url = "https://mvn.devos.one/snapshots/" }
     maven { url = "https://maven.terraformersmc.com/releases/" }
@@ -49,7 +49,8 @@ dependencies {
 
     modImplementation "at.petra-k.hexcasting:hexcasting-fabric-1.19.2:0.10.3"
     modImplementation "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
-    modImplementation "maven.modrinth:hexal:XMX5kXcI" //Hexal 0.2.14-fabric
+    modImplementation "maven.modrinth:geckolib:ATPZfRS1" // geckolib 3.1.40 fabric
+    modImplementation "maven.modrinth:hexal:NgdFPhMz" //Hexal 0.2.18-fabric
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
         exclude(group: "net.fabricmc.fabric-api")
