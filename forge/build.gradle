@@ -35,6 +35,10 @@ repositories {
     maven { url = "https://modmaven.dev"}
     maven { url = "https://maven.theillusivec4.top" }
     maven { url = 'https://thedarkcolour.github.io/KotlinForForge/'}
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 
@@ -46,13 +50,15 @@ dependencies {
     modImplementation("at.petra-k.hexcasting:hexcasting-forge-1.19.2:0.10.3") {
         transitive = false
     }
+    modImplementation("maven.modrinth:hexal:4uxUwDtU")//Hexal 0.2.18-forge
 
     //modRuntimeOnly "top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0"
-    modRuntimeOnly "mezz.jei:jei-1.19.2-forge:11.4.0.282"
+    modRuntimeOnly "mezz.jei:jei-1.19.2-forge:11.2.0.256"
     modRuntimeOnly "vazkii.patchouli:Patchouli:1.19.2-77"
     modRuntimeOnly "at.petra-k.paucal:paucal-forge-1.19.2:0.5.0"
-    runtimeOnly "thedarkcolour:kotlinforforge:3.7.1"
+    runtimeOnly "thedarkcolour:kotlinforforge:3.12.0"
     //modRuntimeOnly "com.github.Virtuoel:Pehkui:3.6.0-1.19.2-forge"
+    modImplementation "maven.modrinth:geckolib:lxzmD9V4" // geckolib 3.1.40 forge
     modImplementation "vazkii.patchouli:Patchouli:1.19.2-77"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
@@ -72,17 +78,17 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier.set "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    archiveClassifier.set null
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier.set "dev"
 }
 
 sourcesJar {
