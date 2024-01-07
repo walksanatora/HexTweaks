@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(MishapOthersName.Companion.class)
-public class MixinMishapOthersName {
-    @ModifyVariable(method = "getTrueNameFromDatum", at = @At("HEAD"), ordinal = 0)
+public abstract class MixinMishapOthersName {
+    @ModifyVariable(method = "getTrueNameFromDatum", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private Iota injected(Iota iota) {
         if (iota instanceof DictionaryIota dict) {
             List<Iota> list = new ArrayList<>();
