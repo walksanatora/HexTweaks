@@ -149,11 +149,6 @@ public class DictionaryIota extends Iota {
         } else if (cannotBeDictValue.contains(value.getClass())&& !sudo){
             throw new MishapInvalidIota(value,1,Component.translatable("hextweaks.mishap.cannotbevalue"));
         }
-        if (((key instanceof EntityIota) || (value instanceof EntityIota)) && caster != null && !sudo) {
-            Player truename = MishapOthersName.getTrueNameFromArgs(List.of(key,value),caster);
-            if (truename != null)
-                throw new MishapOthersName(truename);
-        }
         Pair<List<Iota>,List<Iota>> data = getPayload();
         int targetKey = -1;
         for (int i = 0; i < data.getFirst().size(); i++)
