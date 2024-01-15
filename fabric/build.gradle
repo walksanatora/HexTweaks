@@ -1,0 +1,101 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
+repositories {
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://maven.ladysnake.org/releases'
+    }
+    maven {
+        url = uri("${project.projectDir}/libs")
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    modImplementation "at.petra-k.hexcasting:hexcasting-fabric-1.20.1:${rootProject.hexcasting_version}"
+    modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
+    //modRuntimeOnly "maven.modrinth:gu7yAYhd:Scean3uO"
+
+    //hecasting deps
+    modImplementation files("${rootProject.rootDir}/libs/serialization-hooks-0.4.99999.jar")
+    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
+    modImplementation "net.fabricmc:fabric-language-kotlin:1.10.17+kotlin.1.9.22"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${rootProject.cca_version}"
+    modImplementation "at.petra-k.paucal:paucal-fabric-${rootProject.minecraft_version}:${rootProject.paucal_version}"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.clothconfig_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+    injectAccessWidener = true
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenFabric(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}
