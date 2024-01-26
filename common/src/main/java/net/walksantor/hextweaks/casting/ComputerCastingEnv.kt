@@ -10,9 +10,14 @@ import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.api.utils.compareMediaItem
 import at.petrak.hexcasting.api.utils.extractMedia
 import at.petrak.hexcasting.api.utils.otherHand
+import dan200.computercraft.api.peripheral.IComputerAccess
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
+import dan200.computercraft.shared.computer.core.ComputerFamily
+import dan200.computercraft.shared.computer.core.ServerComputer
+import dan200.computercraft.shared.pocket.items.PocketComputerItem
+import dan200.computercraft.shared.turtle.core.TurtleBrain
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -22,16 +27,17 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.Vec3
+import net.walksantor.hextweaks.HexTweaks
 import java.util.function.Predicate
 
-class ComputerCastingEnv(private val turtleData: Pair<ITurtleAccess, TurtleSide>?, private val pocketData: IPocketAccess?,var level: ServerLevel) : CastingEnvironment(level) {
+class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,var level: ServerLevel,val computer: IComputerAccess) : CastingEnvironment(level) {
     private val mishap = run {
         if (turtleData == null) {
             if (pocketData!!.entity is ServerPlayer) {
-                ComputerMishapEnvironment(world,pocketData.entity as ServerPlayer)
+                ComputerMishapEnvironment(world,pocketData.entity as ServerPlayer,this)
             }
         }
-        ComputerMishapEnvironment(world,null)
+        ComputerMishapEnvironment(world,null,this)
     }
 
     override fun getCaster(): ServerPlayer? {
@@ -40,6 +46,7 @@ class ComputerCastingEnv(private val turtleData: Pair<ITurtleAccess, TurtleSide>
                 return pocketData.entity as ServerPlayer
             }
         }
+
         return null
     }
     override fun getMishapEnvironment(): MishapEnvironment = mishap
@@ -81,11 +88,11 @@ class ComputerCastingEnv(private val turtleData: Pair<ITurtleAccess, TurtleSide>
                 break
             }
         }
-
         return cost
     }
 
     override fun isVecInRangeEnvironment(vec: Vec3?): Boolean {
+        var position: Vec3? = null
         if (pocketData != null) {
             if (pocketData.entity is ServerPlayer) {
                 val sentinel = HexAPI.instance().getSentinel(this.caster)
@@ -95,9 +102,12 @@ class ComputerCastingEnv(private val turtleData: Pair<ITurtleAccess, TurtleSide>
                     return true
                 }
             }
+            position = pocketData.entity!!.position()
+        } else {
+            position = turtleData!!.first.position.center
         }
 
-        return vec!!.distanceToSqr(this.caster!!.position()) <= PlayerBasedCastEnv.AMBIT_RADIUS * PlayerBasedCastEnv.AMBIT_RADIUS
+        return vec!!.distanceToSqr(position!!) <= PlayerBasedCastEnv.AMBIT_RADIUS * PlayerBasedCastEnv.AMBIT_RADIUS
     }
 
     override fun hasEditPermissionsAtEnvironment(pos: BlockPos): Boolean {
@@ -182,7 +192,52 @@ class ComputerCastingEnv(private val turtleData: Pair<ITurtleAccess, TurtleSide>
     }
 
     override fun getPrimaryStacks(): MutableList<HeldItemInfo> {
-        return mutableListOf()
+        if (pocketData != null) {
+            var primaryItem = this.caster!!.getItemInHand(this.castingHand)
+
+            if (primaryItem.isEmpty) primaryItem = ItemStack.EMPTY.copy()
+
+            return java.util.List.of<HeldItemInfo>(
+                HeldItemInfo(
+                    getAlternateItem(),
+                    this.otherHand
+                ), HeldItemInfo(
+                    primaryItem,
+                    this.castingHand
+                )
+            )
+        } else {
+            val slot = turtleData!!.first.selectedSlot
+            return mutableListOf(HeldItemInfo(
+                turtleData.first.inventory.getItem(slot),
+                InteractionHand.MAIN_HAND
+            ))
+        }
+    }
+
+    fun getAlternateItem(): ItemStack {
+        val otherHand = otherHand(this.castingHand)
+        val stack = caster!!.getItemInHand(otherHand)
+        return if (stack.isEmpty) {
+            ItemStack.EMPTY.copy()
+        } else {
+            stack
+        }
+    }
+
+    override fun getHeldItemToOperateOn(stackOk: Predicate<ItemStack>?): HeldItemInfo? {
+        if (turtleData != null) {
+            val inv = turtleData.first.inventory
+            val slot = turtleData.first.selectedSlot
+            val item = inv.getItem(slot)
+            return if (item == ItemStack.EMPTY) {
+                null
+            } else {
+                HeldItemInfo(item,InteractionHand.MAIN_HAND)
+            }
+        } else {
+            return super.getHeldItemToOperateOn(stackOk)
+        }
     }
 
     override fun replaceItem(stackOk: Predicate<ItemStack>?, replaceWith: ItemStack?, hand: InteractionHand?): Boolean {
@@ -190,18 +245,40 @@ class ComputerCastingEnv(private val turtleData: Pair<ITurtleAccess, TurtleSide>
     }
 
     override fun getPigment(): FrozenPigment {
-        TODO("Not yet implemented")
+        return FrozenPigment.DEFAULT.get()
     }
 
     override fun setPigment(pigment: FrozenPigment?): FrozenPigment? {
-        TODO("Not yet implemented")
+        val color = turtleData?.first?.colour ?: pocketData!!.colour
+
+        return pigment
     }
 
     override fun produceParticles(particles: ParticleSpray?, colorizer: FrozenPigment?) {
-        TODO("Not yet implemented")
+        particles!!.sprayParticles(this.world, pigment)
     }
 
-    override fun printMessage(message: Component?) {
-        TODO("Not yet implemented")
+    override fun isEnlightened(): Boolean {
+        val family = getServerComputer().family
+        return when (family) {
+            ComputerFamily.NORMAL -> false
+            else -> true
+        }
+    }
+
+    override fun isCreativeMode(): Boolean = getServerComputer().family == ComputerFamily.COMMAND
+
+    override fun printMessage(message: Component) {
+        computer.queueEvent("wand_message",message.string)
+    }
+
+    fun getServerComputer(): ServerComputer {
+        return if (pocketData != null) {
+            pocketData as ServerComputer
+        } else {
+            //turtleData!!.first.direction.normal
+
+            (turtleData!!.first as TurtleBrain).owner.serverComputer!!
+        }
     }
 }

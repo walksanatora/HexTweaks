@@ -1,46 +1,16 @@
 package net.walksantor.hextweaks;
 
-import com.google.common.base.Suppliers;
-import dan200.computercraft.api.client.ComputerCraftAPIClient;
-import dan200.computercraft.api.client.turtle.TurtleUpgradeModeller;
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrarManager;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-
-import java.util.function.Supplier;
+import dev.architectury.event.events.common.CommandRegistrationEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HexTweaks {
     public static final String MOD_ID = "hextweaks";
-    // We can use this if we don't want to use DeferredRegister
-    public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // Registering a new creative tab
-    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(MOD_ID, Registries.CREATIVE_MODE_TAB);
-    public static final RegistrySupplier<CreativeModeTab> EXAMPLE_TAB = TABS.register("example_tab", () ->
-            CreativeTabRegistry.create(Component.translatable("itemGroup." + MOD_ID + ".example_tab"),
-                    () -> new ItemStack(HexTweaks.EXAMPLE_ITEM.get())));
-    
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registries.ITEM);
-    public static final RegistrySupplier<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () ->
-            new Item(new Item.Properties().arch$tab(HexTweaks.EXAMPLE_TAB)));
-    
     public static void init() {
-        TABS.register();
-        ITEMS.register();
-
-        HexTweaksRegistry.INSTANCE.register();
-
-        ComputerCraftAPIClient.registerTurtleUpgradeModeller(
-                HexTweaksRegistry.INSTANCE.getWAND_TURTLE().get(),
-                TurtleUpgradeModeller.flatItem()
-        );
-
-        System.out.println(ExampleExpectPlatform.getConfigDirectory().toAbsolutePath().normalize().toString());
+        //we... dont have anything...
+        LOGGER.info("performing COMMON setup");
+        CommandRegistrationEvent.EVENT.register((it,b,c) -> HexTweaksCommands.register(it));
     }
 }

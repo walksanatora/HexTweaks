@@ -12,8 +12,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-    modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-common-api:${rootProject.cct_version}"
-
+    modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
+    modCompileOnly "maven.modrinth:ducky-periphs:FYDI2Gut"
 }
 
 publishing {

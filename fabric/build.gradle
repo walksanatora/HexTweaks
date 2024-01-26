@@ -9,6 +9,15 @@ architectury {
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
+    runs {
+        gameTest {
+            inherit client
+            name "Game Test"
+            vmArg "-Dfabric-api.gametest"
+            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit.xml"
+            runDir "build/gametest"
+        }
+    }
 }
 
 configurations {
@@ -40,6 +49,7 @@ dependencies {
 
     modImplementation "at.petra-k.hexcasting:hexcasting-fabric-1.20.1:${rootProject.hexcasting_version}"
     modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
+    modRuntimeOnly "maven.modrinth:ducky-periphs:FYDI2Gut"
     //modRuntimeOnly "maven.modrinth:gu7yAYhd:Scean3uO"
 
     //hecasting deps

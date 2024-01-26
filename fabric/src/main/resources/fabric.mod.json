@@ -1,22 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "hextweaks",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Hex Tweaks",
+  "description": "adds opnionated changes and integration to hexcasting",
   "authors": [
-    "Me!"
+    "Walksantor"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/walksanatora",
+    "sources": "https://github.com/walksanatora/hextweaks"
   },
-  "license": "Insert License Here",
+  "license": "Uhhh... be cool with it",
   "icon": "assets/examplemod/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.walksantor.hextweaks.fabric.ExampleModFabric"
+      "net.walksantor.hextweaks.fabric.HexTweaksFabric"
+    ],
+    "client": [
+      "net.walksantor.hextweaks.fabric.HexTweaksFabricClient"
     ]
   },
   "mixins": [

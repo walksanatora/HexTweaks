@@ -6,6 +6,10 @@
   "client": [
   ],
   "mixins": [
+    "ComputerAccesssor",
+    "EnvironmentAccessor",
+    "MixinHexPattern",
+    "PatternIotaSmugglingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

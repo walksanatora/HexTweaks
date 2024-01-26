@@ -44,7 +44,8 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     modImplementation "at.petra-k.hexcasting:hexcasting-forge-1.20.1:${rootProject.hexcasting_version}"
-    modImplementation "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-forge:${rootProject.cct_version}"
+    modCompileOnly("cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-forge-api:${rootProject.cct_version}")
+    modRuntimeOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-forge:${rootProject.cct_version}"
 
     //hexcasting deps
     modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FORGE"

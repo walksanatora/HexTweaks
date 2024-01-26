@@ -4,32 +4,39 @@ loaderVersion = "[47,)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "examplemod"
+modId = "hextweaks"
 version = "${version}"
-displayName = "Example Mod"
+displayName = "Hex Tweaksd"
 authors = "Me!"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Opionated changes to hexcasting
 '''
 #logoFile = ""
 
-[[dependencies.examplemod]]
+[[dependencies.hextweaks]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.hextweaks]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.hextweaks]]
 modId = "architectury"
 mandatory = true
 versionRange = "[9.1.12,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.hextweaks]]
+modId = "computercraft"
+mandatory = false
+versionRange = "[1.109.3,)"
 ordering = "AFTER"
 side = "BOTH"
