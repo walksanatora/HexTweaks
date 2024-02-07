@@ -1,0 +1,22 @@
+{
+  "name": "hextweaks.action.hextweaks:infusion",
+  "category": "hexcasting:patterns/great_spells",
+  "icon": "minecraft:glass",
+  "sortnum": 2,
+  "advancement": "hexcasting:root",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "hextweaks:infusion",
+      "anchor": "hextweaks:infusion",
+      "input": "patter",
+      "output": "pattern",
+      "text": "hextweaks.page.infusion.1"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "hextweaks.page.infusion.2"
+    }
+  ]
+}

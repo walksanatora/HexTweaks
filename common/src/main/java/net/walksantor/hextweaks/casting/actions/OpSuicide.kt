@@ -8,7 +8,8 @@ class OpSuicide : ConstMediaAction {
     override val argc = 0
 
     override fun execute(args: List<Iota>, ctx: CastingEnvironment): List<Iota> {
-        ctx.caster?.hurt(HexTweaksRegistry.SUS_DAMMAGE,Float.MAX_VALUE)
+        ctx.castingEntity?.isInvulnerable=false// foolish mortal
+        ctx.castingEntity?.hurt(HexTweaksRegistry.SUS_DAMMAGE,Float.MAX_VALUE)
         return listOf()
     }
 }

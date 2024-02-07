@@ -1,0 +1,9 @@
+{
+  "name": "hextweaks.entry.patterns.grand.mindflay",
+  "icon": "minecraft:wither_skull",
+  "category": "hexcasting:patterns/grand",
+  "advancement": "hextweaks:grandspell/mindflayplus",
+  "pages": [
+    "hextweaks.page.patterns.grand.mindflay.1"
+  ]
+}

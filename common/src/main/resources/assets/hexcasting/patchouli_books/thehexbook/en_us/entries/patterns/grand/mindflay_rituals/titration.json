@@ -1,0 +1,10 @@
+{
+  "name": "hextweaks.entry.rituals.titration",
+  "icon": "spectrum:titration_barrel",
+  "category": "hexcasting:patterns/grand/mindflay_rituals",
+  "advancement": "hextweaks:grandspell/mindflayplus",
+  "flag": "mod:spectrum",
+  "pages": [
+    "hextweaks.page.rituals.titration.1"
+  ]
+}

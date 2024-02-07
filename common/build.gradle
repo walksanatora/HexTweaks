@@ -14,6 +14,10 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
     modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
     modCompileOnly "maven.modrinth:ducky-periphs:FYDI2Gut"
+    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
+    modImplementation files("${rootProject.rootDir}/libs/hexal-fabric-1.20.1-0.3.0-2.jar")
+
+    modCompileOnly("maven.modrinth:plethora-peripherals:5pxGGDeh") // yes plethora is something we depend on... kinda
 }
 
 publishing {

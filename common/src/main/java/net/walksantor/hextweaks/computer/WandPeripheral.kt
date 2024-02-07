@@ -18,7 +18,7 @@ import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
 import net.minecraft.server.level.ServerLevel
-import net.walksantor.hextweaks.casting.ComputerCastingEnv
+import net.walksantor.hextweaks.casting.environment.ComputerCastingEnv
 
 class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocketData: IPocketAccess?) : IPeripheral {
     var vm: CastingVM? = null
@@ -109,7 +109,7 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
             vm!!.image.userData.put(HexAPI.RAVENMIND_USERDATA, IotaType.serialize(newLocal))
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     fun runPattern(dir: String, pattern: String) {
         val iota = PatternIota(HexPattern.fromAngles(pattern, HexDir.fromString(dir)))
         (vm!!.env as ComputerCastingEnv).level = getWorld()

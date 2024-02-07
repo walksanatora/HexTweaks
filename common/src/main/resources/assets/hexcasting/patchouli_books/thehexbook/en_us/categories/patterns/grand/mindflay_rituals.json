@@ -1,0 +1,7 @@
+{
+  "name": "hextweaks.category.grand_spells.mindflay_rituals",
+  "icon": "minecraft:wither_skeleton_skull",
+  "description": "hextweaks.category.grand_spells.mindflay_rituals.desc",
+  "parent": "hexcasting:patterns/grand",
+  "sortnum": 2
+}

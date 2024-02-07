@@ -1,0 +1,12 @@
+{
+  "name": "hextweaks.entry.interop.cc",
+  "icon": "computercraft:turtle_advanced",
+  "category": "hexcasting:interop",
+  "advancement": "hexcasting:enlightenment",
+  "flag": "mod:computercraft",
+  "pages": [
+    "hextweaks.page.interop.cc.1",
+    "hextweaks.page.interop.cc.2",
+    "hextweaks.page.interop.cc.3"
+  ]
+}

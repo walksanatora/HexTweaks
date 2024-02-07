@@ -1,5 +1,6 @@
 package net.walksantor.hextweaks
 
+import at.petrak.hexcasting.api.casting.ActionRegistryEntry
 import at.petrak.hexcasting.api.casting.castables.SpecialHandler
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import dan200.computercraft.api.client.ComputerCraftAPIClient
@@ -18,9 +19,12 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.walksantor.hextweaks.blocks.ConjuredButton
+import net.walksantor.hextweaks.casting.MindflayRegistry
+import net.walksantor.hextweaks.casting.PatternRegistry
 import net.walksantor.hextweaks.casting.handler.GrandSpellHandler
 import net.walksantor.hextweaks.computer.WandPocketUpgrade
 import net.walksantor.hextweaks.computer.WandTurtleUpgrade
+import net.walksantor.hextweaks.items.VirtualPigment
 
 
 object HexTweaksRegistry {
@@ -31,6 +35,7 @@ object HexTweaksRegistry {
     val BLOCKS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.BLOCK)
     val ITEMS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ITEM)
     val SPECIAL_HANDLERS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.specialHandlerRegistry.key() as ResourceKey<Registry<SpecialHandler.Factory<*>>>)
+    val ACTIONS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.actionRegistry.key() as ResourceKey<Registry<ActionRegistryEntry>>)
 
     val WAND_POCKET = POCKET_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandPocketUpgrade.UpgradeSerialiser() }
     val WAND_TURTLE = TURTLE_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandTurtleUpgrade.UpgradeSerializer() }
@@ -39,13 +44,13 @@ object HexTweaksRegistry {
     val CONJURED_BUTTON_ITEM = ITEMS.register(ResourceLocation(HexTweaks.MOD_ID,"conjbutton")) { BlockItem(
         CONJURED_BUTTON.get(), Item.Properties())
     }
+    val RGB_PIGMENT = ITEMS.register(ResourceLocation(HexTweaks.MOD_ID,"rgb_pigment")) {
+        VirtualPigment(Item.Properties().stacksTo(-1));
+    }
 
     val GRAND_HANDLER = SPECIAL_HANDLERS.register(ResourceLocation(HexTweaks.MOD_ID,"grand")) { GrandSpellHandler.Factory() }
 
-    val SUS_DAMMAGET = DamageType("hextweaks.death.sus",
-        DamageScaling.ALWAYS, 100.0F,
-        DamageEffects.FREEZING,
-        DeathMessageType.INTENTIONAL_GAME_DESIGN)
+    val SUS_DAMMAGET = DamageType("hextweaks.death.sus",0.0f)
     val SUS_DAMMAGE = DamageSource(Holder.direct(SUS_DAMMAGET))
 
     fun register() {
@@ -55,6 +60,9 @@ object HexTweaksRegistry {
         BLOCKS.register()
         ITEMS.register()
         SPECIAL_HANDLERS.register()
+        PatternRegistry.register { are, rl -> ACTIONS.register(rl) { are } }
+        ACTIONS.register()
+        MindflayRegistry.register()
         REGISTERED = true
     }
 

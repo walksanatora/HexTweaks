@@ -1,0 +1,36 @@
+{
+  "hexcasting.action.hextweaks:grand_spell": "Unknown Grand Spell",
+  "hexcasting.action.hextweaks:infusion": "Infuse Will",
+
+  "hextweaks.handler.grand": "Grand Spell",
+
+  "death.attack.hextweaks.death.sus": "%s was called sus",
+
+  "hextweaks.entry.interop.cc": "Computercraft",
+  "hextweaks.page.interop.cc.1": "Thanks to my extensive research I have discovered that I can give the turtles and pocket computers a Mindsplice staff to have them perform menial task in my place",
+  "hextweaks.page.interop.cc.2": "there also appears to be a new event when a staff is equipped $(o)reveal() which just has a string sent via patterns like reveal.$(br)and $(o)mishap) that contains the mishap's class,the pattern's name, and the hex pattern as string",
+  "hextweaks.page.interop.cc.3": "Turtles cast as no one and have normal ambit. pocket computers cast as the player holding them. also having full ambit",
+
+  "hextweaks.category.grand_spells.desc": "It appears that there is another layer of spells. I must infuse my will inorder to find them. I will document what I find out about them here",
+  "hextweaks.category.grand_spells": "Grand Spells",
+
+  "hextweaks.category.grand_spells.mindflay_rituals": "Mass Mindflay Rituals",
+  "hextweaks.category.grand_spells.mindflay_rituals.desc": "Here I have compiled every rituals known to me.$(br)\"On The Bulk Flaying Of Minds\"$(br)$(br)Seems to operate on a \"Point\" system. with each villager being worth double the previous",
+
+  "hextweaks.entry.patterns.grand.fireball": "Fireball",
+  "hextweaks.page.patterns.grand.fireball.1": "It is fireball but with double the maximum power",
+
+  "hextweaks.entry.patterns.grand.explode": "Explode",
+  "hextweaks.page.patterns.grand.explode.1": "It is explosion but with double the maximum power",
+
+  "hextweaks.entry.patterns.grand.mindflay": "Grand Mindflay",
+  "hextweaks.page.patterns.grand.mindflay.1": "As it's parent would have you believe it takes the will of mobs and puts them in something else.$(br) this version acts in bulk taking a $(br)[entity], vec3|entity -> $(br)and performing various rituals",
+
+  "hextweaks.entry.rituals.slipways": "Create and Collapse Slipways",
+  "hextweaks.page.rituals.slipways.1": "Create slipway.$(br)[villager],wisp -> $(br)takes solme villagers (about 80 points worth) and turns the wisp into a slipway",
+  "hextweaks.page.rituals.slipways.2": "Collapse slipway.$(br)[villager],pos -> $(br)takes some villagers (about 16 points worth) and collapses the slipway into 10-20 wandering wisp",
+
+  "hextweaks.entry.rituals.titration": "Titration Time Skip",
+  "hextweaks.page.rituals.titration.1": "Time Skip.$(br)[villager+witch],pos -> $(br)takes some villager and witches and tries to skip 12 hours for every 8 points and witch sacrificed"
+
+}

@@ -1,0 +1,9 @@
+{
+  "name": "hextweaks.entry.patterns.grand.explode",
+  "icon": "minecraft:tnt",
+  "category": "hexcasting:patterns/grand",
+  "advancement": "hextweaks:grandspell/explode",
+  "pages": [
+    "hextweaks.page.patterns.grand.explode.1"
+  ]
+}

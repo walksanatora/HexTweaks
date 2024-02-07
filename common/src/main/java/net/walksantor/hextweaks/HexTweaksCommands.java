@@ -9,6 +9,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.walksantor.hextweaks.casting.PatternRegistry;
@@ -32,7 +33,7 @@ public class HexTweaksCommands {
                 .executes(ctx -> {
                     String sig = ctx.getArgument("anglesig",String.class);
                     HexPattern pat = PatternRegistry.INSTANCE.patternAllowIllegal(HexDir.WEST,sig);
-                    HexPattern real = PatternRegistry.INSTANCE.getGrandSpell(
+                    HexPattern real = PatternRegistry.INSTANCE.getGrandSpellPattern(
                             Objects.requireNonNull(ctx.getSource().getPlayer()),
                             ctx.getSource().getLevel(),
                             pat
@@ -41,9 +42,9 @@ public class HexTweaksCommands {
 
                     CompoundTag nbt = new CompoundTag();
                     nbt.put(ItemScroll.TAG_PATTERN, real.serializeToNBT());
+                    nbt.put(ItemScroll.TAG_OP_ID, StringTag.valueOf("hextweaks:grand_spell"));
                     var stack = new ItemStack(HexItems.SCROLL_LARGE);
                     stack.setTag(nbt);
-
                     var stackEntity = ctx.getSource().getPlayer().drop(stack, false);
                     if (stackEntity != null) {
                         stackEntity.setNoPickUpDelay();

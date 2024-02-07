@@ -8,8 +8,9 @@
   "mixins": [
     "ComputerAccesssor",
     "EnvironmentAccessor",
-    "MixinHexPattern",
-    "PatternIotaSmugglingMixin"
+    "MixinOperatorSideeffect",
+    ,
+    "NeuralAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

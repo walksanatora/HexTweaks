@@ -1,0 +1,11 @@
+{
+  "name": "hextweaks.entry.rituals.slipways",
+  "icon": "minecraft:mangrove_door",
+  "category": "hexcasting:patterns/grand/mindflay_rituals",
+  "advancement": "hextweaks:grandspell/mindflayplus",
+  "flag": "mod:hexal",
+  "pages": [
+    "hextweaks.page.rituals.slipways.1",
+    "hextweaks.page.rituals.slipways.2"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "grant": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "grant"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

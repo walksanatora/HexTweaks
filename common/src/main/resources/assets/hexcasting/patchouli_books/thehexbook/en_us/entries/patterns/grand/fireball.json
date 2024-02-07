@@ -1,0 +1,9 @@
+{
+  "name": "hextweaks.entry.patterns.grand.fireball",
+  "icon": "minecraft:fire_charge",
+  "category": "hexcasting:patterns/grand",
+  "advancement": "hextweaks:grandspell/fireball",
+  "pages": [
+    "hextweaks.page.patterns.grand.fireball.1"
+  ]
+}
