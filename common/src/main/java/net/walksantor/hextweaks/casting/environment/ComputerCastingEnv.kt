@@ -83,7 +83,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         for (i in 0..inventory.containerSize) {
             val item = inventory.getItem(i)
             val media = HexAPI.instance().findMediaHolder(item)
-            if (media != null) {
+            if (media?.canProvide() == true) {
                 adMediaHolders.add(media)
             }
         }
