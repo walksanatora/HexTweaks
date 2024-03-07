@@ -1,5 +1,6 @@
 package net.walksantor.hextweaks.casting.actions
 
+import at.petrak.hexcasting.api.casting.RenderedSpell
 import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.OperationResult
@@ -25,16 +26,30 @@ interface VariableMediaAction : Action {
             throw MishapNotEnoughArgs(this.argc, stack.size)
         val args = stack.takeLast(this.argc)
         repeat(this.argc) { stack.removeLast() }
-        val result = this.execute(args, env)
-        stack.addAll(result.resultStack)
+        val result = this.render(args, env)
 
-        val sideEffects = mutableListOf<OperatorSideEffect>(OperatorSideEffect.ConsumeMedia(result.mediaConsumed))
+        val sideEffects = mutableListOf<OperatorSideEffect>(
+            OperatorSideEffect.ConsumeMedia(result.mediaConsumed),
+            OperatorSideEffect.AttemptSpell(result)
+        )
 
-        val image2 = image.copy(stack = stack, opsConsumed = image.opsConsumed + result.opCount)
+        val image2 = image.copy(stack = stack)
         return OperationResult(image2, sideEffects, continuation, HexEvalSounds.NORMAL_EXECUTE)
     }
 
-    fun execute(args: List<Iota>, env: CastingEnvironment): VariableMediaActionResult
+    fun render(args: List<Iota>, env: CastingEnvironment): VariableMediaActionResult
 
-    data class VariableMediaActionResult(val resultStack: List<Iota>,val mediaConsumed: Long = MediaConstants.SHARD_UNIT, val opCount: Long = 1)
+    abstract class VariableMediaActionResult(val mediaConsumed: Long = MediaConstants.SHARD_UNIT) : RenderedSpell {
+        abstract fun execute(env: CastingEnvironment): List<Iota>
+
+        override fun cast(env: CastingEnvironment) {
+            println("dummy!")
+        }
+        override fun cast(env: CastingEnvironment, image: CastingImage): CastingImage? {
+            val stack = image.stack.toMutableList()
+            stack.addAll(execute(env))
+            return image.copy(stack, opsConsumed = image.opsConsumed + 1)
+        }
+
+    }
 }

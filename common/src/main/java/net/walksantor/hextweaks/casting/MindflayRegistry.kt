@@ -13,6 +13,7 @@ import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.mindflay.MindflayInput
 import net.walksantor.hextweaks.casting.mindflay.MindflayResult
 import net.walksantor.hextweaks.casting.mindflay.MindflaySlipwayRitual
+import net.walksantor.hextweaks.casting.mindflay.RestockingRitual
 import java.util.function.Function
 import kotlin.math.pow
 
@@ -86,5 +87,9 @@ object MindflayRegistry {
                 MindflaySlipwayRitual::burstSlipway
             )
         }
+        put(
+            ResourceLocation(HexTweaks.MOD_ID, "restock"),
+            RestockingRitual::restockVillager
+        )
     }
 }

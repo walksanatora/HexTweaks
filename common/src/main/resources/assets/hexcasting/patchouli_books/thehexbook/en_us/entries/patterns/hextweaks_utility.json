@@ -1,0 +1,26 @@
+{
+  "name": "hextweaks.entry.hextweaks_utility",
+  "category": "hexcasting:patterns",
+  "icon": "minecraft:stick",
+  "sortnum": 3,
+  "advancement": "hexcasting:root",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "hextweaks:page/right",
+      "anchor": "hextweaks:page/right",
+      "input": "",
+      "output": "",
+      "text": "hextweaks.page.hextweaks_utility.page/right"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "hextweaks:page/left",
+      "anchor": "hextweaks:page/left",
+      "input": "",
+      "output": "",
+      "text": "hextweaks.page.hextweaks_utility.page/left"
+    }
+  ]
+}

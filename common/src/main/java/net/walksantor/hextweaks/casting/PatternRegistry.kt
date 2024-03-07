@@ -1,5 +1,6 @@
 package net.walksantor.hextweaks.casting
 
+import OpPageFlip
 import OpSuicide
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry
 import at.petrak.hexcasting.api.casting.castables.Action
@@ -18,67 +19,114 @@ import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.actions.OpBiggerBomb
 import net.walksantor.hextweaks.casting.actions.OpEnlightenPattern
 import net.walksantor.hextweaks.casting.actions.OpMindflayPlus
+import ram.talia.hexal.common.lib.hex.HexalActions
 import java.util.*
 import java.util.function.BiConsumer
 import java.util.function.BiFunction
 
+
 object PatternRegistry {
-    private val GRAND_REGISTRY: HashMap<List<HexAngle>,Pair<Action,ResourceLocation>> = HashMap()
+    private val GRAND_REGISTRY: HashMap<List<HexAngle>, Pair<Action, ResourceLocation>> = HashMap()
     private val ALTERNATIVE_REGISTRY: MutableList<GrandPatternResolve> = mutableListOf()
-    private val defferred: HashMap<ResourceLocation,ActionRegistryEntry> = HashMap()
+    private val deferred: HashMap<ResourceLocation, ActionRegistryEntry> = HashMap()
     fun registerGrandSpells(pattern: List<HexAngle>, action: Action, namespace: ResourceLocation) {
         if (GRAND_REGISTRY.containsKey(pattern)) {
-            throw IllegalArgumentException("a pattern is allready registered under that pattern id: %s sig: %s trying to register %s".format(
-                GRAND_REGISTRY[pattern]?.second,
-                pattern.toSig(),
-                namespace
+            throw IllegalArgumentException(
+                "a pattern is allready registered under that pattern id: %s sig: %s trying to register %s".format(
+                    GRAND_REGISTRY[pattern]?.second,
+                    pattern.toSig(),
+                    namespace
 
-            )
+                )
             )
         }
-        GRAND_REGISTRY[pattern] = Pair(action,namespace)
+        GRAND_REGISTRY[pattern] = Pair(action, namespace)
     }
 
-    val THE_FUNNY = pattern(HexDir.WEST,"dewdeqwwedaqedwadweqewwd","suicide",OpSuicide(),true)
-    val INFUSE_WILL = pattern(HexDir.SOUTH_WEST,"waawaawaqwaeaeaeaeaea","infusion",OpEnlightenPattern())
-    val EXPLODE_PLUS = pattern(HexDir.EAST,"aawaawaa","explode",OpBiggerBomb(false),true)
-    val FIREBALL_PLUS = pattern(HexDir.EAST,"ddwddwdd","fireball",OpBiggerBomb(true),true)
+    val THE_FUNNY = pattern(HexDir.WEST, "dewdeqwwedaqedwadweqewwd", "suicide", OpSuicide(), true)
+    val INFUSE_WILL = pattern(HexDir.SOUTH_WEST, "waawaawaqwaeaeaeaeaea", "infusion", OpEnlightenPattern())
+    val PAGE_RIGHT = pattern(
+        HexDir.SOUTH_WEST, "qqaw", "page/right",
+        OpPageFlip(true)
+    )
+    val PAGE_LEFT = pattern(
+        HexDir.SOUTH_EAST, "eedw", "page/left",
+        OpPageFlip(false)
+    )
 
-    val MINDFLAY_PLUS = registerAlternative { angles, env ->
-        val reg = IXplatAbstractions.INSTANCE.actionRegistry
-        val save = ScrungledPatternsSave.open(env.world)
-        val lookup = save.lookup(angles.toSig())
-        if (lookup != null) {
-            if (reg.get(lookup.key) == HexActions.BRAINSWEEP) {
-                return@registerAlternative Optional.of(Pair(OpMindflayPlus,ResourceLocation("hextweaks","mindflayplus")))
-            }
-        }
-        return@registerAlternative Optional.empty()
+
+    init {
+        // grand flaying
+        patternGrand(
+            HexActions.BRAINSWEEP,
+            "mindflay",
+            OpMindflayPlus,
+            true
+        )
+        patternGrand(HexActions.EXPLODE,"explode", OpBiggerBomb(false), false)
+        patternGrand(HexActions.`EXPLODE$FIRE`, "fireball", OpBiggerBomb(true), false)
+        //patternGrand(HexalActions.GATE_)
     }
 
 
-    fun pattern(start: HexDir,angles: String,name: String, action: Action, isGrand: Boolean = false): ActionRegistryEntry {
-        val pat = patternAllowIllegal(start,angles)
-        val resourceLocation = ResourceLocation(HexTweaks.MOD_ID,name)
+    private fun pattern(
+        start: HexDir,
+        angles: String,
+        name: String,
+        action: Action,
+        isGrand: Boolean = false
+    ): ActionRegistryEntry {
+        val pat = patternAllowIllegal(start, angles)
+        val resourceLocation = ResourceLocation(HexTweaks.MOD_ID, name)
 
-        val ARE = ActionRegistryEntry(pat,action)
+        val ARE = ActionRegistryEntry(pat, action)
         if (isGrand) {
-            registerGrandSpells(pat.angles,action,resourceLocation)
+            registerGrandSpells(pat.angles, action, resourceLocation)
         } else {
-            if (defferred.containsKey(resourceLocation)) throw IllegalArgumentException("two patterns are vying for $resourceLocation id. fix this")
-            defferred[resourceLocation] = ARE
+            if (deferred.containsKey(resourceLocation)) throw IllegalArgumentException("two patterns are vying for $resourceLocation id. fix this")
+            deferred[resourceLocation] = ARE
         }
         return ARE
     }
-    fun registerAlternative(fn: GrandPatternResolve) {
-        ALTERNATIVE_REGISTRY.add(fn)
+
+    private fun patternGrand(
+        parent: ActionRegistryEntry,
+        name: String,
+        action: Action,
+        parentIsGreat: Boolean = false
+    ) {
+        if (parentIsGreat) {
+            registerAlternative { angles, env ->
+                val reg = IXplatAbstractions.INSTANCE.actionRegistry
+                val save = ScrungledPatternsSave.open(env.world)
+                val lookup = save.lookup(angles.toSig())
+                if (lookup != null) {
+                    if (reg.get(lookup.key) == parent) {
+                        return@registerAlternative Optional.of(
+                            Pair(
+                                action,
+                                ResourceLocation("hextweaks", name)
+                            )
+                        )
+                    }
+                }
+                return@registerAlternative Optional.empty()
+            }
+        } else {
+            val resourceLocation = ResourceLocation("hextweaks",name)
+            registerGrandSpells(
+                parent.prototype.angles, action, resourceLocation
+            )
+        }
     }
 
-    fun getGrandEntry(sigs: List<HexAngle>, env: CastingEnvironment): Pair<Action,ResourceLocation>? {
+    fun registerAlternative(fn: GrandPatternResolve) = ALTERNATIVE_REGISTRY.add(fn)
+
+    fun getGrandEntry(sigs: List<HexAngle>, env: CastingEnvironment): Pair<Action, ResourceLocation>? {
         var registry_check = GRAND_REGISTRY[sigs]
         if (registry_check == null) {
             for (func in ALTERNATIVE_REGISTRY) {
-                val res = func.apply(sigs,env)
+                val res = func.apply(sigs, env)
                 if (res.isPresent) {
                     registry_check = res.get()
                 }
@@ -88,7 +136,7 @@ object PatternRegistry {
         if (registry_check != null) {
             if (caster != null) {
                 val resloc = registry_check.second
-                val advid = ResourceLocation(resloc.namespace,"grandspell/%s".format(resloc.path))
+                val advid = ResourceLocation(resloc.namespace, "grandspell/%s".format(resloc.path))
                 //HexTweaks.LOGGER.info("Trying to grant %s advancement".format(advid))
                 val adv = caster.server.advancements.getAdvancement(advid)
                 if (adv != null) {
@@ -117,7 +165,9 @@ object PatternRegistry {
         return pat
     }
 
-    fun getGrandSpellPattern(player: ServerPlayer, level: ServerLevel, pat: HexPattern): HexPattern = getGrandSpellPattern(player.uuid,level.seed,pat)
+    fun getGrandSpellPattern(player: ServerPlayer, level: ServerLevel, pat: HexPattern): HexPattern =
+        getGrandSpellPattern(player.uuid, level.seed, pat)
+
     fun getGrandSpellPattern(uuid: UUID, seed: Long, pat: HexPattern): HexPattern {
         val upper = uuid.mostSignificantBits.xor(seed)
         val lower = uuid.leastSignificantBits.xor(seed)
@@ -140,11 +190,11 @@ object PatternRegistry {
             }
             resulting.add(sig)
         }
-        return HexPattern(pat.startDir,resulting)
+        return HexPattern(pat.startDir, resulting)
     }
 
     fun register(r: BiConsumer<ActionRegistryEntry, ResourceLocation>) {
-        for ((key, value) in defferred) {
+        for ((key, value) in deferred) {
             r.accept(value, key)
         }
     }
@@ -153,7 +203,7 @@ object PatternRegistry {
 typealias GrandPatternResolve = BiFunction<
         List<HexAngle>,
         CastingEnvironment,
-        Optional<Pair<Action,ResourceLocation>>
+        Optional<Pair<Action, ResourceLocation>>
         >
 
 fun List<HexAngle>.toSig(): String {

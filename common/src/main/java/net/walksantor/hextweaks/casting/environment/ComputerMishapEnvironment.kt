@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.phys.Vec3
+import net.walksantor.hextweaks.HexTweaks
 
 class ComputerMishapEnvironment(world: ServerLevel, player: ServerPlayer?,val env: ComputerCastingEnv) : MishapEnvironment(world,player) {
     override fun yeetHeldItemsTowards(targetPos: Vec3?) {
@@ -41,18 +42,18 @@ class ComputerMishapEnvironment(world: ServerLevel, player: ServerPlayer?,val en
     }
 
     override fun drown() {
-        TODO("Not yet implemented")
+        HexTweaks.LOGGER.warn("Yell at walksanator on discord. ComputerMishapEnvironment#drown is NYI")
     }
 
     override fun damage(healthProportion: Float) {
-        TODO("Not yet implemented")
+        HexTweaks.LOGGER.warn("Yell at walksanator on discord. ComputerMishapEnvironment#dammage is NYI")
     }
 
     override fun removeXp(amount: Int) {
-        TODO("Not yet implemented")
+        HexTweaks.LOGGER.warn("Yell at walksanator on discord. ComputerMishapEnvironment#removeXp is NYI")
     }
 
     override fun blind(ticks: Int) {
-        TODO("Not yet implemented")
+        HexTweaks.LOGGER.warn("Yell at walksanator on discord. ComputerMishapEnvironment#blind is NYI")
     }
 }

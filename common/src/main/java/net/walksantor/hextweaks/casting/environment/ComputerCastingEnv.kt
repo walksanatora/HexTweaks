@@ -32,6 +32,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.Vec3
+import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.HexTweaksRegistry
 import net.walksantor.hextweaks.items.VirtualPigment
 import net.walksantor.hextweaks.mixin.NeuralAccessor
@@ -263,7 +264,8 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
     }
 
     override fun replaceItem(stackOk: Predicate<ItemStack>?, replaceWith: ItemStack?, hand: InteractionHand?): Boolean {
-        TODO("Not yet implemented")
+        HexTweaks.LOGGER.warn("Yell at walksanator on discord. ComputerCastingEnv#replaceItem is NYI")
+        return false
     }
 
     override fun getPigment(): FrozenPigment {

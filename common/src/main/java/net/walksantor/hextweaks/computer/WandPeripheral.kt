@@ -21,15 +21,16 @@ import net.minecraft.server.level.ServerLevel
 import net.walksantor.hextweaks.casting.environment.ComputerCastingEnv
 
 class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocketData: IPocketAccess?) : IPeripheral {
-    var vm: CastingVM? = null
-
+    lateinit var vm: CastingVM
+    var isInit = false
 
     override fun attach(computer: IComputerAccess?) {
         vm = CastingVM(CastingImage(), ComputerCastingEnv(turtleData,pocketData,getWorld(),computer!!))
+        isInit = true
     }
 
     override fun detach(computer: IComputerAccess?) {
-        vm = null
+        isInit = false
     }
 
 
@@ -48,20 +49,20 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     @LuaFunction
     fun getStack(): MethodResult {
         val world = getWorld()
-        return MethodResult.of(vm!!.image.stack.map {IotaLuaUtils.getLuaObject(it,world)})
+        return MethodResult.of(vm.image.stack.map {IotaLuaUtils.getLuaObject(it,world)})
     }
 
     @LuaFunction
     fun pushStack(obj: Any) {
-        if (vm!!.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
-            (vm!!.image.stack as MutableList).add(IotaLuaUtils.getIota(obj,getWorld()))
+        if (vm.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
+            (vm.image.stack as MutableList).add(IotaLuaUtils.getIota(obj,getWorld()))
         }
     }
 
     @LuaFunction
     fun popStack(): Any {
-        if (vm!!.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
-            val iota = (vm!!.image.stack as MutableList).removeLast()
+        if (vm.image.stack is MutableList) { //WRONG it can be EmptyList which causes errors
+            val iota = (vm.image.stack as MutableList).removeLast()
             return IotaLuaUtils.getLuaObject(iota,getWorld())
         }
         return IotaLuaUtils.getLuaObject(NullIota(),getWorld())
@@ -69,9 +70,9 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
 
     @LuaFunction
     fun clearStack(): Int {
-        if (vm!!.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
-            val size = vm!!.image.stack.size
-            (vm!!.image.stack as MutableList).clear()
+        if (vm.image.stack is MutableList) { //WRONG it can be EmptyList which causes errors
+            val size = vm.image.stack.size
+            (vm.image.stack as MutableList).clear()
             return size
         }
         return 0
@@ -79,19 +80,19 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
 
     @LuaFunction
     fun setStack(stack: List<Any>) {
-        if (vm!!.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
+        if (vm.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
             val world = getWorld()
-            (vm!!.image.stack as MutableList).clear()
-            (vm!!.image.stack as MutableList).addAll(stack.map { IotaLuaUtils.getIota(it,world)})
+            (vm.image.stack as MutableList).clear()
+            (vm.image.stack as MutableList).addAll(stack.map { IotaLuaUtils.getIota(it,world)})
         }
     }
 
     @LuaFunction
-    fun enlightened(): Boolean = vm!!.env.isEnlightened
+    fun enlightened(): Boolean = vm.env.isEnlightened
 
     @LuaFunction
     fun getRavenmind(): Any {
-        val nbt = vm!!.image.userData.getCompound(HexAPI.RAVENMIND_USERDATA)
+        val nbt = vm.image.userData.getCompound(HexAPI.RAVENMIND_USERDATA)
         if (nbt != null) {
             val world = getWorld()
             val iota = IotaType.deserialize(nbt,world)
@@ -104,16 +105,16 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     fun setRavenmind(iota: Any) {
         val newLocal = IotaLuaUtils.getIota(iota,getWorld())
         if (newLocal.type == HexIotaTypes.NULL)
-            vm!!.image.userData.remove(HexAPI.RAVENMIND_USERDATA)
+            vm.image.userData.remove(HexAPI.RAVENMIND_USERDATA)
         else
-            vm!!.image.userData.put(HexAPI.RAVENMIND_USERDATA, IotaType.serialize(newLocal))
+            vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, IotaType.serialize(newLocal))
     }
 
     @LuaFunction(mainThread = true)
     fun runPattern(dir: String, pattern: String) {
         val iota = PatternIota(HexPattern.fromAngles(pattern, HexDir.fromString(dir)))
-        (vm!!.env as ComputerCastingEnv).level = getWorld()
-        vm!!.queueExecuteAndWrapIota(iota,getWorld())
+        (vm.env as ComputerCastingEnv).level = getWorld()
+        vm.queueExecuteAndWrapIota(iota,getWorld())
     }
 
 }

@@ -8,8 +8,8 @@
   "mixins": [
     "ComputerAccesssor",
     "EnvironmentAccessor",
+    "MixinClericReportLocation",
     "MixinOperatorSideeffect",
-    ,
     "NeuralAccessor"
   ],
   "injectors": {

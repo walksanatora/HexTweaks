@@ -3,6 +3,7 @@ package net.walksantor.hextweaks.computer
 import at.petrak.hexcasting.common.lib.HexItems
 import com.google.gson.JsonObject
 import dan200.computercraft.api.peripheral.IPeripheral
+import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.AbstractTurtleUpgrade
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
@@ -20,6 +21,14 @@ class WandTurtleUpgrade(val item:ItemStack) : AbstractTurtleUpgrade(
     "Magical",
     item
 ) {
+    override fun update(access: ITurtleAccess, side: TurtleSide) {
+        val peripheral = access.getPeripheral(side)
+        if (peripheral is WandPeripheral) {
+            if (!peripheral.isInit) {return}
+            peripheral.vm.image = peripheral.vm.image.copy(opsConsumed = 0)
+        }
+    }
+
     override fun createPeripheral(turtle: ITurtleAccess, side: TurtleSide): IPeripheral = WandPeripheral(Pair(turtle,side),null)
     class UpgradeSerializer : TurtleUpgradeSerialiser<WandTurtleUpgrade> {
         override fun fromJson(id: ResourceLocation?, `object`: JsonObject): WandTurtleUpgrade {

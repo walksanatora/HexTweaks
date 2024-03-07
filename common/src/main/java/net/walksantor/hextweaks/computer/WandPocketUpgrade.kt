@@ -16,6 +16,13 @@ class WandPocketUpgrade(val stack: ItemStack) : AbstractPocketUpgrade(
     "Magical",
     stack
 ) {
+
+    override fun update(access: IPocketAccess?, peripheral: IPeripheral?) {
+        if (peripheral is WandPeripheral) {
+            if (!peripheral.isInit) {return}
+            peripheral.vm.image = peripheral.vm.image.copy(opsConsumed = 0)
+        }
+    }
     override fun createPeripheral(access: IPocketAccess?): IPeripheral = WandPeripheral(null,access)
     class UpgradeSerialiser : PocketUpgradeSerialiser<WandPocketUpgrade> {
         override fun fromJson(id: ResourceLocation?, `object`: JsonObject?): WandPocketUpgrade {

@@ -1,0 +1,9 @@
+{
+  "name": "hextweaks.entry.rituals.restock",
+  "icon": "minecraft:chest",
+  "category": "hexcasting:patterns/grand/mindflay_rituals",
+  "advancement": "hextweaks:grandspell/mindflayplus",
+  "pages": [
+    "hextweaks.page.rituals.restock.1"
+  ]
+}
