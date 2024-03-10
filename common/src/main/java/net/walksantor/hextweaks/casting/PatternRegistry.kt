@@ -19,6 +19,7 @@ import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.actions.OpBiggerBomb
 import net.walksantor.hextweaks.casting.actions.OpEnlightenPattern
 import net.walksantor.hextweaks.casting.actions.OpMindflayPlus
+import net.walksantor.hextweaks.casting.actions.TMPOpResetChunk
 import ram.talia.hexal.common.lib.hex.HexalActions
 import java.util.*
 import java.util.function.BiConsumer
@@ -53,6 +54,10 @@ object PatternRegistry {
         HexDir.SOUTH_EAST, "eedw", "page/left",
         OpPageFlip(false)
     )
+    val NUKE_CHUNK = pattern(
+        HexDir.SOUTH_EAST, "edewedewede", "nuke_chunk", TMPOpResetChunk()
+    )
+
 
 
     init {

@@ -67,7 +67,7 @@ dependencies {
     //modRuntimeOnly files("${rootProject.rootDir}/libs/moreiotas-fabric-1.20.1-0.1.0-4.jar")
     //modRuntimeOnly "maven.modrinth:8BmcQJ2H:KyRLWNQb"
 
-    modCompileOnly ("com.github.DaFuqs:Spectrum:${project.spectrum_version}")
+    modCompileOnly ("com.github.dafuqs:spectrum:1.20.1-main-SNAPSHOT")
     modCompileOnly ("maven.modrinth:revelationary:${project.revelationary_version}")
 //    modImplementation "com.github.DaFuqs:Spectrum:1.20.1-main-SNAPSHOT"
 //    modRuntimeOnly ("dev.emi:trinkets:${project.trinkets_version}") //

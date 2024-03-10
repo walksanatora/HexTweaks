@@ -16,10 +16,20 @@ subprojects {
         silentMojangMappingsLicense()
     }
 
+    repositories {
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
+        }
+    }
+
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         // The following line declares the mojmap mappings, you may use other mappings as well
-        mappings loom.officialMojangMappings()
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-1.20.2:2023.10.08@zip")
+        }
         // The following line declares the yarn mappings you may select this one as well.
         // mappings "net.fabricmc:yarn:1.20.1+build.10:v2"
 
@@ -63,7 +73,7 @@ allprojects {
             name = "Modrinth"
             url = "https://api.modrinth.com/maven"
         }
-        maven { url = "https://maven.jamieswhiteshirt.com/libs-release/" }
+        //maven { url = "https://maven.jamieswhiteshirt.com/libs-release/" }
         maven { url = "https://maven.nucleoid.xyz/" } // Common Protection API
         //maven { url = "https://maven.jamieswhiteshirt.com/libs-release/" } // Entity Reach Attribute
         maven { url = "https://cfa2.cursemaven.com" }

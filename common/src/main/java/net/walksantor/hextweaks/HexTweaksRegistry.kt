@@ -24,6 +24,7 @@ import net.walksantor.hextweaks.casting.PatternRegistry
 import net.walksantor.hextweaks.casting.handler.GrandSpellHandler
 import net.walksantor.hextweaks.computer.WandPocketUpgrade
 import net.walksantor.hextweaks.computer.WandTurtleUpgrade
+import net.walksantor.hextweaks.entities.SpellBeaconEntity
 import net.walksantor.hextweaks.items.VirtualPigment
 
 
@@ -34,6 +35,7 @@ object HexTweaksRegistry {
     val TURTLE_SERIALS = DeferredRegister.create(HexTweaks.MOD_ID,TurtleUpgradeSerialiser.registryId())
     val BLOCKS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.BLOCK)
     val ITEMS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ITEM)
+    val ENTITY_TYPES = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ENTITY_TYPE)
     val SPECIAL_HANDLERS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.specialHandlerRegistry.key() as ResourceKey<Registry<SpecialHandler.Factory<*>>>)
     val ACTIONS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.actionRegistry.key() as ResourceKey<Registry<ActionRegistryEntry>>)
 
@@ -53,6 +55,10 @@ object HexTweaksRegistry {
     val SUS_DAMMAGET = DamageType("hextweaks.death.sus",0.0f)
     val SUS_DAMMAGE = DamageSource(Holder.direct(SUS_DAMMAGET))
 
+    val SPELL_BEACON_ENTITY = ENTITY_TYPES.register(ResourceLocation(HexTweaks.MOD_ID,"sbe")) { ->
+        SpellBeaconEntity.BUILDER.build("sbe")
+    }
+
     fun register() {
         if (REGISTERED) {return}
         POCKET_SERIALS.register()
@@ -60,6 +66,7 @@ object HexTweaksRegistry {
         BLOCKS.register()
         ITEMS.register()
         SPECIAL_HANDLERS.register()
+        ENTITY_TYPES.register()
         PatternRegistry.register { are, rl -> ACTIONS.register(rl) { are } }
         ACTIONS.register()
         MindflayRegistry.register()
