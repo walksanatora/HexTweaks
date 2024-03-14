@@ -11,7 +11,7 @@ class TMPOpResetChunk : ConstMediaAction {
     override val argc = 1
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val where = args.getBlockPos(0)
-        MojankResetChunk.resetChunk(env.world, ChunkPos(where))
+        MojankResetChunk.enque_reset(ChunkPos(where),env.world)
         return listOf()
     }
 }

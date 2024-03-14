@@ -38,7 +38,7 @@ object MindflayRegistry {
         if (functions.containsKey(key)) {
             throw IllegalArgumentException("cannot register %s as %s is allready registered".format(key,key))
         }
-        functions.put(key,func);
+        functions[key] = func;
     }
 
     fun del(key: ResourceLocation) {

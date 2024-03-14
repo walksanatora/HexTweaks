@@ -69,6 +69,9 @@ dependencies {
 
     modCompileOnly ("com.github.dafuqs:spectrum:1.20.1-main-SNAPSHOT")
     modCompileOnly ("maven.modrinth:revelationary:${project.revelationary_version}")
+    modCompileOnly "com.sk89q.worldedit:worldedit-fabric-mc1.20:7.3.0-SNAPSHOT"
+    modRuntimeOnly "curse.maven:worldedit-225608:4586218"
+
 //    modImplementation "com.github.DaFuqs:Spectrum:1.20.1-main-SNAPSHOT"
 //    modRuntimeOnly ("dev.emi:trinkets:${project.trinkets_version}") //
 //    modRuntimeOnly ("maven.modrinth:Revelationary:${rootProject.revelationary_version}") //

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "hextweaks:infusion"
+    "hextweaks:infusion",
+    "hextweaks:nuke_chunk_nowill"
   ]
 }

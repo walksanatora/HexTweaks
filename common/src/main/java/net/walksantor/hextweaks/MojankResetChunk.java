@@ -3,7 +3,16 @@ package net.walksantor.hextweaks;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.datafixers.util.Unit;
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.extent.Extent;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.regions.factory.CuboidRegionFactory;
+import com.sk89q.worldedit.world.World;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -24,18 +33,35 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class MojankResetChunk {
-    private static boolean locked = false;
+    private static Queue<Pair<ChunkPos,ServerLevel>> reset_queue = new ArrayDeque<>();
 
-    public static void resetChunk(ServerLevel serverLevel, ChunkPos chunkPos) {
-        HexTweaks.LOGGER.info("RESETTING CHUNK %s".formatted(chunkPos));
-        while (locked) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                //ignored
-            }
+
+    public static void enque_reset(ChunkPos pos, ServerLevel level) {
+        reset_queue.add(new Pair<>(pos,level));
+        HexTweaks.LOGGER.info("Pushed a new chunk to queue. now sized %s".formatted(reset_queue.size()));
+    }
+
+    public static void step() {
+        if (!reset_queue.isEmpty()) {
+            Pair<ChunkPos,ServerLevel> target = reset_queue.remove();
+            HexTweaks.LOGGER.info("popped a chunk from queue. now sized %s".formatted(reset_queue.size()));
+            ServerLevel level = target.getSecond();
+            World world = getWEWorld(level);
+            EditSession session = WorldEdit.getInstance().newEditSession(world);
+            ChunkPos cpos = target.getFirst();
+            CuboidRegion reg = new CuboidRegion(world,
+                    getWEBlockPos(new BlockPos(cpos.getMaxBlockX(),level.getMaxBuildHeight(),cpos.getMaxBlockZ())),
+                    getWEBlockPos(new BlockPos(cpos.getMinBlockX(),level.getMinBuildHeight(),cpos.getMinBlockZ()))
+            );
+            world.regenerate(reg, session);
+            session.close();
+            //resetChunk(target.getSecond(),target.getFirst());
         }
-        locked = true;
+    }
+
+
+    private static void resetChunk(ServerLevel serverLevel, ChunkPos chunkPos) {
+        HexTweaks.LOGGER.info("RESETTING CHUNK %s".formatted(chunkPos));
         ServerChunkCache serverChunkCache = serverLevel.getChunkSource();
         serverChunkCache.chunkMap.debugReloadGenerator();
 
@@ -95,7 +121,6 @@ public class MojankResetChunk {
                 serverChunkCache.blockChanged(blockPos2);
             }
         }
-        locked=false;
         HexTweaks.LOGGER.info("blockChanged took " + (System.currentTimeMillis() - x) + " ms");
         HexTweaks.LOGGER.info("RESET FINISHED ON CHUNK %s".formatted(chunkPos));
     }
@@ -110,5 +135,15 @@ public class MojankResetChunk {
             chunkAccess2 = chunkAccess;
         }
         return chunkAccess2;
+    }
+
+    @ExpectPlatform
+    private static World getWEWorld(ServerLevel level) {
+        throw new AssertionError("This should get replaced at runtime with arch API");
+    }
+
+    @ExpectPlatform
+    private static BlockVector3 getWEBlockPos(BlockPos pos) {
+        throw new AssertionError("This should get replaced at runtime with arch API");
     }
 }

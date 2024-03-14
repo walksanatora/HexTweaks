@@ -7,29 +7,34 @@ import dan200.computercraft.api.client.ComputerCraftAPIClient
 import dan200.computercraft.api.client.turtle.TurtleUpgradeModeller
 import dan200.computercraft.api.pocket.PocketUpgradeSerialiser
 import dan200.computercraft.api.turtle.TurtleUpgradeSerialiser
+import dev.architectury.registry.client.level.entity.EntityRendererRegistry
+import dev.architectury.registry.level.entity.EntityAttributeRegistry
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.damagesource.*
+import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.walksantor.hextweaks.blocks.ConjuredButton
+import net.walksantor.hextweaks.casting.HexTweaksIotaTypes
 import net.walksantor.hextweaks.casting.MindflayRegistry
 import net.walksantor.hextweaks.casting.PatternRegistry
 import net.walksantor.hextweaks.casting.handler.GrandSpellHandler
 import net.walksantor.hextweaks.computer.WandPocketUpgrade
 import net.walksantor.hextweaks.computer.WandTurtleUpgrade
 import net.walksantor.hextweaks.entities.SpellBeaconEntity
+import net.walksantor.hextweaks.entities.SpellBeaconEntityRender
 import net.walksantor.hextweaks.items.VirtualPigment
 
 
 object HexTweaksRegistry {
-    var REGISTERED = false;
+    var REGISTERED = false
 
     val POCKET_SERIALS = DeferredRegister.create(HexTweaks.MOD_ID,PocketUpgradeSerialiser.registryId())
     val TURTLE_SERIALS = DeferredRegister.create(HexTweaks.MOD_ID,TurtleUpgradeSerialiser.registryId())
@@ -38,6 +43,7 @@ object HexTweaksRegistry {
     val ENTITY_TYPES = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ENTITY_TYPE)
     val SPECIAL_HANDLERS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.specialHandlerRegistry.key() as ResourceKey<Registry<SpecialHandler.Factory<*>>>)
     val ACTIONS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.actionRegistry.key() as ResourceKey<Registry<ActionRegistryEntry>>)
+
 
     val WAND_POCKET = POCKET_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandPocketUpgrade.UpgradeSerialiser() }
     val WAND_TURTLE = TURTLE_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandTurtleUpgrade.UpgradeSerializer() }
@@ -55,7 +61,7 @@ object HexTweaksRegistry {
     val SUS_DAMMAGET = DamageType("hextweaks.death.sus",0.0f)
     val SUS_DAMMAGE = DamageSource(Holder.direct(SUS_DAMMAGET))
 
-    val SPELL_BEACON_ENTITY = ENTITY_TYPES.register(ResourceLocation(HexTweaks.MOD_ID,"sbe")) { ->
+    val SPELL_BEACON_ENTITY = ENTITY_TYPES.register(ResourceLocation(HexTweaks.MOD_ID,"sbe")) {
         SpellBeaconEntity.BUILDER.build("sbe")
     }
 
@@ -66,7 +72,9 @@ object HexTweaksRegistry {
         BLOCKS.register()
         ITEMS.register()
         SPECIAL_HANDLERS.register()
+        HexTweaksIotaTypes.register()
         ENTITY_TYPES.register()
+        EntityAttributeRegistry.register({ SPELL_BEACON_ENTITY.get()}, {SpellBeaconEntity.createAttributes()})
         PatternRegistry.register { are, rl -> ACTIONS.register(rl) { are } }
         ACTIONS.register()
         MindflayRegistry.register()
@@ -74,10 +82,12 @@ object HexTweaksRegistry {
     }
 
     fun model() {
-        //we gotta do this later on forge...
+        //lateinit on forge...
         ComputerCraftAPIClient.registerTurtleUpgradeModeller(
             WAND_TURTLE.get(),
             TurtleUpgradeModeller.flatItem()
         )
+
+        EntityRendererRegistry.register({ SPELL_BEACON_ENTITY.get()}, { ctx -> SpellBeaconEntityRender(ctx) })
     }
 }

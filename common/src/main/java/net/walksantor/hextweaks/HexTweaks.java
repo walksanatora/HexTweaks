@@ -1,6 +1,7 @@
 package net.walksantor.hextweaks;
 
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.platform.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,5 +20,9 @@ public class HexTweaks {
         if (Platform.isModLoaded("computercraft")) {
             PatchouliAPI.get().setConfigFlag(PATCHOULI_ANY_INTEROP_FLAG, true);
         }
+
+        TickEvent.SERVER_POST.register((server) -> {
+            MojankResetChunk.step();
+        });
     }
 }

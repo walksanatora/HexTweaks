@@ -78,6 +78,7 @@ allprojects {
         //maven { url = "https://maven.jamieswhiteshirt.com/libs-release/" } // Entity Reach Attribute
         maven { url = "https://cfa2.cursemaven.com" }
         maven { url = "https://repo.unascribed.com" } // Ears API
+        maven { url = "https://maven.enginehub.org/repo/" } // world edit
     }
 
     tasks.withType(JavaCompile) {

@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component
 import net.walksantor.hextweaks.casting.PatternRegistry
 import java.util.*
 import kotlin.collections.ArrayDeque
+import kotlin.math.min
 
 class GrandSpellHandler(private val action: Action) : SpecialHandler {
     override fun act(): Action = action
@@ -54,8 +55,8 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
                 expectedBitfield.add(bit.toInt() == 1)
             }
 
-            val slice = expectedBitfield.slice(0..<bitfield.size)
-            val bitsMatch = slice==bitfield
+            val slice = expectedBitfield.slice(0..<min(bitfield.size,expectedBitfield.size))
+            val bitsMatch = slice==bitfield.slice(0..<min(bitfield.size,expectedBitfield.size))
 
 //            val diff = slice.indices.filter { slice[it] != bitfield[it] }
 //            HexTweaks.LOGGER.info("recieved: $bitfield")

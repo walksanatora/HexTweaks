@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation
 import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.iota.ByteArrayIota
 import net.walksantor.hextweaks.casting.iota.ByteIota
+import net.walksantor.hextweaks.casting.iota.RitualIota
 
 object HexTweaksIotaTypes {
     val IOTATYPE = DeferredRegister.create(
@@ -20,7 +21,7 @@ object HexTweaksIotaTypes {
 
     val BYTEARRAY = type("bytearray",ByteArrayIota.ByteArrayIotaType())
     val BYTE = type("byte",ByteIota.ByteIotaType())
-
+    val RITUAL = type("ritual",RitualIota.RitualIotaType())
 
     private fun <U : Iota?, T : IotaType<U>?> type(name: String, type: T): T {
         IOTATYPE.register(
