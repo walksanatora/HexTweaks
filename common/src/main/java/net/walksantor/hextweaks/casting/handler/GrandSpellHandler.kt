@@ -37,7 +37,6 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
                     anglesigsNoBits.add(next)
                     bitfield.add(false)
                 }
-
             }
 
             val uuid: UUID = env.castingEntity?.uuid ?: Util.NIL_UUID

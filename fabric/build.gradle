@@ -64,7 +64,7 @@ dependencies {
     }
 
     modCompileOnly files("${rootProject.rootDir}/libs/hexal-fabric-1.20.1-0.3.0-2.jar")
-    //modRuntimeOnly files("${rootProject.rootDir}/libs/moreiotas-fabric-1.20.1-0.1.0-4.jar")
+    modRuntimeOnly files("${rootProject.rootDir}/libs/moreiotas-fabric-1.20.1-0.1.0-4.jar")
     //modRuntimeOnly "maven.modrinth:8BmcQJ2H:KyRLWNQb"
 
     modCompileOnly ("com.github.dafuqs:spectrum:1.20.1-main-SNAPSHOT")

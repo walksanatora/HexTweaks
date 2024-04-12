@@ -26,7 +26,7 @@ object OpMindflayPlus : SpellAction {
     override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
         val sacrificed = args.getList(0,argc)
         val target = args[1];
-        if (!(target is EntityIota || target is Vec3Iota)) {throw MishapInvalidIota(target,1, Component.translatable("iota.entity_or_position"))}
+        if (!(target is EntityIota || target is Vec3Iota)) {throw MishapInvalidIota(target,2, Component.translatable("iota.entity_or_position"))}
 
         val filter = sacrificed.filterIsInstance<EntityIota>()
             .filter { it.entity is Mob }

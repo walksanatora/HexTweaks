@@ -1,6 +1,7 @@
 package net.walksantor.hextweaks.entities
 
 import at.petrak.hexcasting.api.utils.putBoolean
+import at.petrak.hexcasting.api.utils.putCompound
 import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerBossEvent
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.BossEvent
 import net.minecraft.world.entity.*
@@ -21,7 +23,8 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.Vec3
 import net.walksantor.hextweaks.HexTweaks
-import kotlin.math.floor
+import net.walksantor.hextweaks.casting.rituals.HexRitual
+import java.util.*
 import kotlin.math.sqrt
 
 
@@ -33,45 +36,36 @@ class SpellBeaconEntity(entityType: EntityType<out LivingEntity>, level: Level) 
     val boss_event = ServerBossEvent(this.displayName, BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)
         .setDarkenScreen(true) as ServerBossEvent;
 
-    var targetPos: Vec3? = null
+    val lamb: UUID? = null //the sacraficial player lamb incase something goes horriby wrong
+    val ritual: HexRitual? = null // the ritual being performed
 
     init {
         noPhysics = true
     }
 
     override fun move(type: MoverType, pos: Vec3) {
-        val pos = position().add(pos)
-        val rpos = Vec3(
-            floor(pos.x)+0.5,
-            floor(pos.y),
-            floor(pos.z)+0.5
-        )
-        setPos(
-            rpos
-        )
-        if (targetPos == null) { targetPos = rpos }
+        return //no gravity, no piston, idk what the other movertypes are
+    }
+
+    override fun teleportTo(
+        level: ServerLevel,
+        x: Double,
+        y: Double,
+        z: Double,
+        relativeMovements: MutableSet<RelativeMovement>,
+        yRot: Float,
+        xRot: Float
+    ): Boolean {
+        return false //immovable
     }
 
     override fun addAdditionalSaveData(compound: CompoundTag) {
         super.addAdditionalSaveData(compound)
-        compound.putBoolean("htp",targetPos != null)
-        val tp = targetPos
-        if (tp != null) {
-            compound.putDouble("ox", tp.x)
-            compound.putDouble("oy", tp.y)
-            compound.putDouble("oz", tp.z)
-        }
+        compound.putCompound("ritual",ritual?.save_state()?: CompoundTag())
     }
 
     override fun readAdditionalSaveData(compound: CompoundTag) {
         super.readAdditionalSaveData(compound)
-        if (compound.getBoolean("htp")) {
-            targetPos = Vec3(compound.getDouble("ox"),
-            compound.getDouble("oy"),
-            compound.getDouble("oz"))
-        } else {
-            targetPos = null
-        }
     }
 
     override fun isNoGravity(): Boolean = true

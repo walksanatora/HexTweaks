@@ -33,6 +33,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class MojankResetChunk {
+    public static Boolean I_KNOW_WHAT_I_AM_DOING = false;
     private static Queue<Pair<ChunkPos,ServerLevel>> reset_queue = new ArrayDeque<>();
 
 
@@ -61,6 +62,10 @@ public class MojankResetChunk {
 
 
     private static void resetChunk(ServerLevel serverLevel, ChunkPos chunkPos) {
+        if (!I_KNOW_WHAT_I_AM_DOING){
+            throw new RuntimeException("someone just tried to somehow called the mojank reset chunk function!!! laugh at them!!!");
+        }
+
         HexTweaks.LOGGER.info("RESETTING CHUNK %s".formatted(chunkPos));
         ServerChunkCache serverChunkCache = serverLevel.getChunkSource();
         serverChunkCache.chunkMap.debugReloadGenerator();

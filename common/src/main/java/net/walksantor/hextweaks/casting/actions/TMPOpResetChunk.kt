@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getBlockPos
 import at.petrak.hexcasting.api.casting.iota.Iota
 import net.minecraft.world.level.ChunkPos
+import net.walksantor.hextweaks.HexTweaksRegistry
 import net.walksantor.hextweaks.MojankResetChunk
 
 class TMPOpResetChunk : ConstMediaAction {
@@ -12,6 +13,8 @@ class TMPOpResetChunk : ConstMediaAction {
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val where = args.getBlockPos(0)
         MojankResetChunk.enque_reset(ChunkPos(where),env.world)
+
+
         return listOf()
     }
 }

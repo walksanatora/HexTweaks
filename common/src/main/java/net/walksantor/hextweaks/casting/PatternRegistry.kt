@@ -51,10 +51,13 @@ object PatternRegistry {
         HexDir.SOUTH_EAST, "eedw", "page/left",
         OpPageFlip(false)
     )
-
     val NUKE_CHUNK_NOWILL = pattern(
         HexDir.SOUTH_EAST, "edewedewede", "nuke_chunk_nowill", OpLackingWill
     )
+    val HELL_ON_EARTH = pattern(
+        HexDir.EAST,"wqwqwqwqwqwewawwwawwwaw","you_like_drinking_potions", OpLackingWill
+    )
+
 
 
 
@@ -62,13 +65,15 @@ object PatternRegistry {
         // grand flaying
         patternGrand(
             HexActions.BRAINSWEEP,
-            "mindflay",
+            "mindflayplus",
             OpMindflayPlus,
             true
         )
         patternGrand(HexActions.EXPLODE,"explode", OpBiggerBomb(false), false)
         patternGrand(HexActions.`EXPLODE$FIRE`, "fireball", OpBiggerBomb(true), false)
-        //patternGrand(HexalActions.GATE_)
+        patternGrand(
+            HELL_ON_EARTH,"nadith", OpEgyptianPlagues,true
+        )
     }
 
 
@@ -144,7 +149,11 @@ object PatternRegistry {
                 val adv = caster.server.advancements.getAdvancement(advid)
                 if (adv != null) {
                     caster.advancements.award(adv, ItemLoreFragment.CRITEREON_KEY)
+                } else {
+                    HexTweaks.LOGGER.warn("Advancement from grand spell {} does not exists",advid)
                 }
+            } else {
+                HexTweaks.LOGGER.info("There is no player to grant advancement to for grand spell")
             }
         }
         return registry_check
