@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.walksantor.hextweaks.blocks.ConjuredButton
+import net.walksantor.hextweaks.casting.HexTweaksContinuationTypes
 import net.walksantor.hextweaks.casting.HexTweaksIotaTypes
 import net.walksantor.hextweaks.casting.MindflayRegistry
 import net.walksantor.hextweaks.casting.PatternRegistry
@@ -78,6 +79,7 @@ object HexTweaksRegistry {
         PatternRegistry.register { are, rl -> ACTIONS.register(rl) { are } }
         ACTIONS.register()
         MindflayRegistry.register()
+        HexTweaksContinuationTypes.register()
         REGISTERED = true
     }
 

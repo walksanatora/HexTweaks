@@ -21,8 +21,10 @@ public class HexTweaks {
             PatchouliAPI.get().setConfigFlag(PATCHOULI_ANY_INTEROP_FLAG, true);
         }
 
-        TickEvent.SERVER_POST.register((server) -> {
-            MojankResetChunk.step();
-        });
+        if (Platform.isModLoaded("worldedit")) {
+            TickEvent.SERVER_POST.register((server) -> {
+                MojankResetChunk.step();
+            });
+        }
     }
 }

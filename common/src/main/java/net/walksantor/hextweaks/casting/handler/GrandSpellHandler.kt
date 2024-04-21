@@ -7,6 +7,7 @@ import at.petrak.hexcasting.api.casting.math.HexAngle
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import net.minecraft.Util
 import net.minecraft.network.chat.Component
+import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.PatternRegistry
 import java.util.*
 import kotlin.collections.ArrayDeque
@@ -57,10 +58,10 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
             val slice = expectedBitfield.slice(0..<min(bitfield.size,expectedBitfield.size))
             val bitsMatch = slice==bitfield.slice(0..<min(bitfield.size,expectedBitfield.size))
 
-//            val diff = slice.indices.filter { slice[it] != bitfield[it] }
-//            HexTweaks.LOGGER.info("recieved: $bitfield")
-//            HexTweaks.LOGGER.info("expected: $slice")
-//            HexTweaks.LOGGER.info("diffed: $diff")
+            val diff = slice.indices.filter { slice[it] != bitfield[it] }
+            HexTweaks.LOGGER.info("recieved: $bitfield")
+            HexTweaks.LOGGER.info("expected: $slice")
+            HexTweaks.LOGGER.info("diffed: $diff")
 
             val ret = if (bitsMatch) {
                 val act = PatternRegistry.getGrandEntry(anglesigsNoBits,env)

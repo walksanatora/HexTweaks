@@ -44,5 +44,8 @@
   "hexcasting.action.hextweaks:page/right": "Progress Gambit",
   "hexcasting.action.hextweaks:page/left": "Regress Gambit",
   "hextweaks.page.hextweaks_utility.page/right": "Turns the spellbook that your are holding one page to the right",
-  "hextweaks.page.hextweaks_utility.page/left": "Turns the spellbook that your are holding one page to the left"
+  "hextweaks.page.hextweaks_utility.page/left": "Turns the spellbook that your are holding one page to the left",
+
+  "hexcasting.action.hextweaks:while": "Heket's Gambit",
+  "hextweaks.page.hextweaks_utility.while": "Removes a pattern list from the stack. Examines (but does not remove) the iota beneath it, and evaluates the pattern list if and only if $(l:patterns/logic#hexcasting:bool_coerce)Augur's Purification$() would respond to that iota with True. Examination and evaluation repeats until the iota would no longer create truth."
 }

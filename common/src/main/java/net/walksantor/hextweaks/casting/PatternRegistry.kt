@@ -12,6 +12,7 @@ import at.petrak.hexcasting.common.items.ItemLoreFragment
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import at.petrak.hexcasting.server.ScrungledPatternsSave
 import at.petrak.hexcasting.xplat.IXplatAbstractions
+import dev.architectury.platform.Platform
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -51,13 +52,10 @@ object PatternRegistry {
         HexDir.SOUTH_EAST, "eedw", "page/left",
         OpPageFlip(false)
     )
-    val NUKE_CHUNK_NOWILL = pattern(
-        HexDir.SOUTH_EAST, "edewedewede", "nuke_chunk_nowill", OpLackingWill
+    val WHILE = pattern(
+        HexDir.NORTH_EAST, "wdwadad", "while",
+        OpLoopWhile
     )
-    val HELL_ON_EARTH = pattern(
-        HexDir.EAST,"wqwqwqwqwqwewawwwawwwaw","you_like_drinking_potions", OpLackingWill
-    )
-
 
 
 
@@ -71,9 +69,14 @@ object PatternRegistry {
         )
         patternGrand(HexActions.EXPLODE,"explode", OpBiggerBomb(false), false)
         patternGrand(HexActions.`EXPLODE$FIRE`, "fireball", OpBiggerBomb(true), false)
-        patternGrand(
-            HELL_ON_EARTH,"nadith", OpEgyptianPlagues,true
-        )
+        if (Platform.isModLoaded("moreiotas")) {
+            val hell = pattern(
+                HexDir.EAST,"wqwqwqwqwqwewawwwawwwaw","you_like_drinking_potions", OpLackingWill
+            )
+            patternGrand(
+                hell,"nadith", OpEgyptianPlagues,true
+            )
+        }
     }
 
 

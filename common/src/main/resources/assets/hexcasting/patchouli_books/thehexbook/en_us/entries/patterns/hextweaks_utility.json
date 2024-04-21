@@ -21,6 +21,15 @@
       "input": "",
       "output": "",
       "text": "hextweaks.page.hextweaks_utility.page/left"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "hextweaks:while",
+      "anchor": "hextweaks:while",
+      "input": "[pattern]",
+      "output": "",
+      "text": "hextweaks.page.hextweaks_utility.while"
     }
   ]
+
 }
