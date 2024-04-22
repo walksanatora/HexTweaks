@@ -57,6 +57,10 @@ object PatternRegistry {
         OpLoopWhile
     )
 
+    val NUKE_NOWIL = pattern(
+        HexDir.EAST, "edeaqqqeeeeede", "nuke_chunk_nowill", OpLackingWill
+    )
+
 
 
     init {
