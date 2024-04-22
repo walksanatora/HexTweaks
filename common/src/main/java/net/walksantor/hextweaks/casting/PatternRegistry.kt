@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.math.HexAngle
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
+import at.petrak.hexcasting.common.casting.actions.selectors.OpGetEntitiesBy
 import at.petrak.hexcasting.common.items.ItemLoreFragment
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import at.petrak.hexcasting.server.ScrungledPatternsSave
@@ -18,6 +19,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.actions.*
+import net.walksantor.hextweaks.entities.SpellBeaconEntity
 import ram.talia.hexal.common.lib.hex.HexalActions
 import java.util.*
 import java.util.function.BiConsumer
@@ -56,9 +58,12 @@ object PatternRegistry {
         HexDir.NORTH_EAST, "wdwadad", "while",
         OpLoopWhile
     )
-
     val NUKE_NOWIL = pattern(
         HexDir.EAST, "edeaqqqeeeeede", "nuke_chunk_nowill", OpLackingWill
+    )
+
+    val GETZONE = pattern(
+        HexDir.SOUTH_EAST,"qqqqqwdeddeeawaeaw", "sbe_entities", OpGetEntitiesBy({ it is SpellBeaconEntity},false)
     )
 
 

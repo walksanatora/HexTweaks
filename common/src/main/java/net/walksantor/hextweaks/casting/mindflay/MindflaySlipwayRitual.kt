@@ -1,5 +1,7 @@
 package net.walksantor.hextweaks.casting.mindflay
 
+import at.petrak.hexcasting.api.casting.iota.EntityIota
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
@@ -11,9 +13,8 @@ import kotlin.random.Random
 
 object MindflaySlipwayRitual {
     fun createSlipway(input: MindflayInput): MindflayResult {
-        val left = input.target.left()
-        if (left.isEmpty) {return MindflayResult(false) } //it is not an entity
-        val entity = left.get().entity
+        if (input.target !is EntityIota) {return MindflayResult(false)}
+        val entity = input.target.entity
         if (entity !is BaseWisp) {return MindflayResult(false) } // there is no wisp
 
         val points = MindflayRegistry.calcuateVillagerPoints(input.inputs)
@@ -34,9 +35,8 @@ object MindflaySlipwayRitual {
     }
 
     fun burstSlipway(input: MindflayInput): MindflayResult {
-        val left = input.target.right()
-        if (left.isEmpty) {return MindflayResult(false) } //it is not a position
-        val pos = left.get().vec3
+        if (input.target !is Vec3Iota) {return MindflayResult(false)}
+        val pos = input.target.vec3
         if (input.env.isVecInRange(pos)) {return MindflayResult(false) } // out of range
 
         val world = input.env.world

@@ -32,19 +32,14 @@ object OpMindflayPlus : SpellAction {
             .filter { it.entity is Mob }
             .filter { env.isVecInRange(it.entity.position()) }
             .map { it.entity as Mob }
-        val targetIota: Either<EntityIota,Vec3Iota> = if (target is EntityIota) {
-            Either.left(target)
-        } else {
-            Either.right(target as Vec3Iota)
-        }
 
         return SpellAction.Result(
-            Spell(filter, targetIota),
+            Spell(filter, target),
             MediaConstants.CRYSTAL_UNIT,
             filter.map { ParticleSpray( it.position(), Vec3.ZERO, 1.0, 1.0, 20) },
         )
     }
-    class Spell(val sacrafices: List<Mob>,val target: Either<EntityIota,Vec3Iota>) : RenderedSpell {
+    class Spell(val sacrafices: List<Mob>,val target: Iota) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {
             MindflayRegistry.performMindflays(
                 MindflayInput(sacrafices,target,env)

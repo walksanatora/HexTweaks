@@ -31,14 +31,17 @@
   "hextweaks.page.patterns.grand.mindflay.1": "As it's parent would have you believe it takes the will of mobs and puts them in something else.$(br) this version acts in bulk taking a $(br)[entity], vec3|entity -> $(br)and performing various rituals",
 
   "hextweaks.entry.rituals.slipways": "Create and Collapse Slipways",
-  "hextweaks.page.rituals.slipways.1": "Create slipway.$(br)[villager],wisp -> $(br)takes solme villagers (about 80 points worth) and turns the wisp into a slipway",
-  "hextweaks.page.rituals.slipways.2": "Collapse slipway.$(br)[villager],pos -> $(br)takes some villagers (about 16 points worth) and collapses the slipway into 10-20 wandering wisp",
+  "hextweaks.page.rituals.slipways.1": "Create slipway.$(br)[villager (80 points)],wisp -> $(br)takes some villagers and turns the wisp into a slipway",
+  "hextweaks.page.rituals.slipways.2": "Collapse slipway.$(br)[villager (16 points)],pos -> $(br)takes some villagers and collapses the slipway into 10-20 wandering wisp",
 
   "hextweaks.entry.rituals.titration": "Titration Time Skip",
-  "hextweaks.page.rituals.titration.1": "Time Skip.$(br)[villager+witch],pos -> $(br)takes some villager and witches and tries to skip 12 hours for every 8 points and witch sacrificed",
+  "hextweaks.page.rituals.titration.1": "$(br)[villager + witch (8 points per witch)],pos -> $(br)takes some villager and witches and tries to skip 12 hours for each witch sacrificed",
 
   "hextweaks.entry.rituals.restock": "Restock Trades",
-  "hextweaks.page.rituals.restock.1": "[Villager],Villager$(br)Restocks all of the targeted villagers trades.$(br)Consumes 1 point for each trade offered by the target villager",
+  "hextweaks.page.rituals.restock.1": "[Villager (1 point per trade)],Villager$(br)Restocks all of the targeted villagers trades.$(br)Consumes 1 point for each trade offered by the target villager",
+
+  "hextweaks.entry.rituals.reset": "Reset Chunk",
+  "hextweaks.page.rituals.reset.1": "[Mason (128 points)], Position ->$(br)Starts a ritual to reset a chunk. it takes 30 minutes total (20 stages of 1-minute and 10-minute countdown)$(br)consumes $(o)98304$() quenched shards per stage. The ritual will not start if any entity aside from Mason villagers is present in the input list",
 
   "hextweaks.entry.hextweaks_utility": "Hextweaks Utility",
   "hexcasting.action.hextweaks:page/right": "Progress Gambit",
@@ -47,5 +50,9 @@
   "hextweaks.page.hextweaks_utility.page/left": "Turns the spellbook that your are holding one page to the left",
 
   "hexcasting.action.hextweaks:while": "Heket's Gambit",
-  "hextweaks.page.hextweaks_utility.while": "Removes a pattern list from the stack. Examines (but does not remove) the iota beneath it, and evaluates the pattern list if and only if $(l:patterns/logic#hexcasting:bool_coerce)Augur's Purification$() would respond to that iota with True. Examination and evaluation repeats until the iota would no longer create truth."
+  "hextweaks.page.hextweaks_utility.while": "Removes a pattern list from the stack. Examines (but does not remove) the iota beneath it, and evaluates the pattern list if and only if $(l:patterns/logic#hexcasting:bool_coerce)Augur's Purification$() would respond to that iota with True. Examination and evaluation repeats until the iota would no longer create truth.",
+
+  "hextweaks.entity.sbe": "Ritual Beacon",
+  "hextweaks.ritual.reset": "Ritual of Resetting",
+  "hextweaks.page.hextweaks_utility.sbe": "Gets all Active ritual entities within the specified range$(br)$(br)HexTweaks also makes a mixin so Compass Prfn's no longer do a ambit check"
 }

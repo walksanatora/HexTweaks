@@ -1,5 +1,6 @@
 package net.walksantor.hextweaks.fabric
 
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import de.dafuqs.spectrum.blocks.titration_barrel.TitrationBarrelBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.monster.Witch
@@ -12,7 +13,8 @@ import kotlin.math.min
 
 object AccelerateFlay {
     fun skip12hours(input: MindflayInput): MindflayResult {
-        val pos = input.target.right().getOrNull()?.vec3 ?: return MindflayResult(false) //not a position
+        if (input.target !is Vec3Iota) return  MindflayResult(false)
+        val pos = (input.target as Vec3Iota).vec3
         val env = input.env
         if (env.isVecInRange(pos)) {return MindflayResult(false)}
         val blockpos = BlockPos(

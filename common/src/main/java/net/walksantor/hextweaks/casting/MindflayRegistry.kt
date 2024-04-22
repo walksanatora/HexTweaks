@@ -10,10 +10,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.npc.Villager
 import net.walksantor.hextweaks.HexTweaks
-import net.walksantor.hextweaks.casting.mindflay.MindflayInput
-import net.walksantor.hextweaks.casting.mindflay.MindflayResult
-import net.walksantor.hextweaks.casting.mindflay.MindflaySlipwayRitual
-import net.walksantor.hextweaks.casting.mindflay.RestockingRitual
+import net.walksantor.hextweaks.casting.mindflay.*
 import java.util.function.Function
 import kotlin.math.pow
 
@@ -77,6 +74,12 @@ object MindflayRegistry {
     }
 
     fun register() {
+        if (HexTweaks.CONFIG!!.enableChunkreset) {
+            put(
+                ResourceLocation(HexTweaks.MOD_ID, "reset_chunk"),
+                StartResetChunkRitual::start
+            )
+        }
         if (Platform.isModLoaded("hexal")) {
             put(
                 ResourceLocation(HexTweaks.MOD_ID,"slipway/create"),
@@ -91,5 +94,6 @@ object MindflayRegistry {
             ResourceLocation(HexTweaks.MOD_ID, "restock"),
             RestockingRitual::restockVillager
         )
+
     }
 }

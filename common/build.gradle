@@ -15,9 +15,8 @@ dependencies {
     modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
     modCompileOnly "maven.modrinth:ducky-periphs:FYDI2Gut"
     modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
-    modImplementation files("${rootProject.rootDir}/libs/hexal-fabric-1.20.1-0.3.0-2.jar")
+    modCompileOnly files("${rootProject.rootDir}/libs/hexal-fabric-1.20.1-0.3.0-2.jar")
     modImplementation files("${rootProject.rootDir}/libs/moreiotas-fabric-1.20.1-0.1.0-4.jar")
-
     modCompileOnly("maven.modrinth:plethora-peripherals:5pxGGDeh") // yes plethora is something we depend on... kinda
     modCompileOnly("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT")
 }

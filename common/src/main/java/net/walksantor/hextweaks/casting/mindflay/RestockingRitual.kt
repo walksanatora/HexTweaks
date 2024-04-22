@@ -1,14 +1,14 @@
 package net.walksantor.hextweaks.casting.mindflay
 
+import at.petrak.hexcasting.api.casting.iota.EntityIota
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.npc.Villager
 import net.walksantor.hextweaks.casting.MindflayRegistry
 
 object RestockingRitual {
     fun restockVillager(input: MindflayInput): MindflayResult {
-        if (input.target.left().isEmpty)
-            return MindflayResult(false) // the target is not a entity
-        val target = input.target.left().get().entity
+        if (input.target !is EntityIota) return MindflayResult(false)
+        val target = input.target.entity
         if (target !is Villager)
             return MindflayResult(false) // the target is not a villager
 

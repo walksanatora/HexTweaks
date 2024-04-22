@@ -1,12 +1,12 @@
 package net.walksantor.hextweaks.entities
 
-import at.petrak.hexcasting.api.item.MediaHolderItem
 import at.petrak.hexcasting.api.utils.getBoolean
-import at.petrak.hexcasting.api.utils.getCompound
-import at.petrak.hexcasting.api.utils.putBoolean
+import at.petrak.hexcasting.api.utils.getInt
+import at.petrak.hexcasting.api.utils.getLong
 import at.petrak.hexcasting.api.utils.putCompound
+import at.petrak.hexcasting.xplat.IXplatAbstractions
 import com.mojang.blaze3d.vertex.PoseStack
-import io.sc3.plethora.mixin.client.WorldRendererMixin
+import dev.architectury.platform.Platform
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.LevelRenderer
 import net.minecraft.client.renderer.MultiBufferSource
@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.block.BlockRenderDispatcher
 import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
-import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerBossEvent
@@ -44,13 +43,12 @@ import kotlin.math.sqrt
 
 class SpellBeaconEntity(entityType: EntityType<out LivingEntity>, level: Level) : LivingEntity(entityType, level) {
     val boss_event = ServerBossEvent(this.displayName, BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)
-        .setDarkenScreen(true) as ServerBossEvent;
-
-    val lamb: UUID? = null //the sacraficial player lamb incase something goes horriby wrong
+        .setDarkenScreen(true) as ServerBossEvent
+    var owner: UUID? = null
     var ritual: HexRitual? = null // the ritual being performed
     var media_till_next_stage = 0L
     var ticks_till_next_stage = 0
-
+    var final_countdown = 0
 
     init {
         noPhysics = true
@@ -80,21 +78,28 @@ class SpellBeaconEntity(entityType: EntityType<out LivingEntity>, level: Level) 
             val loc = rit.getLocation()
             compound.putString("ritual_ns",loc.namespace)
             compound.putString("ritual_path",loc.path)
-            compound.putCompound("ritual",rit.saveState())
+            compound.putInt("ticks_left",ticks_till_next_stage)
+            compound.putLong("media_left",media_till_next_stage)
+            val tag = CompoundTag()
+            rit.saveState(tag)
+            compound.putCompound("ritual",tag)
         }
+        compound.putInt("countdown",final_countdown)
+        compound.putUUID("owner", owner)
     }
 
     override fun readAdditionalSaveData(compound: CompoundTag) {
         super.readAdditionalSaveData(compound)
-        compound.getBoolean("has_ritual",defaultExpected = false)
+        final_countdown = compound.getInt("countdown",0)
+        owner = compound.getUUID("owner")
         if (compound.getBoolean("has_ritual",defaultExpected = false)) {
             val resloc = ResourceLocation(
                 compound.getString("ritual_ns"),
                 compound.getString("ritual_path")
             )
-            ritual = HexRitualRegistry.getFactory(resloc).apply(compound.getCompound("ritual"),level(),boss_event)
-            ticks_till_next_stage = ritual!!.getTimeForStep()
-            media_till_next_stage = ritual!!.getMediaForStep()
+            ritual = HexRitualRegistry.getFactory(resloc).apply(boss_event,compound.getCompound("ritual"))
+            ticks_till_next_stage = compound.getInt("ticks_left", ritual!!.stepTime)
+            media_till_next_stage = compound.getLong("media_left", ritual!!.stepMedia)
         }
     }
 
@@ -116,20 +121,91 @@ class SpellBeaconEntity(entityType: EntityType<out LivingEntity>, level: Level) 
         ).fireImmune().canSpawnFarFromPlayer().sized(1f,1f)
 
         fun createAttributes(): AttributeSupplier.Builder = Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 100.0).add(Attributes.MOVEMENT_SPEED, 0.0)
+
+        val entity_predicate = run {
+            if (Platform.isModLoaded("hexal")) {
+                { parent: SpellBeaconEntity ->
+                    { it: Entity ->
+                        if (it is ItemEntity) {
+                            IXplatAbstractions.INSTANCE.findMediaHolder(it.item) != null
+                        } else if (it is BaseWisp) {
+                            it.owner() == it.uuid || it.owner() == parent.owner //consume if it is unowned. or it is owned by the creator
+                        } else {
+                            false
+                        }
+                    }
+                }
+            } else {
+                { _ ->
+                    { it: Entity ->
+                        if (it is ItemEntity) {
+                            IXplatAbstractions.INSTANCE.findMediaHolder(it.item) != null
+                        } else {
+                            false
+                        }
+                    }
+                }
+            }
+        }
+
+        val entity_to_media = run {
+            if (Platform.isModLoaded("hexal")) {
+                { it: Entity ->
+                    if (it is ItemEntity) {
+                        IXplatAbstractions.INSTANCE.findMediaHolder(it.item)!!.withdrawMedia(-1,false)
+                    } else if (it is BaseWisp) {
+                        it.media
+                    } else { 0 }
+                }
+            } else {
+                { it: Entity ->
+                    if (it is ItemEntity) {
+                        IXplatAbstractions.INSTANCE.findMediaHolder(it.item)!!.withdrawMedia(-1, false)
+                    } else { 0 }
+                }
+            }
+        }
     }
 
     override fun tick() {
         super.tick()
         //boss_event.progress = this.health / this.maxHealth
         if (level().isClientSide()) {return}
-        ritual?.tick()
+        if (ritual == null) {return}
+        if (final_countdown > 0) {
+            final_countdown -= 1
+            if (final_countdown == 0) {
+                ritual!!.ritualFinished(this)
+                ritual = null
+                this.kill()
+            } else {
+                boss_event.progress = final_countdown.toFloat() / ritual!!.countdown
+            }
+            return
+        }
+        ritual!!.tick(ticks_till_next_stage,media_till_next_stage)
         if (ticks_till_next_stage > 0) {ticks_till_next_stage -= 1}
-        val consumables = level().getEntitiesOfClass(Entity::class.java, AABB.ofSize(position(),3.0,3.0,3.0)) { it: Entity ->
-            if (it is ItemEntity) {
-                it.item.item is MediaHolderItem
-            } else if (it is BaseWisp) {
-                true
-            } else { false }
+        val consumables = level().getEntitiesOfClass(Entity::class.java, AABB.ofSize(position(),3.0,3.0,3.0),entity_predicate.invoke(this))
+        if (consumables.isNotEmpty()) {
+            println(consumables)
+            if (media_till_next_stage > 0) {
+                val media = consumables.map(entity_to_media).sum()
+                if (media >= media_till_next_stage) {media_till_next_stage = 0} else {media_till_next_stage -= media}
+                val slevel = level() as ServerLevel
+                consumables.onEach {
+                    it.kill()
+                } //remove it since we consumed it
+            }
+        }
+        if ((ticks_till_next_stage <= 0) && (media_till_next_stage <= 0)) {
+            ritual!!.stepFinished()
+            if (ritual!!.stepsCompleted < ritual!!.totalSteps) {
+                ticks_till_next_stage = ritual!!.stepTime
+                media_till_next_stage = ritual!!.stepMedia
+            } else {
+                boss_event.color = BossEvent.BossBarColor.RED
+                final_countdown = ritual!!.countdown
+            }
         }
     }
 
@@ -155,8 +231,6 @@ class SpellBeaconEntity(entityType: EntityType<out LivingEntity>, level: Level) 
 }
 
 class SpellBeaconEntityRender(context: EntityRendererProvider.Context) : EntityRenderer<SpellBeaconEntity>(context) {
-    var rotate_velocity = null
-
     override fun render(
         entity: SpellBeaconEntity,
         entityYaw: Float,
@@ -178,7 +252,7 @@ class SpellBeaconEntityRender(context: EntityRendererProvider.Context) : EntityR
                 blockRender.renderSingleBlock(Blocks.AMETHYST_BLOCK.defaultBlockState(),poseStack,buffer,packedLight,0)
             poseStack.popPose()
         poseStack.popPose()
-        LevelRenderer.renderLineBox(poseStack,buffer.getBuffer(RenderType.LINES),AABB.ofSize(entity.position(),3.0,3.0,3.0),0.5f,0.0f,0.5f,1.0f)
+        LevelRenderer.renderLineBox(poseStack,buffer.getBuffer(RenderType.debugLineStrip(10.0)),AABB.ofSize(entity.position(),3.0,3.0,3.0),0.5f,0.0f,0.5f,1.0f)
     }
 
     override fun getTextureLocation(entity: SpellBeaconEntity): ResourceLocation = ResourceLocation(HexTweaks.MOD_ID,"sbe_tex")
