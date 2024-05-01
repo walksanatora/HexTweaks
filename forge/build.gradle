@@ -55,7 +55,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    modCompileOnly "com.sk89q.worldedit:worldedit-fabric-mc1.20:7.3.0-SNAPSHOT"
+    modCompileOnly "com.sk89q.worldedit:worldedit-forge-mc1.20:7.3.0-SNAPSHOT"
 
     //CC deps
 //    modImplementation("io.github.tropheusj:serialization-hooks:${rootProject.serhooks_version}")

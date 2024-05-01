@@ -4,6 +4,7 @@ package net.walksantor.hextweaks.casting
 
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
+import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Registry
@@ -17,7 +18,8 @@ import net.walksantor.hextweaks.casting.iota.RitualIota
 object HexTweaksIotaTypes {
     val IOTATYPE = DeferredRegister.create(
         HexTweaks.MOD_ID,
-        IXplatAbstractions.INSTANCE.iotaTypeRegistry.key() as ResourceKey<Registry<IotaType<*>>>)
+        HexRegistries.IOTA_TYPE
+    )
 
     val BYTEARRAY = type("bytearray",ByteArrayIota.ByteArrayIotaType())
     val BYTE = type("byte",ByteIota.ByteIotaType())

@@ -1,8 +1,6 @@
 package net.walksantor.hextweaks
 
-import at.petrak.hexcasting.api.casting.ActionRegistryEntry
-import at.petrak.hexcasting.api.casting.castables.SpecialHandler
-import at.petrak.hexcasting.xplat.IXplatAbstractions
+import at.petrak.hexcasting.common.lib.HexRegistries
 import dan200.computercraft.api.client.ComputerCraftAPIClient
 import dan200.computercraft.api.client.turtle.TurtleUpgradeModeller
 import dan200.computercraft.api.pocket.PocketUpgradeSerialiser
@@ -11,9 +9,7 @@ import dev.architectury.registry.client.level.entity.EntityRendererRegistry
 import dev.architectury.registry.level.entity.EntityAttributeRegistry
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Holder
-import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageType
@@ -42,8 +38,10 @@ object HexTweaksRegistry {
     val BLOCKS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.BLOCK)
     val ITEMS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ITEM)
     val ENTITY_TYPES = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ENTITY_TYPE)
-    val SPECIAL_HANDLERS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.specialHandlerRegistry.key() as ResourceKey<Registry<SpecialHandler.Factory<*>>>)
-    val ACTIONS = DeferredRegister.create(HexTweaks.MOD_ID,IXplatAbstractions.INSTANCE.actionRegistry.key() as ResourceKey<Registry<ActionRegistryEntry>>)
+
+
+    val SPECIAL_HANDLERS = DeferredRegister.create(HexTweaks.MOD_ID, HexRegistries.SPECIAL_HANDLER)
+    val ACTIONS = DeferredRegister.create(HexTweaks.MOD_ID, HexRegistries.ACTION)
 
 
     val WAND_POCKET = POCKET_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandPocketUpgrade.UpgradeSerialiser() }

@@ -2,6 +2,7 @@ package net.walksantor.hextweaks.casting
 
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.eval.vm.ContinuationFrame
+import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.xplat.IXplatAbstractions
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Registry
@@ -13,7 +14,7 @@ import java.util.HashMap
 import java.util.LinkedHashMap
 
 object HexTweaksContinuationTypes {
-    val CONTINUATION_REGISTRY = DeferredRegister.create("hextweaks",IXplatAbstractions.INSTANCE.continuationTypeRegistry.key() as ResourceKey<Registry<ContinuationFrame.Type<*>>>)
+    val CONTINUATION_REGISTRY = DeferredRegister.create(HexTweaks.MOD_ID, HexRegistries.CONTINUATION_TYPE)
     private val CONTINUATIONS: LinkedHashMap<ResourceLocation, ContinuationFrame.Type<*>> = LinkedHashMap()
 
     var WHILE = continuation("while",ContinuationWhile.WhileType)

@@ -58,10 +58,14 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
             val slice = expectedBitfield.slice(0..<min(bitfield.size,expectedBitfield.size))
             val bitsMatch = slice==bitfield.slice(0..<min(bitfield.size,expectedBitfield.size))
 
-            val diff = slice.indices.filter { slice[it] != bitfield[it] }
-            HexTweaks.LOGGER.info("recieved: $bitfield")
-            HexTweaks.LOGGER.info("expected: $slice")
-            HexTweaks.LOGGER.info("diffed: $diff")
+            var has_true = false
+            slice.onEach { has_true = has_true || it }
+            if (has_true) {
+                val diff = slice.indices.filter { slice[it] != bitfield[it] }
+                HexTweaks.LOGGER.info("recieved: $bitfield")
+                HexTweaks.LOGGER.info("expected: $slice")
+                HexTweaks.LOGGER.info("diffed: $diff")
+            }
 
             val ret = if (bitsMatch) {
                 val act = PatternRegistry.getGrandEntry(anglesigsNoBits,env)

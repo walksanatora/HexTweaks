@@ -3,13 +3,16 @@ package net.walksantor.hextweaks.computer
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
+import at.petrak.hexcasting.api.casting.iota.GarbageIota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.PatternIota
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
+import at.petrak.hexcasting.common.lib.hex.HexActions
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import com.samsthenerd.duckyperiphs.hexcasting.utils.IotaLuaUtils
+import dan200.computercraft.api.lua.IArguments
 import dan200.computercraft.api.lua.LuaFunction
 import dan200.computercraft.api.lua.MethodResult
 import dan200.computercraft.api.peripheral.IComputerAccess
@@ -54,9 +57,9 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
 
     @LuaFunction
     fun pushStack(obj: Any) {
-        if (vm.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
-            (vm.image.stack as MutableList).add(IotaLuaUtils.getIota(obj,getWorld()))
-        }
+        val stack = vm.image.stack.toMutableList()
+        stack.add(IotaLuaUtils.getIota(obj,getWorld()))
+        vm.image = vm.image.copy(stack) // please petrak I am crying and begging. make the stack mutable
     }
 
     @LuaFunction
@@ -111,9 +114,17 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     }
 
     @LuaFunction(mainThread = true)
-    fun runPattern(dir: String, pattern: String) {
-        val iota = PatternIota(HexPattern.fromAngles(pattern, HexDir.fromString(dir)))
-        (vm.env as ComputerCastingEnv).level = getWorld()
+    fun runPattern(args: IArguments) {
+        val iota = when (args.count()) {
+            0 -> PatternIota(HexActions.EVAL.prototype)
+            1 -> IotaLuaUtils.getIota(args.get(0),getWorld())
+            2 -> PatternIota(HexPattern.fromAngles(args.getString(1), HexDir.fromString(args.getString(0))))
+            else -> GarbageIota()
+        }
+        val world = getWorld()
+        if (vm.env.world != world) {
+            vm = CastingVM(vm.image,ComputerCastingEnv(vm.env as ComputerCastingEnv,world))
+        }
         vm.queueExecuteAndWrapIota(iota,getWorld())
     }
 

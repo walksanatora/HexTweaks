@@ -40,7 +40,11 @@ import java.util.*
 import java.util.function.Predicate
 import kotlin.math.absoluteValue
 
-class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,var level: ServerLevel,val computer: IComputerAccess) : MishapAwareCastingEnvironment(level) {
+class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : MishapAwareCastingEnvironment(level) {
+
+
+    constructor(old: ComputerCastingEnv, newWorld: ServerLevel) : this(old.turtleData,old.pocketData,newWorld,old.computer)
+
     private val mishap = run {
         if (turtleData == null) {
             if (pocketData!!.entity is ServerPlayer) {
