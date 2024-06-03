@@ -249,7 +249,7 @@ class SpellBeaconEntityRender(context: EntityRendererProvider.Context) : EntityR
                 poseStack.scale(scale,scale,scale)
                 poseStack.translate(offset,offset,offset)
                 //poseStack.rotateAround()
-                blockRender.renderSingleBlock(Blocks.AMETHYST_BLOCK.defaultBlockState(),poseStack,buffer,packedLight,0)
+                blockRender.renderSingleBlock(Blocks.AMETHYST_BLOCK.defaultBlockState(), poseStack, buffer, packedLight, 0)
             poseStack.popPose()
         poseStack.popPose()
         LevelRenderer.renderLineBox(poseStack,buffer.getBuffer(RenderType.debugLineStrip(10.0)),AABB.ofSize(entity.position(),3.0,3.0,3.0),0.5f,0.0f,0.5f,1.0f)
