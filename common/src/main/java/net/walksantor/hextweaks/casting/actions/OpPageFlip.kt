@@ -1,3 +1,5 @@
+package net.walksantor.hextweaks.casting.actions
+
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota

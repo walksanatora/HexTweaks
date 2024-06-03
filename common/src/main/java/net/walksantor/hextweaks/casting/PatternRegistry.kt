@@ -1,7 +1,6 @@
 package net.walksantor.hextweaks.casting
 
-import OpPageFlip
-import OpSuicide
+
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry
 import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
@@ -20,7 +19,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.actions.*
 import net.walksantor.hextweaks.entities.SpellBeaconEntity
-import ram.talia.hexal.common.lib.hex.HexalActions
 import java.util.*
 import java.util.function.BiConsumer
 import java.util.function.BiFunction
