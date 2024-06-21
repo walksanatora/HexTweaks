@@ -5,11 +5,15 @@ import dan200.computercraft.api.client.ComputerCraftAPIClient
 import dan200.computercraft.api.client.turtle.TurtleUpgradeModeller
 import dan200.computercraft.api.pocket.PocketUpgradeSerialiser
 import dan200.computercraft.api.turtle.TurtleUpgradeSerialiser
+import dev.architectury.platform.Platform
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry
 import dev.architectury.registry.level.entity.EntityAttributeRegistry
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Holder
+import net.minecraft.core.Registry
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageType
@@ -32,25 +36,21 @@ import net.walksantor.hextweaks.items.VirtualPigment
 
 object HexTweaksRegistry {
     var REGISTERED = false
+    val regMap: HashMap<ResourceKey<Registry<*>>,DeferredRegister<*>> = HashMap();
 
-    val POCKET_SERIALS = DeferredRegister.create(HexTweaks.MOD_ID,PocketUpgradeSerialiser.registryId())
-    val TURTLE_SERIALS = DeferredRegister.create(HexTweaks.MOD_ID,TurtleUpgradeSerialiser.registryId())
-    val BLOCKS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.BLOCK)
-    val ITEMS = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ITEM)
-    val ENTITY_TYPES = DeferredRegister.create(HexTweaks.MOD_ID,Registries.ENTITY_TYPE)
+    // vanilla registries
+    val BLOCKS = reg(Registries.BLOCK)
+    val ITEMS = reg(Registries.ITEM)
+    val ENTITY_TYPES = reg(Registries.ENTITY_TYPE)
 
-
-    val SPECIAL_HANDLERS = DeferredRegister.create(HexTweaks.MOD_ID, HexRegistries.SPECIAL_HANDLER)
-    val ACTIONS = DeferredRegister.create(HexTweaks.MOD_ID, HexRegistries.ACTION)
-
+    val SPECIAL_HANDLERS = reg(HexRegistries.SPECIAL_HANDLER)
+    val ACTIONS = reg(HexRegistries.ACTION)
+    val POCKET_SERIALS = reg(PocketUpgradeSerialiser.registryId())
+    val TURTLE_SERIALS = reg(TurtleUpgradeSerialiser.registryId())
 
     val WAND_POCKET = POCKET_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandPocketUpgrade.UpgradeSerialiser() }
     val WAND_TURTLE = TURTLE_SERIALS.register(ResourceLocation(HexTweaks.MOD_ID,"wand")) { WandTurtleUpgrade.UpgradeSerializer() }
 
-    val CONJURED_BUTTON = BLOCKS.register(ResourceLocation(HexTweaks.MOD_ID,"conjbutton")) { ConjuredButton(Properties.copy(Blocks.STONE_BUTTON)) }
-    val CONJURED_BUTTON_ITEM = ITEMS.register(ResourceLocation(HexTweaks.MOD_ID,"conjbutton")) { BlockItem(
-        CONJURED_BUTTON.get(), Item.Properties())
-    }
     val RGB_PIGMENT = ITEMS.register(ResourceLocation(HexTweaks.MOD_ID,"rgb_pigment")) {
         VirtualPigment(Item.Properties().stacksTo(-1));
     }
@@ -64,30 +64,54 @@ object HexTweaksRegistry {
         SpellBeaconEntity.BUILDER.build("sbe")
     }
 
-    fun register() {
-        if (REGISTERED) {return}
-        POCKET_SERIALS.register()
-        TURTLE_SERIALS.register()
-        BLOCKS.register()
-        ITEMS.register()
-        SPECIAL_HANDLERS.register()
-        HexTweaksIotaTypes.register()
-        ENTITY_TYPES.register()
-        EntityAttributeRegistry.register({ SPELL_BEACON_ENTITY.get()}, {SpellBeaconEntity.createAttributes()})
-        PatternRegistry.register { are, rl -> ACTIONS.register(rl) { are } }
-        ACTIONS.register()
+    fun init() {
+        if (Platform.isForge()) {
+            EntityAttributeRegistry.register({ SPELL_BEACON_ENTITY.get()}, {SpellBeaconEntity.createAttributes()})
+        }
+        HexTweaksIotaTypes.init()
         MindflayRegistry.register()
-        HexTweaksContinuationTypes.register()
-        REGISTERED = true
+        HexTweaksContinuationTypes.init()
+    }
+
+    fun register(key: ResourceKey<Registry<*>>?) {
+        if (!REGISTERED) {
+            PatternRegistry.register { are, rl -> ACTIONS.register(rl) { are } }
+            REGISTERED = true
+        }
+        if (key == null) {
+            POCKET_SERIALS.register()
+            TURTLE_SERIALS.register()
+            BLOCKS.register()
+            ITEMS.register()
+            SPECIAL_HANDLERS.register()
+            HexTweaksIotaTypes.IOTATYPE.register()
+            ENTITY_TYPES.register()
+            EntityAttributeRegistry.register({ SPELL_BEACON_ENTITY.get()}, {SpellBeaconEntity.createAttributes()})
+            ACTIONS.register()
+//            MindflayRegistry.register()
+            HexTweaksContinuationTypes.CONTINUATION_REGISTRY.register()
+        } else {
+            val reg3 = regMap[key]
+            if (reg3 != null) {
+                reg3.register()
+            } else {
+                HexTweaks.LOGGER.warn("Registry type {} does not exists in regMap",key)
+            }
+        }
     }
 
     fun model() {
-        //lateinit on forge...
+        //client init on forge...
         ComputerCraftAPIClient.registerTurtleUpgradeModeller(
             WAND_TURTLE.get(),
             TurtleUpgradeModeller.flatItem()
         )
-
         EntityRendererRegistry.register({ SPELL_BEACON_ENTITY.get()}, { ctx -> SpellBeaconEntityRender(ctx) })
+    }
+
+    fun <T> reg(key: ResourceKey<Registry<T>>): DeferredRegister<T> {
+        val reg2 = DeferredRegister.create(HexTweaks.MOD_ID,key)
+        regMap[key as ResourceKey<Registry<*>>] = reg2
+        return reg2
     }
 }

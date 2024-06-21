@@ -5,12 +5,12 @@ package net.walksantor.hextweaks.casting
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.common.lib.HexRegistries
-import at.petrak.hexcasting.xplat.IXplatAbstractions
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.walksantor.hextweaks.HexTweaks
+import net.walksantor.hextweaks.HexTweaksRegistry
 import net.walksantor.hextweaks.casting.iota.ByteArrayIota
 import net.walksantor.hextweaks.casting.iota.ByteIota
 import net.walksantor.hextweaks.casting.iota.RitualIota
@@ -35,7 +35,7 @@ object HexTweaksIotaTypes {
         return type
     }
 
-    fun register() {
-        IOTATYPE.register()
+    fun init() {
+        HexTweaksRegistry.regMap[HexRegistries.IOTA_TYPE as ResourceKey<Registry<*>>] = IOTATYPE
     }
 }

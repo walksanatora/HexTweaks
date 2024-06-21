@@ -8,6 +8,7 @@
   "mixins": [
     "ComputerAccesssor",
     "EnvironmentAccessor",
+    "MixinClericReporting",
     "MixinClericReportLocation",
     "MixinOpEntityPos",
     "MixinOperatorSideeffect",

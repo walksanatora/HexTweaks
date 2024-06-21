@@ -64,6 +64,13 @@ object PatternRegistry {
         HexDir.SOUTH_EAST,"qqqqqwdeddeeawaeaw", "sbe_entities", OpGetEntitiesBy({ it is SpellBeaconEntity},false)
     )
 
+    val GETWAVE = pattern(
+        HexDir.SOUTH_EAST, "qdewedq", "wave", OpWaveRefl
+    )
+    val SLATE_NORMAL = pattern(
+        HexDir.SOUTH_EAST, "qdewedqwqaq", "normal", OpSlateNormal
+    )
+
 
 
     init {

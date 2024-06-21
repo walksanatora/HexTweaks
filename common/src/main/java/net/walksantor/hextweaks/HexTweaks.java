@@ -26,6 +26,7 @@ public class HexTweaks {
 
     public static void breakpoint() {
         LOGGER.info("breakpoints sometimes fail. call me instead!");
+        new Exception("Breakpoint").printStackTrace();
     }
 
     public static void init() {

@@ -1,0 +1,26 @@
+{
+  "name": "hextweaks.entry.hextweaks_pe",
+  "category": "hexcasting:patterns",
+  "icon": "hexcasting:quenched_allay",
+  "sortnum": 13,
+  "advancement": "hexcasting:enlightenment",
+  "entry_color": "54398a",
+  "pages": [
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "hextweaks:wave",
+      "anchor": "hextweaks:wave",
+      "input": "",
+      "output": "vector",
+      "text": "hextweaks.page.hextweaks_pe.wave"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "hextweaks:normal",
+      "anchor": "hextweaks:normal",
+      "input": "",
+      "output": "vector",
+      "text": "hextweaks.page.hextweaks_pe.normal"
+    }
+  ]
+}

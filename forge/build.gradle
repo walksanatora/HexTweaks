@@ -25,6 +25,10 @@ repositories {
         name = 'Kotlin for Forge'
         url = 'https://thedarkcolour.github.io/KotlinForForge/'
     }
+    maven {
+        url = "https://maven.theillusivec4.top"
+    }
+
 }
 
 configurations {
@@ -43,25 +47,23 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
-    modImplementation "at.petra-k.hexcasting:hexcasting-forge-1.20.1:${rootProject.hexcasting_version}"
+    modApi("at.petra-k.hexcasting:hexcasting-forge-1.20.1:${rootProject.hexcasting_version}") {transitive false}
+    modImplementation "at.petra-k.paucal:paucal-forge-${rootProject.minecraft_version}:${rootProject.paucal_version}"
+    modLocalRuntime "top.theillusivec4.caelus:caelus-forge:${rootProject.caelus_version}"
+    modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.clothconfig_version}")
+
     modCompileOnly("cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-forge-api:${rootProject.cct_version}")
     modRuntimeOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-forge:${rootProject.cct_version}"
 
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.6"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:0.3.6"))
+
     //hexcasting deps
     modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FORGE"
-    modImplementation 'thedarkcolour:kotlinforforge:3.8.0'
-    modImplementation "at.petra-k.paucal:paucal-forge-${rootProject.minecraft_version}:${rootProject.paucal_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.clothconfig_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
+    implementation 'thedarkcolour:kotlinforforge:4.3.0'
 
     modCompileOnly "com.sk89q.worldedit:worldedit-forge-mc1.20:7.3.0-SNAPSHOT"
 
-    //CC deps
-//    modImplementation("io.github.tropheusj:serialization-hooks:${rootProject.serhooks_version}")
-//    include("io.github.tropheusj:serialization-hooks:${rootProject.serhooks_version}")
-//    modImplementation "io.github.llamalad7:mixinextras-fabric:0.3.2"
-//    include "io.github.llamalad7:mixinextras-fabric:0.3.2"
 }
 
 processResources {

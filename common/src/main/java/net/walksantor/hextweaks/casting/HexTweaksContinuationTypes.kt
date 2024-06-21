@@ -3,14 +3,13 @@ package net.walksantor.hextweaks.casting
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.eval.vm.ContinuationFrame
 import at.petrak.hexcasting.common.lib.HexRegistries
-import at.petrak.hexcasting.xplat.IXplatAbstractions
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.walksantor.hextweaks.HexTweaks
+import net.walksantor.hextweaks.HexTweaksRegistry
 import net.walksantor.hextweaks.casting.continuation.ContinuationWhile
-import java.util.HashMap
 import java.util.LinkedHashMap
 
 object HexTweaksContinuationTypes {
@@ -25,9 +24,10 @@ object HexTweaksContinuationTypes {
         return continuation
     }
 
-    fun register() {
+    fun init() {
         for (entry in CONTINUATIONS) {
             CONTINUATION_REGISTRY.register(entry.key) { entry.value }
         }
+        HexTweaksRegistry.regMap[HexRegistries.CONTINUATION_TYPE as ResourceKey<Registry<*>>] = CONTINUATION_REGISTRY
     }
 }

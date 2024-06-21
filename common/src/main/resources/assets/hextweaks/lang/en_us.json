@@ -52,6 +52,14 @@
   "hexcasting.action.hextweaks:while": "Heket's Gambit",
   "hextweaks.page.hextweaks_utility.while": "Removes a pattern list from the stack. Examines (but does not remove) the iota beneath it, and evaluates the pattern list if and only if $(l:patterns/logic#hexcasting:bool_coerce)Augur's Purification$() would respond to that iota with True. Examination and evaluation repeats until the iota would no longer create truth.",
 
+  "hextweaks.entry.hextweaks_pe": "Hextweaks Post Enlightenment",
+
+  "hexcasting.action.hextweaks:wave": "Wave Reflection",
+  "hextweaks.page.hextweaks_pe.wave": "Returns the posistion of the $(item)Wave$() of media passing through a $(l:greatwork/impetus)Spell Circle$()",
+
+  "hexcasting.action.hextweaks:normal": "Normals reflection",
+  "hextweaks.page.hextweaks_pe.normal": "Returns the $(item)normal$() of the $(item)slate$() the $(item)Wave$() is on in the $(l:greatwork/impetus)Spell Circle$()",
+
   "hextweaks.entity.sbe": "Ritual Beacon",
   "hextweaks.ritual.reset": "Ritual of Resetting",
   "hextweaks.page.hextweaks_utility.sbe": "Gets all Active ritual entities within the specified range$(br)$(br)HexTweaks also makes a mixin so Compass Prfn's no longer do a ambit check"

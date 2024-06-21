@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.DirectionalPlaceContext
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.Vec3
 import net.walksantor.hextweaks.HexTweaksRegistry
 
@@ -55,7 +56,7 @@ class OpConjureButton : SpellAction {
 
             val worldState = env.world.getBlockState(pos)
             if (worldState.canBeReplaced(placeContext)) {
-                val block = HexTweaksRegistry.CONJURED_BUTTON.get()
+                val block = Blocks.AIR// HexTweaksRegistry.CONJURED_BUTTON.get()
 
                 if (!IXplatAbstractions.INSTANCE.isPlacingAllowed(env.world, pos, ItemStack(block), env.caster))
                     return

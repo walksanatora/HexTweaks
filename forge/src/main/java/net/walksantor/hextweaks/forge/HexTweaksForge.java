@@ -1,6 +1,8 @@
 package net.walksantor.hextweaks.forge;
 
 import dev.architectury.platform.forge.EventBuses;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -17,12 +19,15 @@ public class HexTweaksForge {
         // Submit our event bus to let architectury register our content on the right time
         EventBuses.registerModEventBus(HexTweaks.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         HexTweaks.init();
+        HexTweaksRegistry.INSTANCE.init();
     }
 
     @SubscribeEvent
     public static void register(RegisterEvent event) {
-        HexTweaks.LOGGER.info("performing registration on FORGE");
-        HexTweaksRegistry.INSTANCE.register();
+        ResourceKey<Registry<?>> key = (ResourceKey<Registry<?>>) event.getRegistryKey();
+        HexTweaksRegistry.INSTANCE.register(key);
+//        HexTweaks.LOGGER.info("performing registration on FORGE");
+//        HexTweaksRegistry.INSTANCE.register();
     }
 
     @SubscribeEvent
