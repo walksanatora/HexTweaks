@@ -134,8 +134,15 @@ object PatternRegistry {
                             )
                         )
                     }
+                } else if (parent.prototype.angles == angles) {
+                    return@registerAlternative Optional.of(
+                        Pair(
+                            action,
+                            ResourceLocation("hextweaks",name)
+                        )
+                    )
                 }
-                return@registerAlternative Optional.empty()
+                return@registerAlternative Optional.empty<Pair<Action,ResourceLocation>>()
             }
         } else {
             val resourceLocation = ResourceLocation("hextweaks",name)
