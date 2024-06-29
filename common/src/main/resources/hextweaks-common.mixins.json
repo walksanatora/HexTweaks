@@ -1,16 +1,17 @@
 {
-	"required": true,
-	"package": "net.walksanator.hextweaks.mixin",
-	"minVersion": "0.8",
-	"compatibilityLevel": "JAVA_17",
-	"client": [
-	],
-	"mixins": [
-		"MixinPatternRegistry",
-		"MixinPerWorldEntry",
-		"MixinRegularEntry"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "net.walksanator.hextweaks.mixin",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+  ],
+  "mixins": [
+    "MixinPatternRegistry",
+    "MixinPerWorldEntry",
+    "MixinRegularEntry",
+    "SequencedItemFlaying"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
