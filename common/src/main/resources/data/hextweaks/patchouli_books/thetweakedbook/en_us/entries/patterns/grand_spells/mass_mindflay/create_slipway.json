@@ -3,7 +3,7 @@
 	"category": "hextweaks:patterns/grand_spells/mass_mindflay",
 	"icon": "minecraft:amethyst_block",
 	"sortnum": 80,
-	"advancement": "hexcasting:root",
+	"advancement": "hexcasting:enlightenment",
 	"read_by_default": true,
 	"flag": "mod:hexal",
 	"pages": [

@@ -12,7 +12,7 @@
 			"text": "hextweaks.page.grand.reroll",
 			"op_id": "hextweaks:grand/reroll",
 			"anchor": "hextweaks:grand/reroll",
-			"input": "Entity",
+			"input": "entity",
 			"output": ""
 		}
 	]

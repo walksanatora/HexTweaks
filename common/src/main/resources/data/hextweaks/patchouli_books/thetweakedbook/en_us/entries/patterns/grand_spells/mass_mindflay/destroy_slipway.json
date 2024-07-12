@@ -3,8 +3,8 @@
 	"category": "hextweaks:patterns/grand_spells/mass_mindflay",
 	"icon": "hexcasting:amethyst_dust_block",
 	"sortnum": 16,
-	"advancement": "hexcasting:root",
-	"read_by_default": true,
+	"advancement": "hexcasting:enlightenment",
+	"read_by_default": false,
 	"flag": "mod:hexal",
 	"pages": [
 		{

@@ -12,7 +12,7 @@
 			"text": "hextweaks.page.grand.massmindflay",
 			"op_id": "hextweaks:grand/massbrainsweep",
 			"anchor": "hextweaks:grand/massbrainsweep",
-			"input": "[Entity], any",
+			"input": "[entity], any",
 			"output": ""
 		}
 	]
