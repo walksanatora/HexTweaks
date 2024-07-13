@@ -3,7 +3,7 @@
   "id": "hextweaks",
   "version": "${version}",
   "name": "HexTweaks",
-  "description": "Adds some ustfull things to hexcasting",
+  "description": "Adds some useful things to hexcasting",
   "authors": [
 	"Walksanator"
   ],
@@ -11,7 +11,7 @@
 	"homepage": "https://google.com/",
 	"sources": "https://github.com/walksanatora/Hextweaks"
   },
-  "license": "Do Whatever",
+  "license": "WTFPL",
   "icon": "assets/hextweaks/icon.png",
   "environment": "*",
   "entrypoints": {
