@@ -1,28 +1,36 @@
 package net.walksantor.hextweaks.computer
 
+import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.iota.*
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
+import com.google.gson.GsonBuilder
 import com.mojang.brigadier.exceptions.CommandSyntaxException
 import com.mojang.datafixers.util.Either
 import dan200.computercraft.shared.util.NBTUtil
 import dev.architectury.platform.Platform
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.TagParser
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.phys.Vec3
 import net.walksantor.hextweaks.HexTweaks
+import net.walksantor.hextweaks.SecurityLevel
 import org.jblas.DoubleMatrix
 import ram.talia.moreiotas.api.casting.iota.*
 import ram.talia.moreiotas.common.lib.hex.MoreIotasIotaTypes
+import java.util.*
+import kotlin.collections.HashMap
 
 
 object IotaSerdeRegistry {
@@ -131,6 +139,61 @@ object IotaSerdeRegistry {
                     HexDir.fromString(value["startDir"] as String)
                 )
             )
+        })
+        register(modloc("vec3"), HexIotaTypes.VEC3, object : IotaSerde<Vec3Iota> {
+            override fun serialize(input: Vec3Iota): Any = mutableMapOf(
+                "x" to input.vec3.x,
+                "y" to input.vec3.y,
+                "z" to input.vec3.z
+            )
+
+            override fun deserialize(value: Map<*, *>, world: Level): Vec3Iota? {
+                val x = (value["x"] as? Number)?.toDouble()?: return null
+                val y = (value["y"] as? Number)?.toDouble()?: return null
+                val z = (value["z"] as? Number)?.toDouble()?: return null
+                return Vec3Iota(Vec3(x,y,z))
+            }
+        })
+        //to be considdered: ContinuationIota, EntityIota
+        register(modloc("continuation"), HexIotaTypes.CONTINUATION, object : IotaSerde<ContinuationIota> {
+            private val GSON = GsonBuilder().setLenient().create()
+            override fun serialize(input: ContinuationIota): Any =
+                mutableMapOf(
+                    "continuation_stack" to GSON.toJson(input.continuation)
+                )
+
+            override fun deserialize(value: Map<*, *>, world: Level): ContinuationIota? {
+                if (HexTweaks.CONFIG!!.allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
+                val stack = GSON.fromJson(
+                    value["continuation_stack"] as? String?: return null,
+                    SpellContinuation::class.java
+                )?: return null
+                return ContinuationIota(stack)
+            }
+        })
+        register(modloc("entity"), HexIotaTypes.ENTITY, object : IotaSerde<EntityIota> {
+            override fun serialize(input: EntityIota): Any? {
+                val tag = input.serialize() as CompoundTag
+                val uuid = tag.getUUID("uuid")
+                val name = tag.getString("name")
+                return  mutableMapOf(
+                    "uuid" to uuid.toString(),
+                    "name" to name
+                )
+            }
+
+            override fun deserialize(value: Map<*, *>, world: Level): EntityIota? {
+                if (HexTweaks.CONFIG!!.allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
+                val uuid = UUID.fromString(value["uuid"] as? String?: return null)
+                if (HexTweaks.CONFIG!!.allowUnsafeDeserialization == SecurityLevel.TRUENAME) {
+                    if (!world.server!!.profileCache!!.get(uuid).isPresent) {
+                        return null
+                    }
+                }
+                val ctag = CompoundTag()
+                ctag.putUUID("uuid", uuid)
+                return HexIotaTypes.ENTITY.deserialize(ctag, world as ServerLevel)
+            }
         })
     }
 
@@ -260,6 +323,7 @@ object IotaSerdeRegistry {
             })
         }
     }
+
 }
 
 private fun modloc(string: String) = ResourceLocation(HexTweaks.MOD_ID, string)
