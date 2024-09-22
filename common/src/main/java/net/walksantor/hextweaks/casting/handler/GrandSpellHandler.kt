@@ -62,9 +62,9 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
             slice.onEach { has_true = has_true || it }
             if (has_true) {
                 val diff = slice.indices.filter { slice[it] != bitfield[it] }
-                HexTweaks.LOGGER.info("recieved: $bitfield")
-                HexTweaks.LOGGER.info("expected: $slice")
-                HexTweaks.LOGGER.info("diffed: $diff")
+//                HexTweaks.LOGGER.info("recieved: $bitfield")
+//                HexTweaks.LOGGER.info("expected: $slice")
+//                HexTweaks.LOGGER.info("diffed: $diff")
             }
 
             val ret = if (bitsMatch) {

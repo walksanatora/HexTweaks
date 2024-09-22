@@ -5,14 +5,14 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.iota.GarbageIota
 import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.iota.PatternIota
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
+import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
-import com.samsthenerd.duckyperiphs.hexcasting.utils.IotaLuaUtils
 import dan200.computercraft.api.lua.IArguments
+import dan200.computercraft.api.lua.LuaException
 import dan200.computercraft.api.lua.LuaFunction
 import dan200.computercraft.api.lua.MethodResult
 import dan200.computercraft.api.peripheral.IComputerAccess
@@ -20,12 +20,15 @@ import dan200.computercraft.api.peripheral.IPeripheral
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.walksantor.hextweaks.casting.environment.ComputerCastingEnv
 
 class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocketData: IPocketAccess?) : IPeripheral {
     lateinit var vm: CastingVM
     var isInit = false
+
 
     override fun attach(computer: IComputerAccess?) {
         vm = CastingVM(CastingImage(), ComputerCastingEnv(turtleData,pocketData,getWorld(),computer!!))
@@ -37,7 +40,7 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     }
 
 
-    fun getWorld(): ServerLevel {
+    private fun getWorld(): ServerLevel {
         return if (turtleData==null) {
             pocketData!!.entity!!.level()
         } else {
@@ -52,62 +55,61 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     @LuaFunction
     fun getStack(): MethodResult {
         val world = getWorld()
-        return MethodResult.of(vm.image.stack.map {IotaLuaUtils.getLuaObject(it,world)})
+        return MethodResult.of(vm.image.stack.map {IotaSerdeRegistry.toLua(it)})
     }
 
     @LuaFunction
-    fun pushStack(obj: Any) {
+    fun pushStack(obj: Any?) {
         val stack = vm.image.stack.toMutableList()
-        stack.add(IotaLuaUtils.getIota(obj,getWorld()))
+        val iota = IotaSerdeRegistry.fromLua(obj, getWorld())?: GarbageIota()
+        stack.add(iota)
         vm.image = vm.image.copy(stack) // please petrak I am crying and begging. make the stack mutable
     }
 
     @LuaFunction
-    fun popStack(): Any {
-        if (vm.image.stack is MutableList) { //WRONG it can be EmptyList which causes errors
-            val iota = (vm.image.stack as MutableList).removeLast()
-            return IotaLuaUtils.getLuaObject(iota,getWorld())
-        }
-        return IotaLuaUtils.getLuaObject(NullIota(),getWorld())
+    fun popStack(): Any? {
+        vm.image = vm.image.copy(stack = vm.image.stack.toMutableList())
+        val iota = (vm.image.stack as MutableList).removeLast()
+        return IotaSerdeRegistry.toLua(iota)
     }
 
     @LuaFunction
     fun clearStack(): Int {
-        if (vm.image.stack is MutableList) { //WRONG it can be EmptyList which causes errors
-            val size = vm.image.stack.size
-            (vm.image.stack as MutableList).clear()
-            return size
-        }
-        return 0
+        vm.image = vm.image.copy(stack = vm.image.stack.toMutableList())
+        val size = vm.image.stack.size
+        (vm.image.stack as MutableList).clear()
+        return size
     }
 
+    @Suppress("UNCHECKED_CAST")
     @LuaFunction
-    fun setStack(stack: List<Any>) {
-        if (vm.image.stack is MutableList) {//WRONG it can be EmptyList which causes errors
-            val world = getWorld()
-            (vm.image.stack as MutableList).clear()
-            (vm.image.stack as MutableList).addAll(stack.map { IotaLuaUtils.getIota(it,world)})
-        }
+    fun setStack(stack: Map<*,*>) {
+        vm.image = vm.image.copy(stack = vm.image.stack.toMutableList())
+        val world = getWorld()
+        (vm.image.stack as MutableList).clear()
+        (vm.image.stack as MutableList).addAll((stack.filter { it.key is Number } as Map<Number,Any>).toSortedMap(compareBy { it.toLong() }).map {
+            IotaSerdeRegistry.fromLua(it.value, world)?: GarbageIota()
+        })
     }
 
     @LuaFunction
     fun enlightened(): Boolean = vm.env.isEnlightened
 
     @LuaFunction
-    fun getRavenmind(): Any {
+    fun getRavenmind(): Any? {
         val nbt = vm.image.userData.getCompound(HexAPI.RAVENMIND_USERDATA)
         if (nbt != null) {
             val world = getWorld()
             val iota = IotaType.deserialize(nbt,world)
-            return IotaLuaUtils.getLuaObject(iota,world)
+            return IotaSerdeRegistry.toLua(iota)
         }
-        return MethodResult.of(null)
+        return null
     }
 
     @LuaFunction
     fun setRavenmind(iota: Any) {
-        val newLocal = IotaLuaUtils.getIota(iota,getWorld())
-        if (newLocal.type == HexIotaTypes.NULL)
+        val newLocal = IotaSerdeRegistry.fromLua(iota, getWorld())
+        if ((newLocal?.type ?: HexIotaTypes.NULL) == HexIotaTypes.NULL)
             vm.image.userData.remove(HexAPI.RAVENMIND_USERDATA)
         else
             vm.image.userData.put(HexAPI.RAVENMIND_USERDATA, IotaType.serialize(newLocal))
@@ -117,7 +119,10 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     fun runPattern(args: IArguments) {
         val iota = when (args.count()) {
             0 -> PatternIota(HexActions.EVAL.prototype)
-            1 -> IotaLuaUtils.getIota(args.get(0),getWorld())
+            1 -> {
+                val obj = args.getTable(0)
+                IotaSerdeRegistry.fromLua(obj,getWorld())?: throw LuaException("Unnable to convert input to Iota")
+            }
             2 -> PatternIota(HexPattern.fromAngles(args.getString(1), HexDir.fromString(args.getString(0))))
             else -> GarbageIota()
         }

@@ -24,11 +24,11 @@ import java.util.Optional;
 @Mixin(OperatorSideEffect.DoMishap.class)
 public class MixinOperatorSideeffect {
     @Final
-    @Shadow
+    @Shadow(remap=false)
     private Mishap mishap;
 
     @Final
-    @Shadow
+    @Shadow(remap=false)
     private Mishap.Context errorCtx;
 
     @Inject(method = "performEffect(Lat/petrak/hexcasting/api/casting/eval/vm/CastingVM;)Z", at = @At("HEAD"), cancellable = true,remap = false)

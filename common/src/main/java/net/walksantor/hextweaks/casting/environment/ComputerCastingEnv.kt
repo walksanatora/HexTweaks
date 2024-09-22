@@ -42,7 +42,6 @@ import kotlin.math.absoluteValue
 
 class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : MishapAwareCastingEnvironment(level) {
 
-
     constructor(old: ComputerCastingEnv, newWorld: ServerLevel) : this(old.turtleData,old.pocketData,newWorld,old.computer)
 
     private val mishap = run {

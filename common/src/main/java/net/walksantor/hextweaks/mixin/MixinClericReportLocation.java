@@ -17,7 +17,11 @@ public abstract class MixinClericReportLocation extends BlockEntity {
         super(blockEntityType, blockPos, blockState);
     }
 
-    @Redirect(method = "getStoredPlayer()Lnet/minecraft/server/level/ServerPlayer;",at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"))
+    @Redirect(
+            method = "getStoredPlayer()Lnet/minecraft/server/level/ServerPlayer;",
+            at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"),
+            remap=false
+    )
     private void hextweaks$whichBlockYells(Logger instance, String s, Object o) {
         instance.error("Entity {} stored in a cleric impetus wasn't a player somehow at {}",o,worldPosition);
     }

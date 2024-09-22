@@ -61,9 +61,6 @@ allprojects {
         }
         maven {
             url "https://squiddev.cc/maven/"
-            content {
-                includeGroup("cc.tweaked")
-            }
         }
         maven { url "https://maven.shedaniel.me/" }
         maven { url "https://maven.terraformersmc.com/releases/" }
