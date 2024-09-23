@@ -112,14 +112,11 @@ object IotaSerdeRegistry {
         })
         register(modloc("boolean"), HexIotaTypes.BOOLEAN, object : IotaSerde<BooleanIota> {
             override fun serialize(input: BooleanIota): Any = input.bool
-
-            override fun deserialize(value: Map<*, *>, world: Level): BooleanIota {
-                throw IllegalStateException("This should have been handled by fromLua's when statement")
-            }
+            override fun deserialize(value: Map<*, *>, world: Level): BooleanIota = BooleanIota(value["value"] as? Boolean ?: false)
         })
         register(modloc("null"), HexIotaTypes.NULL, object : IotaSerde<NullIota> {
             override fun serialize(input: NullIota): Any = NullIota()
-            override fun deserialize(value: Map<*, *>, world: Level): NullIota = throw IllegalStateException("This should have been handled by fromLua's when statement")
+            override fun deserialize(value: Map<*, *>, world: Level): NullIota = NullIota()
         })
         register(modloc("garbage"), HexIotaTypes.GARBAGE, object : IotaSerde<GarbageIota> {
             override fun serialize(input: GarbageIota): Any = mutableMapOf<Any, Any>()
