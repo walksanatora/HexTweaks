@@ -108,10 +108,12 @@ object HexTweaksRegistry {
 
     fun model() {
         //client init on forge...
-        ComputerCraftAPIClient.registerTurtleUpgradeModeller(
-            WAND_TURTLE.get(),
-            TurtleUpgradeModeller.flatItem()
-        )
+        if (Platform.isModLoaded("computercraft")) {
+            ComputerCraftAPIClient.registerTurtleUpgradeModeller(
+                WAND_TURTLE.get(),
+                TurtleUpgradeModeller.flatItem()
+            )
+        }
         EntityRendererRegistry.register({ SPELL_BEACON_ENTITY.get()}, { ctx -> SpellBeaconEntityRender(ctx) })
     }
 
