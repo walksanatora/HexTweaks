@@ -8,7 +8,6 @@ import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.PatternIota
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
-import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import dan200.computercraft.api.lua.IArguments
@@ -20,8 +19,6 @@ import dan200.computercraft.api.peripheral.IPeripheral
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.walksantor.hextweaks.casting.environment.ComputerCastingEnv
 
@@ -48,13 +45,13 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
         } as ServerLevel
     }
 
+    @Suppress("CovariantEquals")
     override fun equals(other: IPeripheral?): Boolean = other is WandPeripheral
 
     override fun getType(): String = "wand"
 
     @LuaFunction
     fun getStack(): MethodResult {
-        val world = getWorld()
         return MethodResult.of(vm.image.stack.map {IotaSerdeRegistry.toLua(it)})
     }
 
@@ -98,12 +95,8 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
     @LuaFunction
     fun getRavenmind(): Any? {
         val nbt = vm.image.userData.getCompound(HexAPI.RAVENMIND_USERDATA)
-        if (nbt != null) {
-            val world = getWorld()
-            val iota = IotaType.deserialize(nbt,world)
-            return IotaSerdeRegistry.toLua(iota)
-        }
-        return null
+        val iota = IotaType.deserialize(nbt,getWorld())
+        return IotaSerdeRegistry.toLua(iota)
     }
 
     @LuaFunction
@@ -121,7 +114,7 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
             0 -> PatternIota(HexActions.EVAL.prototype)
             1 -> {
                 val obj = args.getTable(0)
-                IotaSerdeRegistry.fromLua(obj,getWorld())?: throw LuaException("Unnable to convert input to Iota")
+                IotaSerdeRegistry.fromLua(obj,getWorld())?: throw LuaException("Unable to convert input to Iota")
             }
             2 -> PatternIota(HexPattern.fromAngles(args.getString(1), HexDir.fromString(args.getString(0))))
             else -> GarbageIota()
