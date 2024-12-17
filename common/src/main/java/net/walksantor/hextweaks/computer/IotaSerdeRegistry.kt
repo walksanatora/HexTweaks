@@ -126,13 +126,13 @@ object IotaSerdeRegistry {
             override fun serialize(input: PatternIota): Any {
                 val result = mutableMapOf<String,Any>()
                 result["startDir"] = input.pattern.startDir.toString()
-                result["angle"] = input.pattern.anglesSignature()
+                result["angles"] = input.pattern.anglesSignature()
                 return result
             }
 
             override fun deserialize(value: Map<*, *>, world: Level): PatternIota = PatternIota(
                 HexPattern.fromAngles(
-                    value["angle"] as String,
+                    value["angles"] as String,
                     HexDir.fromString(value["startDir"] as String)
                 )
             )
@@ -151,7 +151,6 @@ object IotaSerdeRegistry {
                 return Vec3Iota(Vec3(x,y,z))
             }
         })
-        //to be considdered: ContinuationIota, EntityIota
         register(modloc("continuation"), HexIotaTypes.CONTINUATION, object : IotaSerde<ContinuationIota> {
             private val GSON = GsonBuilder().setLenient().create()
             override fun serialize(input: ContinuationIota): Any =
@@ -169,7 +168,7 @@ object IotaSerdeRegistry {
             }
         })
         register(modloc("entity"), HexIotaTypes.ENTITY, object : IotaSerde<EntityIota> {
-            override fun serialize(input: EntityIota): Any? {
+            override fun serialize(input: EntityIota): Any {
                 val tag = input.serialize() as CompoundTag
                 val uuid = tag.getUUID("uuid")
                 val name = tag.getString("name")

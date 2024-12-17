@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
 import net.minecraft.ChatFormatting
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Style
 
@@ -13,6 +14,9 @@ object OpLackingWill : ConstMediaAction {
         env.printMessage(
             Component.translatable("hextweaks.action.lackwill")
                 .append(Component.translatable("hextweaks.action.lackwill.will").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.DARK_AQUA)))
+
+        BuiltInRegistries.ENTITY_TYPE.getKey(env.castingEntity.type).toString()
+
         return listOf()
     }
 }
