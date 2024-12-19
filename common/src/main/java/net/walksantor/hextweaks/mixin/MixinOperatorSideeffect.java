@@ -9,6 +9,7 @@ import at.petrak.hexcasting.api.casting.mishaps.Mishap;
 import kotlin.collections.CollectionsKt;
 import net.minecraft.nbt.CompoundTag;
 import net.walksantor.hextweaks.casting.environment.MishapAwareCastingEnvironment;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,8 +32,9 @@ public class MixinOperatorSideeffect {
     @Shadow(remap=false)
     private Mishap.Context errorCtx;
 
+    // [!TODO] Temporarily removed this to prevent crash. I don't know why it does not work.
     @Inject(method = "performEffect(Lat/petrak/hexcasting/api/casting/eval/vm/CastingVM;)Z", at = @At("HEAD"), cancellable = true,remap = false)
-    private void hextweaks$mishapAwareCastingEnv(CastingVM harness, CallbackInfoReturnable<Boolean> cir) {
+    private void hextweaks$mishapAwareCastingEnv(@NotNull CastingVM harness, CallbackInfoReturnable<Boolean> cir) {
         CastingEnvironment env = harness.getEnv();
         if (env instanceof MishapAwareCastingEnvironment mishapAwareEnv) {
             Optional<List<Iota>> res = mishapAwareEnv.onMishap(mishap,errorCtx,harness.getImage().getStack());
