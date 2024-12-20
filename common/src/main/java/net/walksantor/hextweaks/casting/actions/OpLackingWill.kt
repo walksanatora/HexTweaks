@@ -15,7 +15,10 @@ object OpLackingWill : ConstMediaAction {
             Component.translatable("hextweaks.action.lackwill")
                 .append(Component.translatable("hextweaks.action.lackwill.will").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.DARK_AQUA)))
 
-        BuiltInRegistries.ENTITY_TYPE.getKey(env.castingEntity.type).toString()
+        val casterType = env.castingEntity?.type;
+        if(casterType != null) {
+            BuiltInRegistries.ENTITY_TYPE.getKey(casterType).toString();
+        }
 
         return listOf()
     }

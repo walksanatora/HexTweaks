@@ -1,7 +1,7 @@
 package net.walksantor.hextweaks.mixin;
 
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.common.casting.actions.OpEntityPos;
+import at.petrak.hexcasting.common.casting.actions.queryentity.OpEntityPos;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.Entity;

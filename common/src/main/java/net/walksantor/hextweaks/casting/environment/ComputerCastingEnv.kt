@@ -80,7 +80,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         }
     }
 
-    override fun extractMediaEnvironment(cost: Long): Long {
+    override fun extractMediaEnvironment(cost: Long, simulate: Boolean): Long {
         @Suppress("NAME_SHADOWING") var cost = cost
         val inventory  = getInventory()
         val adMediaHolders: ArrayList<ADMediaHolder> = ArrayList()
@@ -94,7 +94,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         adMediaHolders.sortWith(::compareMediaItem)
         adMediaHolders.reverse()
         for (source in adMediaHolders) {
-            val found = extractMedia(source, cost, drainForBatteries = false, simulate = false)
+            val found = extractMedia(source, cost, drainForBatteries = false, simulate = simulate)
             cost -= found
             if (cost <= 0) {
                 break
