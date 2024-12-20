@@ -11,6 +11,7 @@
     "MixinClericReporting",
     "MixinClericReportLocation",
     "MixinOpEntityPos",
+    "MixinOperatorSideeffect",
     "NeuralAccessor"
   ],
   "injectors": {

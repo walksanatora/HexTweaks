@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
@@ -32,15 +33,13 @@ public class MixinOperatorSideeffect {
     @Shadow(remap=false)
     private Mishap.Context errorCtx;
 
-    // [!TODO] Temporarily removed this to prevent crash. I don't know why it does not work.
-    @Inject(method = "performEffect(Lat/petrak/hexcasting/api/casting/eval/vm/CastingVM;)Z", at = @At("HEAD"), cancellable = true,remap = false)
-    private void hextweaks$mishapAwareCastingEnv(@NotNull CastingVM harness, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "performEffect", at = @At("HEAD"), cancellable = true,remap = false)
+    private void hextweaks$mishapAwareCastingEnv(CastingVM harness, CallbackInfo ci) {
         CastingEnvironment env = harness.getEnv();
         if (env instanceof MishapAwareCastingEnvironment mishapAwareEnv) {
             Optional<List<Iota>> res = mishapAwareEnv.onMishap(mishap,errorCtx,harness.getImage().getStack());
             if (res.isPresent()) {
-                cir.setReturnValue(true);
-                cir.cancel();
+                ci.cancel();
 
                 CastingImage img = harness.getImage().copy(res.get(),
                         0,
