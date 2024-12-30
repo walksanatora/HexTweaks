@@ -9,7 +9,6 @@
     "ComputerAccesssor",
     "EnvironmentAccessor",
     "MixinClericReporting",
-    "MixinClericReportLocation",
     "MixinOpEntityPos",
     "MixinOperatorSideeffect",
     "NeuralAccessor"

@@ -60,6 +60,7 @@ dependencies {
     modImplementation "at.petra-k.hexcasting:hexcasting-fabric-1.20.1:${rootProject.hexcasting_version}"
     modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
     modRuntimeOnly "maven.modrinth:ducky-periphs:FYDI2Gut"
+    modRuntimeOnly "maven.modrinth:inline:Bskomaui"
     //modRuntimeOnly "maven.modrinth:gu7yAYhd:Scean3uO"
 
     //hecasting deps
