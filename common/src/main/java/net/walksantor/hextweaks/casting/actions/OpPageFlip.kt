@@ -16,17 +16,14 @@ class OpPageFlip(
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
 
         val res = env.getHeldItemToOperateOn {
-                val dataHolder = IXplatAbstractions.INSTANCE.findDataHolder(it) ?: return@getHeldItemToOperateOn false
-            return@getHeldItemToOperateOn dataHolder.readIota(env.world) != null || dataHolder.emptyIota() != null
-            }
+            it.`is`(HexItems.SPELLBOOK.asItem())
+        }
         if (res == null) {return listOf()}
         val handStack = res.component1()
         val hand = res.component2()
 
         if (handStack.`is`(HexItems.SPELLBOOK.asItem())) {
             ItemSpellbook.rotatePageIdx(handStack,rotateRight)
-        } else {
-            throw MishapBadOffhandItem(handStack,hand, Component.literal("Spellbook"))
         }
 
         return listOf()
