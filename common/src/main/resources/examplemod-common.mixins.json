@@ -10,7 +10,6 @@
     "EnvironmentAccessor",
     "MixinClericReporting",
     "MixinOpEntityPos",
-    "MixinOperatorSideeffect",
     "NeuralAccessor"
   ],
   "injectors": {

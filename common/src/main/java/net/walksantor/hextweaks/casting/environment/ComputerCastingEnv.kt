@@ -3,10 +3,11 @@ package net.walksantor.hextweaks.casting.environment
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import at.petrak.hexcasting.api.casting.ParticleSpray
+import at.petrak.hexcasting.api.casting.eval.CastResult
+import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.MishapEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
-import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.api.utils.compareMediaItem
 import at.petrak.hexcasting.api.utils.extractMedia
@@ -34,13 +35,11 @@ import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.Vec3
 import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.HexTweaksRegistry
-import net.walksantor.hextweaks.items.VirtualPigment
 import net.walksantor.hextweaks.mixin.NeuralAccessor
 import java.util.*
 import java.util.function.Predicate
-import kotlin.math.absoluteValue
 
-class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : MishapAwareCastingEnvironment(level) {
+class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : CastingEnvironment(level) {
 
     constructor(old: ComputerCastingEnv, newWorld: ServerLevel) : this(old.turtleData,old.pocketData,newWorld,old.computer)
 
@@ -68,7 +67,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             val bpos = turtleData.first.position
             return bpos.center
         } else {
-            return caster!!.position()
+            return castingEntity!!.position()
         }
     }
 
@@ -106,9 +105,10 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
     override fun isVecInRangeEnvironment(vec: Vec3?): Boolean {
         val position: Vec3?
         if (pocketData != null) {
-            if (pocketData.entity is ServerPlayer) {
-                val sentinel = HexAPI.instance().getSentinel(this.caster)
-                if ((sentinel != null && sentinel.extendsRange()) && this.caster!!.level()
+            val ent = pocketData.entity
+            if (ent is ServerPlayer) {
+                val sentinel = HexAPI.instance().getSentinel(ent)
+                if ((sentinel != null && sentinel.extendsRange()) && ent.level()
                         .dimension() === sentinel.dimension() && (vec!!.distanceToSqr(sentinel.position()) <= PlayerBasedCastEnv.SENTINEL_RADIUS * PlayerBasedCastEnv.SENTINEL_RADIUS)
                 ) {
                     return true
@@ -124,9 +124,10 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
 
     override fun hasEditPermissionsAtEnvironment(pos: BlockPos): Boolean {
         if (pocketData != null) {
-            if (pocketData.entity is ServerPlayer) {
-                return this.caster!!.gameMode.gameModeForPlayer != GameType.ADVENTURE && this.world.mayInteract(
-                    this.caster!!, pos
+            val ent = pocketData.entity
+            if (ent is ServerPlayer) {
+                return ent.gameMode.gameModeForPlayer != GameType.ADVENTURE && this.world.mayInteract(
+                    ent, pos
                 )
             }
         } else {//it is a turtle. we are just going to give it god mode
@@ -145,24 +146,9 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         return InteractionHand.MAIN_HAND
     }
 
-    override fun onMishap(
-        mishap: Mishap,
-        ctx: Mishap.Context,
-        stack: MutableList<Iota>
-    ): Optional<MutableList<Iota>> {
-        computer.queueEvent(
-            "mishap",
-            computer.attachmentName,
-            mishap.toString(),
-            ctx.name?.string,
-            ctx.pattern.toString()
-        )
-
-        return Optional.empty()
-    }
-
     override fun getUsableStacks(mode: StackDiscoveryMode?): List<ItemStack> {
         val out = ArrayList<ItemStack>()
+        //TODO: check back how base hexcasting handles these modes after I deprecated caster
         if (this.caster != null) {
             when (mode) {
                 StackDiscoveryMode.QUERY -> {
@@ -251,12 +237,12 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         }
     }
 
-    override fun getHeldItemToOperateOn(stackOk: Predicate<ItemStack>?): HeldItemInfo? {
+    override fun getHeldItemToOperateOn(stackOk: Predicate<ItemStack>): HeldItemInfo? {
         if (turtleData != null) {
             val inv = turtleData.first.inventory
             val slot = turtleData.first.selectedSlot
             val item = inv.getItem(slot)
-            return if (item == ItemStack.EMPTY) {
+            return if (item == ItemStack.EMPTY || !stackOk.test(item)) {
                 null
             } else {
                 HeldItemInfo(item,InteractionHand.MAIN_HAND)
@@ -325,6 +311,26 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             //turtleData!!.first.direction.normal
 
             (turtleData!!.first as TurtleBrain).owner.serverComputer!!
+        }
+    }
+
+
+    override fun postExecution(result: CastResult?) {
+        super.postExecution(result)
+
+        for (sideEffect in result!!.sideEffects) {
+            if (sideEffect is OperatorSideEffect.DoMishap) {
+                val msg = sideEffect.mishap.errorMessageWithName(this, sideEffect.errorCtx)
+                if (msg != null) {
+                    computer.queueEvent(
+                        "mishap",
+                        computer.attachmentName,
+                        mishap.toString(),
+                        msg,
+                        sideEffect.errorCtx.pattern.toString()
+                    )
+                }
+            }
         }
     }
 }

@@ -5,6 +5,8 @@ import at.petrak.hexcasting.api.casting.castables.SpecialHandler
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.math.HexAngle
 import at.petrak.hexcasting.api.casting.math.HexPattern
+import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
+import at.petrak.hexcasting.api.mod.HexConfig
 import net.minecraft.Util
 import net.minecraft.network.chat.Component
 import net.walksantor.hextweaks.HexTweaks
@@ -69,9 +71,12 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
 
             val ret = if (bitsMatch) {
                 val act = PatternRegistry.getGrandEntry(anglesigsNoBits,env)
-                if (act==null) {
+                if (act == null) {
                     null
                 } else {
+                    if (!HexConfig.server().isActionAllowed(act.second)) {
+                        throw MishapDisallowedSpell()
+                    }
                     GrandSpellHandler(act.first)
                 }
             } else {

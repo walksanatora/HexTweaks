@@ -1,5 +1,7 @@
 package net.walksantor.hextweaks.casting.actions
 
+import at.petrak.hexcasting.api.casting.castables.SpellAction
+import at.petrak.hexcasting.api.casting.castables.SpellAction.Result
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getInt
 import at.petrak.hexcasting.api.casting.getLivingEntityButNotArmorStand
@@ -16,9 +18,9 @@ import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.pow
 
-object OpEgyptianPlagues : VariableMediaAction {
+object OpEgyptianPlagues : SpellAction {
     override val argc: Int = 4
-    override fun render(args: List<Iota>, env: CastingEnvironment): VariableMediaAction.VariableMediaActionResult {
+    override fun execute(args: List<Iota>, env: CastingEnvironment): Result {
         val target = args.getLivingEntityButNotArmorStand(0,argc)
         env.assertEntityInRange(target)
         val plague = args[1];
@@ -31,11 +33,15 @@ object OpEgyptianPlagues : VariableMediaAction {
         val potency = max(args.getInt(3,argc),1)
 
         val mobi = MobEffectInstance(thePlague,duration,potency)
-        return EgyptianPlague(plagueId,mobi,target)
+        return SpellAction.Result(
+            EgyptianPlague(mobi,target),
+            plagueId.length * (mobi.duration/20) * mobi.amplifier.toDouble().pow(4).toLong() * MediaConstants.DUST_UNIT,
+            listOf()
+        )
     }
 
-    private class EgyptianPlague(effectId: String, val effect: MobEffectInstance, val target: LivingEntity) :
-        VariableMediaAction.VariableMediaActionResult(effectId.length * (effect.duration/20) * effect.amplifier.toDouble().pow(4).toLong() * MediaConstants.DUST_UNIT) {
+    private class EgyptianPlague(val effect: MobEffectInstance, val target: LivingEntity) :
+        VariableMediaActionResult() {
         override fun execute(env: CastingEnvironment): List<Iota> {
             target.addEffect(effect)
             return listOf()

@@ -29,7 +29,7 @@ public class HexTweaksCommands {
     }
 
     private static void getAnglesig(LiteralArgumentBuilder<CommandSourceStack> cmd) {
-        cmd.then(literal("give-grand").then(argument("anglesig",StringArgumentType.string())
+        cmd.then(literal("give-grand").then(argument("anglesig",StringArgumentType.string()).requires(i -> i.hasPermission(3))
                 .executes(ctx -> {
                     String sig = ctx.getArgument("anglesig",String.class);
                     HexPattern pat = PatternRegistry.INSTANCE.patternAllowIllegal(HexDir.WEST,sig);

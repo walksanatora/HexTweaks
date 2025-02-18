@@ -22,35 +22,6 @@ import java.util.Optional;
 public class HexTweaksFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-//        ResourceLocation re = Registries.DIMENSION.location();
-//        HexTweaks.LOGGER.info("RegistryID {}",re);
-//        RegistryEntryAddedCallback.event(BuiltInRegistries.REGISTRY).register( (id,res,obj) -> {
-//            HexTweaks.LOGGER.info("A new Registry is born {}",res);
-//        });
-        DynamicRegistrySetupCallback.EVENT.register((registryView) -> {
-//            Optional<Registry<Level>> levels = registryView.getOptional(Registries.DIMENSION);
-//            if (levels.isPresent()) {
-//                HexTweaks.LOGGER.info("Levels Exist!!!");
-//                Registry<Level> worlds = levels.get();
-//                for (Map.Entry<ResourceKey<Level>, Level> level : worlds.entrySet()) {
-//                    HexTweaks.LOGGER.info("Level id: {}",level.getKey().location());
-//                }
-//            }
-            HexTweaks.LOGGER.info("Performing DynamicRegistrySetup");
-            Optional<Registry<Level>> Reg = registryView.getOptional(Registries.DIMENSION);
-            HexTweaks.LOGGER.info("{}",Reg);
-            Reg.ifPresent(levels -> HexTweaks.LOGGER.info("{}", levels.stream().count()));
-            registryView.registerEntryAdded(Registries.DIMENSION, (id,res,obj) -> {
-                HexTweaks.LOGGER.info("DimensionRegistry called");
-                HexTweaks.breakpoint();
-                HexTweaks.LOGGER.info("Dimension registration {}",res);
-            });
-            HexTweaks.LOGGER.info("Registry Hooked");
-        });
-//        Registry<?> reg = BuiltInRegistries.REGISTRY.get(re);
-//        RegistryEntryAddedCallback.event(reg).register( (id,location,object) -> {
-//            HexTweaks.LOGGER.info("Registry detected id: {} res: {}, obj: {}",id,location,object);
-//        });
         HexTweaks.init();
         HexTweaks.LOGGER.info("performing registration on FABRIC");
         HexTweaksRegistry.INSTANCE.init();
