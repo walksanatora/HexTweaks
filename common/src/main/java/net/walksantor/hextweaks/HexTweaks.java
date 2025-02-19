@@ -27,20 +27,31 @@ public class HexTweaks {
 
     @NotNull
     public static HexTweaksConfig getCONFIG() {
+        boolean makeFile = false;
+        Path res = Platform.getConfigFolder().resolve("hextweaks.json");
+        Gson gson = new GsonBuilder().setLenient().create();
         if (CONFIG == null) {
-            Path res = Platform.getConfigFolder().resolve("hextweaks.json");
-            Gson gson = new GsonBuilder().setLenient().create();
             if (Files.exists(res)) {
                 try {
                     String json = Strings.join(Files.readAllLines(res).iterator(), '\n');
                     CONFIG = gson.fromJson(json, HexTweaksConfig.class);
                 } catch (Exception e) {
+                    makeFile = true;
                     LOGGER.error("Failed to load hextweaks config, defaulting it");
                     e.printStackTrace();
                     CONFIG = new HexTweaksConfig();
                 }
             } else {
+                makeFile = true;
                 CONFIG = new HexTweaksConfig();
+            }
+        }
+        if (makeFile) {
+            try {
+                Files.writeString(res,gson.toJson(CONFIG));
+            } catch (IOException e) {
+                LOGGER.error("failed to create HexTweaks config file");
+                e.printStackTrace();
             }
         }
         return CONFIG;
@@ -55,17 +66,6 @@ public class HexTweaks {
         //we... dont have anything...
         LOGGER.info("performing COMMON setup");
         CommandRegistrationEvent.EVENT.register((it,b,c) -> HexTweaksCommands.register(it));
-
-        LifecycleEvent.SERVER_STOPPING.register(it -> {
-            Path res = Platform.getConfigFolder().resolve("hextweaks.json");
-            Gson gson = new GsonBuilder().setLenient().create();
-            try {
-                Files.writeString(res,gson.toJson(CONFIG));
-            } catch (IOException e) {
-                LOGGER.error("failed to write config");
-                e.printStackTrace();
-            }
-        });
 
         if (Platform.isModLoaded("computercraft")) {
             PatchouliAPI.get().setConfigFlag(PATCHOULI_ANY_INTEROP_FLAG, true);
