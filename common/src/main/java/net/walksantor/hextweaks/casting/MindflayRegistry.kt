@@ -74,7 +74,7 @@ object MindflayRegistry {
     }
 
     fun register() {
-        if (HexTweaks.CONFIG!!.enableChunkreset) {
+        if (HexTweaks.getCONFIG().enableChunkreset) {
             put(
                 ResourceLocation(HexTweaks.MOD_ID, "reset_chunk"),
                 StartResetChunkRitual::start

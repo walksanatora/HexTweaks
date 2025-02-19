@@ -159,7 +159,7 @@ object IotaSerdeRegistry {
                 )
 
             override fun deserialize(value: Map<*, *>, world: Level): ContinuationIota? {
-                if (HexTweaks.CONFIG!!.allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
+                if (HexTweaks.getCONFIG().allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
                 val stack = GSON.fromJson(
                     value["continuation_stack"] as? String?: return null,
                     SpellContinuation::class.java
@@ -179,9 +179,9 @@ object IotaSerdeRegistry {
             }
 
             override fun deserialize(value: Map<*, *>, world: Level): EntityIota? {
-                if (HexTweaks.CONFIG!!.allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
+                if (HexTweaks.getCONFIG().allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
                 val uuid = UUID.fromString(value["uuid"] as? String?: return null)
-                if (HexTweaks.CONFIG!!.allowUnsafeDeserialization == SecurityLevel.TRUENAME) {
+                if (HexTweaks.getCONFIG().allowUnsafeDeserialization == SecurityLevel.TRUENAME) {
                     if (!world.server!!.profileCache!!.get(uuid).isPresent) {
                         return null
                     }

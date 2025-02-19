@@ -7,6 +7,7 @@ import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.platform.Platform;
 import org.apache.logging.log4j.util.Strings;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -22,7 +23,28 @@ import static at.petrak.hexcasting.interop.HexInterop.PATCHOULI_ANY_INTEROP_FLAG
 public class HexTweaks {
     public static final String MOD_ID = "hextweaks";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    @Nullable public static HexTweaksConfig CONFIG = null;
+    @Nullable static HexTweaksConfig CONFIG = null;
+
+    @NotNull
+    public static HexTweaksConfig getCONFIG() {
+        if (CONFIG == null) {
+            Path res = Platform.getConfigFolder().resolve("hextweaks.json");
+            Gson gson = new GsonBuilder().setLenient().create();
+            if (Files.exists(res)) {
+                try {
+                    String json = Strings.join(Files.readAllLines(res).iterator(), '\n');
+                    CONFIG = gson.fromJson(json, HexTweaksConfig.class);
+                } catch (Exception e) {
+                    LOGGER.error("Failed to load hextweaks config, defaulting it");
+                    e.printStackTrace();
+                    CONFIG = new HexTweaksConfig();
+                }
+            } else {
+                CONFIG = new HexTweaksConfig();
+            }
+        }
+        return CONFIG;
+    }
 
     public static void breakpoint() {
         LOGGER.info("breakpoints sometimes fail. call me instead!");
@@ -34,22 +56,9 @@ public class HexTweaks {
         LOGGER.info("performing COMMON setup");
         CommandRegistrationEvent.EVENT.register((it,b,c) -> HexTweaksCommands.register(it));
 
-        Path res = Platform.getConfigFolder().resolve("hextweaks.json");
-        Gson gson = new GsonBuilder().setLenient().create();
-        if (Files.exists(res)) {
-            try {
-                String json = Strings.join(Files.readAllLines(res).iterator(),'\n');
-                CONFIG = gson.fromJson(json, HexTweaksConfig.class);
-            } catch (Exception e) {
-                LOGGER.error("Failed to load hextweaks config");
-                e.printStackTrace();
-                CONFIG = new HexTweaksConfig();
-            }
-        } else {
-            CONFIG = new HexTweaksConfig();
-        }
-
         LifecycleEvent.SERVER_STOPPING.register(it -> {
+            Path res = Platform.getConfigFolder().resolve("hextweaks.json");
+            Gson gson = new GsonBuilder().setLenient().create();
             try {
                 Files.writeString(res,gson.toJson(CONFIG));
             } catch (IOException e) {
