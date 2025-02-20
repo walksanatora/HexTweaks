@@ -35,6 +35,9 @@ public class HexTweaks {
                 try {
                     String json = Strings.join(Files.readAllLines(res).iterator(), '\n');
                     CONFIG = gson.fromJson(json, HexTweaksConfig.class);
+                    if (CONFIG == null) {
+                        throw new NullPointerException("Config loaded to null. resetting.");
+                    }
                 } catch (Exception e) {
                     makeFile = true;
                     LOGGER.error("Failed to load hextweaks config, defaulting it");
