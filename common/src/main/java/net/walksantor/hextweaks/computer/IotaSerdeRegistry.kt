@@ -159,7 +159,7 @@ object IotaSerdeRegistry {
                 )
 
             override fun deserialize(value: Map<*, *>, world: Level): ContinuationIota? {
-                if (HexTweaks.getCONFIG().allowUnsafeDeserialization == SecurityLevel.RESTRICT) {return null}
+                if (HexTweaks.getCONFIG().allowUnsafeDeserialization != SecurityLevel.UNSAFE) {return null}
                 val stack = GSON.fromJson(
                     value["continuation_stack"] as? String?: return null,
                     SpellContinuation::class.java
