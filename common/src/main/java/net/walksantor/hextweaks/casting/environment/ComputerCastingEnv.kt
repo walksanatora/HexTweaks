@@ -231,7 +231,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
 
     fun getAlternateItem(): ItemStack {
         val otherHand = otherHand(this.castingHand)
-        val stack = caster!!.getItemInHand(otherHand)
+        val stack = castingEntity!!.getItemInHand(otherHand)
         return if (stack.isEmpty) {
             ItemStack.EMPTY.copy()
         } else {
