@@ -74,10 +74,9 @@ class GrandSpellHandler(private val action: Action) : SpecialHandler {
                 if (act == null) {
                     null
                 } else {
-                    if (!HexConfig.server().isActionAllowed(act.second)) {
-                        throw MishapDisallowedSpell()
-                    }
-                    GrandSpellHandler(act.first)
+                    if (HexConfig.server().isActionAllowed(act.second)) {
+                        GrandSpellHandler(act.first)
+                    } else {null}
                 }
             } else {
                 null
