@@ -9,7 +9,6 @@
     "ComputerAccesssor",
     "EnvironmentAccessor",
     "MixinClericReporting",
-    "MixinOpEntityPos",
     "NeuralAccessor"
   ],
   "injectors": {

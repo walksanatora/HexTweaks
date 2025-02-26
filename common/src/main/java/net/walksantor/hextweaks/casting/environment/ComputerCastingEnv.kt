@@ -327,7 +327,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
                     computer.queueEvent(
                         "mishap",
                         computer.attachmentName,
-                        mishap.toString(),
+                        sideEffect.mishap.javaClass.name,
                         msg,
                         sideEffect.errorCtx.pattern.toString()
                     )

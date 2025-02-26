@@ -29,14 +29,6 @@
       "input": "[pattern]",
       "output": "",
       "text": "hextweaks.page.hextweaks_utility.while"
-    },
-    {
-      "type": "hexcasting:pattern",
-      "op_id": "hextweaks:sbe_entities",
-      "anchor": "hextweaks:sbe_entities",
-      "input": "vector, number",
-      "output": "[entity]",
-      "text": "hextweaks.page.hextweaks_utility.sbe"
     }
   ]
 
