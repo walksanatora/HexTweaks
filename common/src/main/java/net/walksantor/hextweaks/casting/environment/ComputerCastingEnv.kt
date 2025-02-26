@@ -3,14 +3,16 @@ package net.walksantor.hextweaks.casting.environment
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.addldata.ADMediaHolder
 import at.petrak.hexcasting.api.casting.ParticleSpray
+import at.petrak.hexcasting.api.casting.PatternShapeMatch
 import at.petrak.hexcasting.api.casting.eval.CastResult
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.MishapEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
+import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
+import at.petrak.hexcasting.api.mod.HexConfig
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.api.utils.compareMediaItem
-import at.petrak.hexcasting.api.utils.extractMedia
 import at.petrak.hexcasting.api.utils.otherHand
 import at.petrak.hexcasting.api.utils.putInt
 import dan200.computercraft.api.peripheral.IComputerAccess
@@ -36,7 +38,6 @@ import net.minecraft.world.phys.Vec3
 import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.HexTweaksRegistry
 import net.walksantor.hextweaks.mixin.NeuralAccessor
-import java.util.*
 import java.util.function.Predicate
 
 class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : CastingEnvironment(level) {
@@ -80,7 +81,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
     }
 
     override fun extractMediaEnvironment(cost: Long, simulate: Boolean): Long {
-        @Suppress("NAME_SHADOWING") var cost = cost
+        @Suppress("NAME_SHADOWING") var cost = (cost * HexTweaks.getCONFIG().computerCostMult).toLong()
         val inventory  = getInventory()
         val adMediaHolders: ArrayList<ADMediaHolder> = ArrayList()
         for (i in 0..inventory.containerSize) {
@@ -93,7 +94,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         adMediaHolders.sortWith(::compareMediaItem)
         adMediaHolders.reverse()
         for (source in adMediaHolders) {
-            val found = extractMedia(source, cost, drainForBatteries = false, simulate = simulate)
+            val found = source.withdrawMedia(cost, simulate)
             cost -= found
             if (cost <= 0) {
                 break
@@ -109,7 +110,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             if (ent is ServerPlayer) {
                 val sentinel = HexAPI.instance().getSentinel(ent)
                 if ((sentinel != null && sentinel.extendsRange()) && ent.level()
-                        .dimension() === sentinel.dimension() && (vec!!.distanceToSqr(sentinel.position()) <= PlayerBasedCastEnv.SENTINEL_RADIUS * PlayerBasedCastEnv.SENTINEL_RADIUS)
+                        .dimension() === sentinel.dimension() && (vec!!.distanceToSqr(sentinel.position()) <= PlayerBasedCastEnv.SENTINEL_RADIUS * PlayerBasedCastEnv.SENTINEL_RADIUS * HexTweaks.getCONFIG().computerAmbitMult)
                 ) {
                     return true
                 }
@@ -119,7 +120,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             position = turtleData!!.first.position.center
         }
 
-        return vec!!.distanceToSqr(position!!) <= PlayerBasedCastEnv.AMBIT_RADIUS * PlayerBasedCastEnv.AMBIT_RADIUS
+        return vec!!.distanceToSqr(position!!) <= PlayerBasedCastEnv.AMBIT_RADIUS * PlayerBasedCastEnv.AMBIT_RADIUS * HexTweaks.getCONFIG().computerAmbitMult
     }
 
     override fun hasEditPermissionsAtEnvironment(pos: BlockPos): Boolean {
@@ -149,10 +150,11 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
     override fun getUsableStacks(mode: StackDiscoveryMode?): List<ItemStack> {
         val out = ArrayList<ItemStack>()
         //TODO: check back how base hexcasting handles these modes after I deprecated caster
-        if (this.caster != null) {
+        val castingPlayer = this.castingEntity as? ServerPlayer
+        if (castingPlayer != null) {
             when (mode) {
                 StackDiscoveryMode.QUERY -> {
-                    val offhand = this.caster!!.getItemInHand(otherHand(this.castingHand))
+                    val offhand = castingPlayer.getItemInHand(otherHand(this.castingHand))
                     if (!offhand.isEmpty) {
                         out.add(offhand)
                     }
@@ -161,13 +163,13 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
                     // If we're casting from the main hand, try to pick from the slot one to the right of the selected slot
                     // Otherwise, scan the hotbar left to right
                     val anchorSlot = if (this.castingHand == InteractionHand.MAIN_HAND
-                    ) (this.caster!!.inventory.selected + 1) % 9
+                    ) (castingPlayer.inventory.selected + 1) % 9
                     else 0
 
 
                     for (delta in 0..8) {
                         val slot = (anchorSlot + delta) % 9
-                        out.add(this.caster!!.inventory.getItem(slot))
+                        out.add(castingPlayer.inventory.getItem(slot))
                     }
                 }
                 StackDiscoveryMode.EXTRACTION -> {
@@ -179,7 +181,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
 
                     // First, the inventory backwards
                     // We use inv.items here to get the main inventory, but not offhand or armor
-                    val inv = this.caster!!.inventory
+                    val inv = castingPlayer.inventory
                     for (i in inv.items.indices.reversed()) {
                         if (i != inv.selected) {
                             out.add(inv.items[i])
@@ -205,7 +207,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
 
     override fun getPrimaryStacks(): MutableList<HeldItemInfo> {
         if (pocketData != null) {
-            var primaryItem = this.caster!!.getItemInHand(this.castingHand)
+            var primaryItem = (this.castingEntity as ServerPlayer).getItemInHand(this.castingHand)
 
             if (primaryItem.isEmpty) primaryItem = ItemStack.EMPTY.copy()
 
@@ -331,6 +333,17 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
                     )
                 }
             }
+        }
+    }
+
+    override fun precheckAction(match: PatternShapeMatch?) {
+        super.precheckAction(match)
+
+        // TODO: this doesn't let you select special handlers.
+        // Might be worth making a "no casting" tag on each thing
+        val key = actionKey(match)
+        if (!HexTweaks.getCONFIG().isPatternAllowed(key)) {
+            throw MishapDisallowedSpell()
         }
     }
 }

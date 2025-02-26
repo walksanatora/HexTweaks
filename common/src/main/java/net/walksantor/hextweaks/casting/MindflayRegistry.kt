@@ -74,12 +74,6 @@ object MindflayRegistry {
     }
 
     fun register() {
-        if (HexTweaks.getCONFIG().enableChunkreset) {
-            put(
-                ResourceLocation(HexTweaks.MOD_ID, "reset_chunk"),
-                StartResetChunkRitual::start
-            )
-        }
         if (Platform.isModLoaded("hexal")) {
             put(
                 ResourceLocation(HexTweaks.MOD_ID,"slipway/create"),

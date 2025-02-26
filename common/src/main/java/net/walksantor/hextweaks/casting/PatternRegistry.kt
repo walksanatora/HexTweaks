@@ -18,7 +18,6 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.walksantor.hextweaks.HexTweaks
 import net.walksantor.hextweaks.casting.actions.*
-import net.walksantor.hextweaks.entities.SpellBeaconEntity
 import java.util.*
 import java.util.function.BiConsumer
 import java.util.function.BiFunction
@@ -58,10 +57,6 @@ object PatternRegistry {
     )
     val NUKE_NOWIL = pattern(
         HexDir.EAST, "edeaqqqeeeeede", "nuke_chunk_nowill", OpLackingWill
-    )
-
-    val GETZONE = pattern(
-        HexDir.SOUTH_EAST,"qqqqqwdeddeeawaeaw", "sbe_entities", OpGetEntitiesBy({ it is SpellBeaconEntity},false)
     )
 
     val GETWAVE = pattern(

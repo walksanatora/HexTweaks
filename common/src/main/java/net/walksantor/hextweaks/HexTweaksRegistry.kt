@@ -25,8 +25,7 @@ import net.walksantor.hextweaks.casting.PatternRegistry
 import net.walksantor.hextweaks.casting.handler.GrandSpellHandler
 import net.walksantor.hextweaks.computer.WandPocketUpgrade
 import net.walksantor.hextweaks.computer.WandTurtleUpgrade
-import net.walksantor.hextweaks.entities.SpellBeaconEntity
-import net.walksantor.hextweaks.entities.SpellBeaconEntityRender
+
 import net.walksantor.hextweaks.items.VirtualPigment
 
 
@@ -37,7 +36,6 @@ object HexTweaksRegistry {
     // vanilla registries
     val BLOCKS = reg(Registries.BLOCK)
     val ITEMS = reg(Registries.ITEM)
-    val ENTITY_TYPES = reg(Registries.ENTITY_TYPE)
 
     val SPECIAL_HANDLERS = reg(HexRegistries.SPECIAL_HANDLER)
     val ACTIONS = reg(HexRegistries.ACTION)
@@ -64,14 +62,9 @@ object HexTweaksRegistry {
     val SUS_DAMMAGET = DamageType("hextweaks.death.sus",0.0f)
     val SUS_DAMMAGE = DamageSource(Holder.direct(SUS_DAMMAGET))
 
-    val SPELL_BEACON_ENTITY = ENTITY_TYPES.register(ResourceLocation(HexTweaks.MOD_ID,"sbe")) {
-        SpellBeaconEntity.BUILDER.build("sbe")
-    }
+
 
     fun init() {
-        if (Platform.isForge()) {
-            EntityAttributeRegistry.register({ SPELL_BEACON_ENTITY.get()}, {SpellBeaconEntity.createAttributes()})
-        }
         HexTweaksIotaTypes.init()
         MindflayRegistry.register()
         HexTweaksContinuationTypes.init()
@@ -91,8 +84,6 @@ object HexTweaksRegistry {
             ITEMS.register()
             SPECIAL_HANDLERS.register()
             HexTweaksIotaTypes.IOTATYPE.register()
-            ENTITY_TYPES.register()
-            EntityAttributeRegistry.register({ SPELL_BEACON_ENTITY.get()}, {SpellBeaconEntity.createAttributes()})
             ACTIONS.register()
 //            MindflayRegistry.register()
             HexTweaksContinuationTypes.CONTINUATION_REGISTRY.register()
@@ -114,7 +105,6 @@ object HexTweaksRegistry {
                 TurtleUpgradeModeller.flatItem()
             )
         }
-        EntityRendererRegistry.register({ SPELL_BEACON_ENTITY.get()}, { ctx -> SpellBeaconEntityRender(ctx) })
     }
 
     fun <T> reg(key: ResourceKey<Registry<T>>): DeferredRegister<T> {
