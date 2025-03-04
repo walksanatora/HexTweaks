@@ -21,6 +21,7 @@ dependencies {
     compileOnly group: "org.jblas", name: "jblas", version: "1.2.5"
     modCompileOnly("maven.modrinth:plethora-peripherals:5pxGGDeh") // yes plethora is something we depend on... kinda
     modCompileOnly("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT")
+    modCompileOnly("maven.modrinth:cc-androids:GEMYgmf8") //our new AI overlords should be able to hexcast. it is only fair as the superior life form
 }
 
 publishing {

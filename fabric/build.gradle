@@ -58,7 +58,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
     modImplementation "at.petra-k.hexcasting:hexcasting-fabric-1.20.1:${rootProject.hexcasting_version}"
-    modCompileOnly "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
+    modImplementation "cc.tweaked:cc-tweaked-${rootProject.minecraft_version}-fabric:${rootProject.cct_version}"
     modRuntimeOnly "maven.modrinth:ducky-periphs:FYDI2Gut"
     modRuntimeOnly "maven.modrinth:inline:Bskomaui"
     //modRuntimeOnly "maven.modrinth:gu7yAYhd:Scean3uO"
@@ -99,6 +99,8 @@ dependencies {
 //    modRuntimeOnly ("com.github.devs-immortal:Incubus-Core:${project.incubus_core_version}")
 //    modRuntimeOnly ("com.github.emilyploszaj:step-height-entity-attribute:${project.step_height_attribute_version}")
 //    modRuntimeOnly ("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_entity_attributes_version}")
+
+    modRuntimeOnly "maven.modrinth:cc-androids:GEMYgmf8" //our new AI overlords should be able to hexcast. it is only fair as the superior life form
 }
 
 processResources {

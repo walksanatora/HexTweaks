@@ -10,11 +10,12 @@ import at.petrak.hexcasting.api.casting.eval.MishapEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
 import at.petrak.hexcasting.api.casting.mishaps.MishapDisallowedSpell
-import at.petrak.hexcasting.api.mod.HexConfig
 import at.petrak.hexcasting.api.pigment.FrozenPigment
 import at.petrak.hexcasting.api.utils.compareMediaItem
 import at.petrak.hexcasting.api.utils.otherHand
 import at.petrak.hexcasting.api.utils.putInt
+import at.petrak.hexcasting.common.lib.HexItems
+import com.thunderbear06.computer.peripherals.DummyPocket
 import dan200.computercraft.api.peripheral.IComputerAccess
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
@@ -24,6 +25,7 @@ import dan200.computercraft.shared.computer.core.ServerComputer
 import dan200.computercraft.shared.turtle.core.TurtleBrain
 import dev.architectury.platform.Platform
 import io.sc3.plethora.gameplay.neural.NeuralPocketAccess
+import com.thunderbear06.entity.android.BaseAndroidEntity
 import net.minecraft.Util.NIL_UUID
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -76,7 +78,14 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         return if (turtleData != null) {
           turtleData.first.inventory
         } else {
-            (pocketData!!.entity!! as ServerPlayer).inventory
+            val ent = pocketData!!.entity
+            if (ent is ServerPlayer) {
+                ent.inventory
+            } else if (Platform.isModLoaded("cc-androids") && ent is BaseAndroidEntity) {
+                ent.inventory
+            } else {
+                throw IllegalStateException("Pocket Computer not on a entity with a inventory wah wah")
+            }
         }
     }
 
@@ -138,13 +147,23 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
     }
 
     override fun getCastingHand(): InteractionHand {
-        if (turtleData != null) {
+        return if (turtleData != null) {
             when (turtleData.second) {
                 TurtleSide.LEFT -> InteractionHand.MAIN_HAND
                 TurtleSide.RIGHT -> InteractionHand.OFF_HAND
             }
+        } else {
+            val ent = pocketData!!.entity
+            if (Platform.isModLoaded("cc-androids") && (ent is BaseAndroidEntity)) {
+                if (ent.getItemInHand(InteractionHand.MAIN_HAND)?.item == HexItems.STAFF_MINDSPLICE) {
+                    InteractionHand.MAIN_HAND
+                } else {
+                    InteractionHand.OFF_HAND
+                }
+            } else {
+                InteractionHand.MAIN_HAND
+            }
         }
-        return InteractionHand.MAIN_HAND
     }
 
     override fun getUsableStacks(mode: StackDiscoveryMode?): List<ItemStack> {
@@ -207,18 +226,11 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
 
     override fun getPrimaryStacks(): MutableList<HeldItemInfo> {
         if (pocketData != null) {
-            var primaryItem = (this.castingEntity as ServerPlayer).getItemInHand(this.castingHand)
-
-            if (primaryItem.isEmpty) primaryItem = ItemStack.EMPTY.copy()
-
-            return java.util.List.of<HeldItemInfo>(
-                HeldItemInfo(
-                    getAlternateItem(),
-                    this.otherHand
-                ), HeldItemInfo(
-                    primaryItem,
-                    this.castingHand
-                )
+            val ent = this.castingEntity
+            if (ent == null) {return mutableListOf()}
+            return mutableListOf(
+                 HeldItemInfo(ent.getItemInHand(this.otherHand), this.otherHand),
+                 HeldItemInfo(ent.getItemInHand(this.castingHand), this.castingHand)
             )
         } else {
             val slot = turtleData!!.first.selectedSlot
@@ -226,16 +238,6 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
                 turtleData.first.inventory.getItem(slot),
                 InteractionHand.MAIN_HAND
             ))
-        }
-    }
-
-    fun getAlternateItem(): ItemStack {
-        val otherHand = otherHand(this.castingHand)
-        val stack = castingEntity!!.getItemInHand(otherHand)
-        return if (stack.isEmpty) {
-            ItemStack.EMPTY.copy()
-        } else {
-            stack
         }
     }
 
@@ -303,15 +305,14 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
 
     private fun getServerComputer(): ServerComputer {
         return if (pocketData != null) {
-            if (Platform.isModLoaded("plethora")) {
-                if (pocketData is NeuralPocketAccess) {
-                    return (pocketData as NeuralAccessor).neural
-                }
+            if (Platform.isModLoaded("plethora") && (pocketData is NeuralPocketAccess)) {
+                (pocketData as NeuralAccessor).neural as ServerComputer as ServerComputer
+            } else if (Platform.isModLoaded("cc-androids") && pocketData is DummyPocket) {
+                (pocketData.entity!! as BaseAndroidEntity).computer.serverComputer as ServerComputer
+            } else {
+                pocketData as ServerComputer
             }
-            pocketData as ServerComputer
         } else {
-            //turtleData!!.first.direction.normal
-
             (turtleData!!.first as TurtleBrain).owner.serverComputer!!
         }
     }
