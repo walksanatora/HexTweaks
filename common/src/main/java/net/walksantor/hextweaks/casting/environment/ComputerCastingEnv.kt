@@ -50,6 +50,8 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         if (turtleData == null) {
             if (pocketData!!.entity is ServerPlayer) {
                 ComputerMishapEnvironment(world,pocketData.entity as ServerPlayer,this)
+            } else {
+                ComputerMishapEnvironment(world, null, this)
             }
         }
         ComputerMishapEnvironment(world,null,this)
@@ -84,7 +86,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             } else if (Platform.isModLoaded("cc-androids") && ent is BaseAndroidEntity) {
                 ent.inventory
             } else {
-                throw IllegalStateException("Pocket Computer not on a entity with a inventory wah wah")
+                throw IllegalStateException("Pocket Computer not on a entity with a supported inventory wah wah")
             }
         }
     }
@@ -124,7 +126,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
                     return true
                 }
             }
-            position = pocketData.entity!!.position()
+            position = pocketData.position
         } else {
             position = turtleData!!.first.position.center
         }
@@ -155,7 +157,8 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         } else {
             val ent = pocketData!!.entity
             if (Platform.isModLoaded("cc-androids") && (ent is BaseAndroidEntity)) {
-                if (ent.getItemInHand(InteractionHand.MAIN_HAND)?.item == HexItems.STAFF_MINDSPLICE) {
+                val downcast = ent as LivingEntity;// loom is stupid and fails to remap the upcasted BaseAndroidEntity in the next line
+                if (downcast.getItemInHand(InteractionHand.MAIN_HAND).item == HexItems.STAFF_MINDSPLICE) {
                     InteractionHand.MAIN_HAND
                 } else {
                     InteractionHand.OFF_HAND

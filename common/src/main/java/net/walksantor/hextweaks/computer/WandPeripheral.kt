@@ -39,7 +39,7 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
 
     private fun getWorld(): ServerLevel {
         return if (turtleData==null) {
-            pocketData!!.entity!!.level()
+            pocketData!!.level
         } else {
             turtleData.first.level
         } as ServerLevel
