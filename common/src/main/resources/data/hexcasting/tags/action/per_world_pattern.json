@@ -3,6 +3,6 @@
   "values": [
     "hextweaks:infusion",
     "hextweaks:nuke_chunk_nowill",
-    "hextweaks:you_like_drinking_potions"
+    {"id": "hextweaks:you_like_drinking_potions","required": false}
   ]
 }
