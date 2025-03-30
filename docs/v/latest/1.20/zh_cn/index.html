@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>HexTweaks Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="The HexTweaks Book, all in one place." />
+      <meta name="author" content="walksanatora" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="HexTweaks Book" />
+<meta property="og:image" content="https://walksanatora.github.io/HexTweaks/v/latest/1.20/zh_cn/icon.png" />
+<meta property="og:url" content="https://walksanatora.github.io/HexTweaks/v/latest/1.20/zh_cn" />
+<meta property="og:description" content="The HexTweaks Book, all in one place." />
+<meta property="og:site_name" content="HexTweaks (latest/1.20)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">HexTweaks Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/walksanatora/HexTweaks/tree/544c9928c473d50e2c0e2150c2c3307c6097a0db"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >latest/1.20 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >简体中文 (中国大陆) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>这是HexTweaks文档的在线版本。</p></h1>
+        <p>此版本是根据GitHub上最新代码构建而来的。其中可能包含游戏内暂未实装的<strong>新</strong>特性，就连Modrinth和CurseForge上的最新版本里也找不到！</p>
+      <p><strong>条目的模糊处理相当于剧透警告</strong>。点击条目即可取消模糊，不过这么做有可能破坏游戏后期的进程与体验。也可点击<a href="?nospoiler">此处</a>以取消所有模糊。</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>往事犹若异乡；他们在那里做的事情都不一样。</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    <span class="nobr">目录<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="显示或收起全部"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#interop" class="toc-elem "><img
+      title="锁链"
+      alt="锁链"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/chain.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 模组联动</a></summary>
+      <ul>
+          <li><a href="#interop/computercraft" class="toc-elem spoilered"><img
+      title="高级海龟"
+      alt="高级海龟"
+      src="https://walksanatora.github.io/HexTweaks/v/latest/1.20/assets/computercraft/textures/block/turtle_advanced.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > ComputerCraft</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="书架"
+      alt="书架"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 图案</a></summary>
+      <ul>
+          <li><a href="#patterns/hextweaks_utility" class="toc-elem "><img
+      title="木棍"
+      alt="木棍"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/stick.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 咒法调整：实用</a></li>
+          <li><a href="#patterns/hextweaks_pe" class="toc-elem spoilered"><div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_1.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_2.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_3.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+    </div> 咒法调整：启迪之后</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/great_spells" class="toc-elem "><img
+      title="潮涌能量"
+      alt="潮涌能量"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/conduit_power.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 卓越法术</a></summary>
+      <ul>
+          <li><a href="#patterns/great_spells/infusion" class="toc-elem "><img
+      title="玻璃"
+      alt="玻璃"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/glass.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 融注意志</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/grand" class="toc-elem "><img
+      title="凋零"
+      alt="凋零"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/wither.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 卓伟法术</a></summary>
+      <ul>
+          <li><a href="#patterns/grand/mindflay" class="toc-elem "><img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 卓伟剥离意识</a></li>
+          <li><a href="#patterns/grand/fireball" class="toc-elem "><img
+      title="火焰弹"
+      alt="火焰弹"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/fire_charge.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 火球</a></li>
+          <li><a href="#patterns/grand/explode" class="toc-elem "><img
+      title="TNT"
+      alt="TNT"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/tnt.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 爆炸</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/grand/mindflay_rituals" class="toc-elem "><img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 群体剥离意识仪式</a></summary>
+      <ul>
+          <li><a href="#patterns/grand/mindflay_rituals/restock" class="toc-elem "><img
+      title="箱子"
+      alt="箱子"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAJElEQVQoz2NkwAF+MPzAKs7EQCIY1UAMYMQV3hwMHKOhRD8NAPogBA/DVsDEAAAAAElFTkSuQmCC"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 交易补货</a></li>
+          <li><a href="#patterns/grand/mindflay_rituals/slipways" class="toc-elem "><img
+      title="红树木门"
+      alt="红树木门"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/mangrove_door.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 创造与坍缩质道</a></li>
+          <li><a href="#patterns/grand/mindflay_rituals/titration" class="toc-elem "><img
+      title="发酵桶"
+      alt="发酵桶"
+      src="https://walksanatora.github.io/HexTweaks/v/latest/1.20/assets/spectrum/textures/block/titration_barrel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 定量时间跳跃</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="interop">
+    <h2 class="category-title page-header">
+    <img
+      title="锁链"
+      alt="锁链"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/chain.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >模组联动<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#interop"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>好像我装了某些能和咒法学联动的模组！详情如下。</p>
+<div id="interop/computercraft" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="高级海龟"
+      alt="高级海龟"
+      src="https://walksanatora.github.io/HexTweaks/v/latest/1.20/assets/computercraft/textures/block/turtle_advanced.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >ComputerCraft<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#interop/computercraft"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>我进行了大量研究，最终发现我可以给海龟和掌上电脑配备一杆制念法杖，以让它们替我执行些琐事。</p>
+<br />
+    <p>它们持有法杖时还有一些新事件（event）可用。<i>reveal</i> 会像揭示那样通过图案返回字符串。<i>mishap</i> 则会包含事故的类名、图案的名称，以及字符串形式的咒术图案。</p>
+<br />
+    <p>海龟的施法不具有施法者，施法范围正常。掌上电脑施法的施法者为手持它的玩家，施法范围同样正常。</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="书架"
+      alt="书架"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>我所发现的各式图案，和它们的功用。</p>
+<div id="patterns/hextweaks_utility" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="木棍"
+      alt="木棍"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/stick.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >咒法调整：实用<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hextweaks_utility"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/hextweaks_utility@hextweaks:page/right" class="">
+<h4 class="pattern-title">页进之策略<a
+    href="#patterns/hextweaks_utility@hextweaks:page/right"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqaw"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqaw</canvas>
+  </details>
+      <p>将我所持的法术书向右翻一页。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_utility@hextweaks:page/left" class="">
+<h4 class="pattern-title">页退之策略<a
+    href="#patterns/hextweaks_utility@hextweaks:page/left"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eedw"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eedw</canvas>
+  </details>
+      <p>将我所持的法术书向左翻一页。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_utility@hextweaks:while" class="">
+<h4 class="pattern-title">海奎特之策略 ([pattern] →)<a
+    href="#patterns/hextweaks_utility@hextweaks:while"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wdwadad"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wdwadad</canvas>
+  </details>
+      <p>移除栈顶的图案列表。检视而不移除其下方的 iota，并运行被移除的图案列表，当且仅当<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/logic@hexcasting:bool_coerce">占卜师之纯化</a>会对被检视的 iota 返回 True。检视和运行会一直持续，直至被检视的 iota 不再返回 True。</p>
+  </div>
+<br />
+</div>
+<div id="patterns/hextweaks_pe" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_1.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_2.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="淬灵晶块"
+      alt="淬灵晶块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_3.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+    </div>咒法调整：启迪之后<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hextweaks_pe"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/hextweaks_pe@hextweaks:wave" class="">
+<h4 class="pattern-title">波之精思 (→ vector)<a
+    href="#patterns/hextweaks_pe@hextweaks:wave"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qdewedq"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qdewedq</canvas>
+  </details>
+      <p>返回<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus">法术环</a>中<span style="color: #b0b">媒质波</span>的未知。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_pe@hextweaks:normal" class="">
+<h4 class="pattern-title">法向之精思 (→ vector)<a
+    href="#patterns/hextweaks_pe@hextweaks:normal"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qdewedqwqaq"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qdewedqwqaq</canvas>
+  </details>
+      <p>返回<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus">法术环</a>中<span style="color: #b0b">媒质波</span>所处<span style="color: #b0b">石板</span>的<span style="color: #b0b">法向量</span>。</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns/great_spells">
+    <h2 class="category-title page-header">
+    <img
+      title="潮涌能量"
+      alt="潮涌能量"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/conduit_power.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >卓越法术<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>这类法术据信极难施放，但也极为强力。记载它们的文献极为<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/scroll">少见</a>（据称理由充分）。这也许只是某些消亡的老古董口中的胡言乱语，不过——它们只是简单的图案罢了。</p><p>试试看又能出什么错呢？</p>
+<div id="patterns/great_spells/infusion" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="玻璃"
+      alt="玻璃"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/glass.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >融注意志<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells/infusion"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/great_spells/infusion@hextweaks:infusion" class="">
+<h4 class="pattern-title">融注意志 (pattern → pattern)<a
+    href="#patterns/great_spells/infusion@hextweaks:infusion"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="waawaawaqwaeaeaeaeaea"
+        data-start="south_west"
+        data-per-world="True"
+      >浏览器不支持图案的可视化。图案代码见此：waawaawaqwaeaeaeaeaea</canvas>
+  </details>
+      <p>接受一个图案，并以此生成一个无法手动绘制的、因人而异的图案。<br />似乎会给予某些法术更多能量。</p>
+  </div>
+<br />
+</div>
+</section>
+<section id="patterns/grand">
+    <h2 class="category-title page-header">
+    <img
+      title="凋零"
+      alt="凋零"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/wither.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >卓伟法术<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>似乎法术还有另一个层次，必须向其中融注意志才能找到它们。我会将我找到的法术记录在此。</p>
+<div id="patterns/grand/mindflay" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >卓伟剥离意识<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>和前人讲述的一样，此法术会剥离生物的意识并存入其他事物。<br />这一版本的法术能够批量剥离，接受<br />[entity], vec3|entity -&gt; <br />而后以此执行各种仪式</p>
+<br />
+</div>
+<div id="patterns/grand/fireball" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="火焰弹"
+      alt="火焰弹"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/fire_charge.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >火球<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/fireball"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>与火球类似，但强度上限变为了 2 倍。</p>
+<br />
+</div>
+<div id="patterns/grand/explode" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="TNT"
+      alt="TNT"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/tnt.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >爆炸<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/explode"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>与爆炸类似，但强度上限变为了 2 倍。</p>
+<br />
+</div>
+</section>
+<section id="patterns/grand/mindflay_rituals">
+    <h2 class="category-title page-header">
+    <img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >群体剥离意识仪式<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>这里是我所知的所有仪式。<br />“关于意识的群体剥离”<br /><br />这些仪式似乎依照某种“点数”系统运作，村民熟练度每增一级，点数贡献就会翻倍。</p>
+<div id="patterns/grand/mindflay_rituals/restock" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="箱子"
+      alt="箱子"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAJElEQVQoz2NkwAF+MPzAKs7EQCIY1UAMYMQV3hwMHKOhRD8NAPogBA/DVsDEAAAAAElFTkSuQmCC"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >交易补货<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals/restock"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>[村民（每项交易 1 点）], 村民 -&gt;<br />为目标村民的所有交易补货。<br />目标村民每有 1 项交易，即消耗 1 点点数。</p>
+<br />
+</div>
+<div id="patterns/grand/mindflay_rituals/slipways" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="红树木门"
+      alt="红树木门"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/mangrove_door.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >创造与坍缩质道<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals/slipways"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>创造一个质道。<br />[村民（80 点）], 咒灵 -&gt; <br />接受一些村民，并将目标咒灵变为质道。</p>
+<br />
+    <p>坍缩一个质道。<br />[村民（16 点）], pos -&gt; <br />接受一些村民，并将质道坍缩为 10 到 20 个游走咒灵。</p>
+<br />
+</div>
+<div id="patterns/grand/mindflay_rituals/titration" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="发酵桶"
+      alt="发酵桶"
+      src="https://walksanatora.github.io/HexTweaks/v/latest/1.20/assets/spectrum/textures/block/titration_barrel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >定量时间跳跃<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals/titration"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p><br />[村民 + 女巫（每个 8 点）], pos -&gt; <br />接受一些村民和女巫，每献祭一个女巫，即尝试向前跳过 12 小时的时间。</p>
+<br />
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>该页面不是Minecraft的官方产品，不隶属于Mojang和Microsoft，且不代表Mojang和Microsoft的意见。</p><p>Minecraft的游戏内容和资源均为各自所有者的知识财产。</p><p>使用<a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>精心制作。❤️</p>
+        </div>
+      </footer>
+  </body>
+</html>
