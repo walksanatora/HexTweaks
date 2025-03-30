@@ -6,9 +6,9 @@
   "client": [
   ],
   "mixins": [
-    "MixinAccelerateFermentation",
-    "MixinLateHexInit",
-    "SealTimeAccessor"
+    "net.walksanator.hextweaks.fabric.mixin.MixinAccelerateFermentation",
+    "net.walksanator.hextweaks.fabric.mixin.MixinLateHexInit",
+    "net.walksanator.hextweaks.fabric.mixin.SealTimeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

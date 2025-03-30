@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.walksantor.hextweaks.fabric.HexTweaksFabric"
+      "net.walksanator.hextweaks.fabric.HexTweaksFabric"
     ],
     "client": [
-      "net.walksantor.hextweaks.fabric.HexTweaksFabricClient"
+      "net.walksanator.hextweaks.fabric.HexTweaksFabricClient"
     ]
   },
   "mixins": [
