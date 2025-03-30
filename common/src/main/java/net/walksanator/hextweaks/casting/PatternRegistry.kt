@@ -7,7 +7,6 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.math.HexAngle
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
-import at.petrak.hexcasting.common.casting.actions.selectors.OpGetEntitiesBy
 import at.petrak.hexcasting.common.items.ItemLoreFragment
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import at.petrak.hexcasting.server.ScrungledPatternsSave
@@ -16,8 +15,7 @@ import dev.architectury.platform.Platform
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.walksanator.hextweaks.HexTweaks
-import net.walksantor.hextweaks.casting.actions.*
+import net.walksanator.hextweaks.casting.actions.*
 import java.util.*
 import java.util.function.BiConsumer
 import java.util.function.BiFunction
@@ -48,12 +46,8 @@ object PatternRegistry {
     val WHILE = pattern(HexDir.NORTH_EAST, "wdwadad", "while", OpLoopWhile)
 
 
-    val GETWAVE = pattern(
-        HexDir.SOUTH_EAST, "qdewedq", "wave", OpWaveRefl
-    )
-    val SLATE_NORMAL = pattern(
-        HexDir.SOUTH_EAST, "qdewedqwqaq", "normal", OpSlateNormal
-    )
+    val GETWAVE = pattern(HexDir.SOUTH_EAST, "qdewedq", "wave", OpWaveRefl)
+    val SLATE_NORMAL = pattern(HexDir.SOUTH_EAST, "qdewedqwqaq", "normal", OpSlateNormal)
 
 
 
@@ -68,9 +62,7 @@ object PatternRegistry {
         patternGrand(HexActions.EXPLODE,"explode", OpBiggerBomb(false), false)
         patternGrand(HexActions.`EXPLODE$FIRE`, "fireball", OpBiggerBomb(true), false)
         if (Platform.isModLoaded("moreiotas")) {
-            val hell = pattern(
-                HexDir.EAST,"wqwqwqwqwqwewawwwawwwaw","you_like_drinking_potions", OpLackingWill
-            )
+            val hell = pattern(HexDir.EAST,"wqwqwqwqwqwewawwwawwwaw","you_like_drinking_potions", OpLackingWill)
             patternGrand(
                 hell,"nadith", OpEgyptianPlagues,true
             )

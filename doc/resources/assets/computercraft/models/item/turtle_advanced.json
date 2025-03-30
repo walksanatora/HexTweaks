@@ -1,1 +1,1 @@
-{"loader": "computercraft:turtle", "model": "computercraft:block/turtle_advanced"}
+{"parent": "computercraft:block/turtle_advanced"}

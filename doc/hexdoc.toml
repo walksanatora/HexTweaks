@@ -54,3 +54,8 @@ package = "{src}/main/java/net/walksanator/hextweaks/fabric"
 [_forge]
 src = "../forge/src"
 package = "{src}/main/java/net/walksanator/hextweaks/forge"
+
+[textures]
+missing = [
+    "minecraft:chest",
+]
