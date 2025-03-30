@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>HexTweaks Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="The HexTweaks Book, all in one place." />
+      <meta name="author" content="walksanatora" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="HexTweaks Book" />
+<meta property="og:image" content="https://walksanatora.github.io/HexTweaks/v/5.3.2/1.0.dev0/en_us/icon.png" />
+<meta property="og:url" content="https://walksanatora.github.io/HexTweaks/v/5.3.2/1.0.dev0/en_us" />
+<meta property="og:description" content="The HexTweaks Book, all in one place." />
+<meta property="og:site_name" content="HexTweaks (5.3.2)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">HexTweaks Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/walksanatora/HexTweaks/tree/544c9928c473d50e2c0e2150c2c3307c6097a0db"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >5.3.2 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >English (United States) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>This is the online version of the HexTweaks documentation.</p></h1>
+      <p><strong>Entries which are blurred are spoilers</strong>. Click to reveal them, but be aware that they may spoil endgame progression. Alternatively, click <a href="?nospoiler">here</a> to get a version with all spoilers showing.</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>The past is a foreign country; they do things differently there.</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    Table of <span class="nobr">Contents<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="Toggle all"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#interop" class="toc-elem "><img
+      title="Chain"
+      alt="Chain"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/chain.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Cross-Mod Compatibility</a></summary>
+      <ul>
+          <li><a href="#interop/computercraft" class="toc-elem spoilered"><img
+      title="Advanced Turtle"
+      alt="Advanced Turtle"
+      src="https://walksanatora.github.io/HexTweaks/v/5.3.2/1.0.dev0/assets/computercraft/textures/block/turtle_advanced.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Computercraft</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="Bookshelf"
+      alt="Bookshelf"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Patterns</a></summary>
+      <ul>
+          <li><a href="#patterns/hextweaks_utility" class="toc-elem "><img
+      title="Stick"
+      alt="Stick"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/stick.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Hextweaks Utility</a></li>
+          <li><a href="#patterns/hextweaks_pe" class="toc-elem spoilered"><div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_1.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_2.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_3.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+    </div> Hextweaks Post Enlightenment</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/great_spells" class="toc-elem "><img
+      title="Conduit Power"
+      alt="Conduit Power"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/conduit_power.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Great Spells</a></summary>
+      <ul>
+          <li><a href="#patterns/great_spells/infusion" class="toc-elem "><img
+      title="Glass"
+      alt="Glass"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/glass.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Infuse Will</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/grand" class="toc-elem "><img
+      title="Wither"
+      alt="Wither"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/wither.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Grand Spells</a></summary>
+      <ul>
+          <li><a href="#patterns/grand/explode" class="toc-elem "><img
+      title="TNT"
+      alt="TNT"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/tnt.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Explode</a></li>
+          <li><a href="#patterns/grand/fireball" class="toc-elem "><img
+      title="Fire Charge"
+      alt="Fire Charge"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/fire_charge.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Fireball</a></li>
+          <li><a href="#patterns/grand/mindflay" class="toc-elem "><img
+      title="Wither Skeleton Skull"
+      alt="Wither Skeleton Skull"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Grand Mindflay</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/grand/mindflay_rituals" class="toc-elem "><img
+      title="Wither Skeleton Skull"
+      alt="Wither Skeleton Skull"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Mass Mindflay Rituals</a></summary>
+      <ul>
+          <li><a href="#patterns/grand/mindflay_rituals/slipways" class="toc-elem "><img
+      title="Mangrove Door"
+      alt="Mangrove Door"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/mangrove_door.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Create and Collapse Slipways</a></li>
+          <li><a href="#patterns/grand/mindflay_rituals/restock" class="toc-elem "><img
+      title="Chest"
+      alt="Chest"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAJElEQVQoz2NkwAF+MPzAKs7EQCIY1UAMYMQV3hwMHKOhRD8NAPogBA/DVsDEAAAAAElFTkSuQmCC"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Restock Trades</a></li>
+          <li><a href="#patterns/grand/mindflay_rituals/titration" class="toc-elem "><img
+      title="Titration Barrel"
+      alt="Titration Barrel"
+      src="https://walksanatora.github.io/HexTweaks/v/5.3.2/1.0.dev0/assets/spectrum/textures/block/titration_barrel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Titration Time Skip</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="interop">
+    <h2 class="category-title page-header">
+    <img
+      title="Chain"
+      alt="Chain"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/chain.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Cross-Mod Compatibility<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#interop"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>It appears I have installed some mods Hexcasting interoperates with! I&#39;ve detailed them here.</p>
+<div id="interop/computercraft" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Advanced Turtle"
+      alt="Advanced Turtle"
+      src="https://walksanatora.github.io/HexTweaks/v/5.3.2/1.0.dev0/assets/computercraft/textures/block/turtle_advanced.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Computercraft<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#interop/computercraft"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Thanks to my extensive research I have discovered that I can give the turtles and pocket computers a Mindsplice staff to have them perform menial task in my place</p>
+<br />
+    <p>there also appears to be a new event when a staff is equipped <i>reveal() which just has a string sent via patterns like reveal.<br />and </i><i>mishap) that contains the mishap&#39;s class,the pattern&#39;s name, and the hex pattern as string</i></p>
+<br />
+    <p>Turtles cast as no one and have normal ambit. pocket computers cast as the player holding them. also having full ambit</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="Bookshelf"
+      alt="Bookshelf"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>A list of all the patterns I&#39;ve discovered, as well as what they do.</p>
+<div id="patterns/hextweaks_utility" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Stick"
+      alt="Stick"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/stick.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Hextweaks Utility<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hextweaks_utility"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/hextweaks_utility@hextweaks:page/right" class="">
+<h4 class="pattern-title">Progress Gambit<a
+    href="#patterns/hextweaks_utility@hextweaks:page/right"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqaw"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqaw</canvas>
+  </details>
+      <p>Turns the spellbook that your are holding one page to the right</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_utility@hextweaks:page/left" class="">
+<h4 class="pattern-title">Regress Gambit<a
+    href="#patterns/hextweaks_utility@hextweaks:page/left"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eedw"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eedw</canvas>
+  </details>
+      <p>Turns the spellbook that your are holding one page to the left</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_utility@hextweaks:while" class="">
+<h4 class="pattern-title">Heket&#39;s Gambit ([pattern] →)<a
+    href="#patterns/hextweaks_utility@hextweaks:while"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wdwadad"
+        data-start="north_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: wdwadad</canvas>
+  </details>
+      <p>Removes a pattern list from the stack. Examines (but does not remove) the iota beneath it, and evaluates the pattern list if and only if <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/logic@hexcasting:bool_coerce">Augur&#39;s Purification</a> would respond to that iota with True. Examination and evaluation repeats until the iota would no longer create truth.</p>
+  </div>
+<br />
+</div>
+<div id="patterns/hextweaks_pe" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_1.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_2.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_3.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+    </div>Hextweaks Post Enlightenment<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hextweaks_pe"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/hextweaks_pe@hextweaks:wave" class="">
+<h4 class="pattern-title">Wave Reflection (→ vector)<a
+    href="#patterns/hextweaks_pe@hextweaks:wave"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qdewedq"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qdewedq</canvas>
+  </details>
+      <p>Returns the posistion of the <span style="color: #b0b">Wave</span> of media passing through a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus">Spell Circle</a></p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_pe@hextweaks:normal" class="">
+<h4 class="pattern-title">Normals reflection (→ vector)<a
+    href="#patterns/hextweaks_pe@hextweaks:normal"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qdewedqwqaq"
+        data-start="south_east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qdewedqwqaq</canvas>
+  </details>
+      <p>Returns the <span style="color: #b0b">normal</span> of the <span style="color: #b0b">slate</span> the <span style="color: #b0b">Wave</span> is on in the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus">Spell Circle</a></p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns/great_spells">
+    <h2 class="category-title page-header">
+    <img
+      title="Conduit Power"
+      alt="Conduit Power"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/conduit_power.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Great Spells<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>The spells catalogued here are purported to be of legendary difficulty and power. They seem to have been recorded only <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/scroll">sparsely</a> (for good reason, the texts claim). It&#39;s probably just the ramblings of extinct traditionalists, though -- a pattern&#39;s a pattern.</p><p>What could possibly go wrong?</p>
+<div id="patterns/great_spells/infusion" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Glass"
+      alt="Glass"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/glass.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Infuse Will<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells/infusion"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/great_spells/infusion@hextweaks:infusion" class="">
+<h4 class="pattern-title">Infuse Will (pattern → pattern)<a
+    href="#patterns/great_spells/infusion@hextweaks:infusion"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="waawaawaqwaeaeaeaeaea"
+        data-start="south_west"
+        data-per-world="True"
+      >Your browser does not support visualizing patterns. Pattern code: waawaawaqwaeaeaeaeaea</canvas>
+  </details>
+      <p>Takes a pattern and makes it unique to me by injecting patterns that I cannot draw by hand<br />also seems to put more power into certain spells</p>
+  </div>
+<br />
+</div>
+</section>
+<section id="patterns/grand">
+    <h2 class="category-title page-header">
+    <img
+      title="Wither"
+      alt="Wither"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/wither.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Grand Spells<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>It appears that there is another layer of spells. I must infuse my will inorder to find them. I will document what I find out about them here</p>
+<div id="patterns/grand/explode" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="TNT"
+      alt="TNT"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/tnt.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Explode<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/explode"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>It is explosion but with double the maximum power</p>
+<br />
+</div>
+<div id="patterns/grand/fireball" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Fire Charge"
+      alt="Fire Charge"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/fire_charge.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Fireball<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/fireball"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>It is fireball but with double the maximum power</p>
+<br />
+</div>
+<div id="patterns/grand/mindflay" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Wither Skeleton Skull"
+      alt="Wither Skeleton Skull"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Grand Mindflay<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>As it&#39;s parent would have you believe it takes the will of mobs and puts them in something else.<br /> this version acts in bulk taking a <br />[entity], vec3|entity -&gt; <br />and performing various rituals</p>
+<br />
+</div>
+</section>
+<section id="patterns/grand/mindflay_rituals">
+    <h2 class="category-title page-header">
+    <img
+      title="Wither Skeleton Skull"
+      alt="Wither Skeleton Skull"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEV5YVJqUkRbRThJNyxCMSc1KSLA3kmkAAAAd0lEQVR42gVAMRKEIAxcHa93gtcLgf4IoVfRB0DG/3/lBjENtqd7UNzn+5Uvej4XftqGU+jntCSM7A7X9ALL1jkHRbVIJc6M8grLuiQwl1v8mkAW6jV1QRUXzF0C8w9pYsOYOqnUCjpXd7cq+PgltmA7nJEOzccfetIW7VmI180AAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Mass Mindflay Rituals<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Here I have compiled every rituals known to me.<br />&#34;On The Bulk Flaying Of Minds&#34;<br /><br />Seems to operate on a &#34;Point&#34; system. with each villager being worth double the previous</p>
+<div id="patterns/grand/mindflay_rituals/slipways" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Mangrove Door"
+      alt="Mangrove Door"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/mangrove_door.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Create and Collapse Slipways<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals/slipways"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Create slipway.<br />[villager (80 points)],wisp -&gt; <br />takes some villagers and turns the wisp into a slipway</p>
+<br />
+    <p>Collapse slipway.<br />[villager (16 points)],pos -&gt; <br />takes some villagers and collapses the slipway into 10-20 wandering wisp</p>
+<br />
+</div>
+<div id="patterns/grand/mindflay_rituals/restock" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Chest"
+      alt="Chest"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAJElEQVQoz2NkwAF+MPzAKs7EQCIY1UAMYMQV3hwMHKOhRD8NAPogBA/DVsDEAAAAAElFTkSuQmCC"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Restock Trades<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals/restock"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>[Villager (1 point per trade)],Villager<br />Restocks all of the targeted villagers trades.<br />Consumes 1 point for each trade offered by the target villager</p>
+<br />
+</div>
+<div id="patterns/grand/mindflay_rituals/titration" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Titration Barrel"
+      alt="Titration Barrel"
+      src="https://walksanatora.github.io/HexTweaks/v/5.3.2/1.0.dev0/assets/spectrum/textures/block/titration_barrel.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Titration Time Skip<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand/mindflay_rituals/titration"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p><br />[villager + witch (8 points per witch)],pos -&gt; <br />takes some villager and witches and tries to skip 12 hours for each witch sacrificed</p>
+<br />
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p><p>Minecraft content and materials are the intellectual property of their respective owners.</p><p>Made with ❤️ using <a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>.</p>
+        </div>
+      </footer>
+  </body>
+</html>
