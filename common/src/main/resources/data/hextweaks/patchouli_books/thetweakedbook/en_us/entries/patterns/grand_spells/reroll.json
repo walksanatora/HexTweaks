@@ -10,10 +10,7 @@
 			"type": "patchouli:text",
 			"title": "Reroll Pattern",
 			"text": "hextweaks.page.grand.reroll",
-			"op_id": "hextweaks:grand/reroll",
-			"anchor": "hextweaks:grand/reroll",
-			"input": "entity",
-			"output": ""
+			"anchor": "hextweaks:grand/reroll"
 		}
 	]
 }

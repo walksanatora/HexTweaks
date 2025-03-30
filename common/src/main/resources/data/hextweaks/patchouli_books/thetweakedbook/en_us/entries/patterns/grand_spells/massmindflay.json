@@ -10,10 +10,7 @@
 			"type": "patchouli:text",
 			"title": "Mass Mindflay",
 			"text": "hextweaks.page.grand.massmindflay",
-			"op_id": "hextweaks:grand/massbrainsweep",
 			"anchor": "hextweaks:grand/massbrainsweep",
-			"input": "[entity], any",
-			"output": ""
 		}
 	]
 }
