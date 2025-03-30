@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>HexTweaks Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="The HexTweaks Book, all in one place." />
+      <meta name="author" content="Walksantor" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="HexTweaks Book" />
+<meta property="og:image" content="https://walksanatora.github.io/HexTweaks/v/3.2.3/1.0.dev0/zh_cn/icon.png" />
+<meta property="og:url" content="https://walksanatora.github.io/HexTweaks/v/3.2.3/1.0.dev0/zh_cn" />
+<meta property="og:description" content="The HexTweaks Book, all in one place." />
+<meta property="og:site_name" content="HexTweaks (3.2.3)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">HexTweaks Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/walksanatora/HexTweaks/tree/47fe59b304d979041c64c1d24ee7ca5916323b29"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >3.2.3 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >简体中文 (中国大陆) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>这是HexTweaks文档的在线版本。</p></h1>
+      <p><strong>条目的模糊处理相当于剧透警告</strong>。点击条目即可取消模糊，不过这么做有可能破坏游戏后期的进程与体验。也可点击<a href="?nospoiler">此处</a>以取消所有模糊。</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>往事犹若异乡；他们在那里做的事情都不一样。</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    <span class="nobr">目录<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="显示或收起全部"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="书架"
+      alt="书架"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.19.2/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 图案</a></summary>
+      <ul>
+          <li><a href="#patterns/hextweaks_dict" class="toc-elem "><img
+      title="书"
+      alt="书"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 咒法调整：字典</a></li>
+          <li><a href="#patterns/hextweaks_utility" class="toc-elem "><img
+      title="木棍"
+      alt="木棍"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/stick.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 咒法调整：实用</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/spells" class="toc-elem "><img
+      title="附魔书"
+      alt="附魔书"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 法术</a></summary>
+      <ul>
+          <li><a href="#patterns/spells/nausea" class="toc-elem "><img
+      title="item.minecraft.water_bottle"
+      alt="item.minecraft.water_bottle"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAJElEQVQoz2NkwAF+MPzAKs7EQCIY1UAMYMQV3hwMHKOhRD8NAPogBA/DVsDEAAAAAElFTkSuQmCC"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 反胃之西沉</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/great_spells" class="toc-elem "><img
+      title="潮涌能量"
+      alt="潮涌能量"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/mob_effect/conduit_power.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 卓越法术</a></summary>
+      <ul>
+          <li><a href="#patterns/great_spells/suspicious_glyph" class="toc-elem "><img
+      title="骷髅头颅"
+      alt="骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA5UlEQVQ4y22TMQ4CMQwE/RYahERDgaBGUNBeS0XLD3j9oY00p8FKEfly9m7W66Rej+t6O+3XxPNhN1a+s56X49gnpob8Z7mPfGKxMdH3vYzFP4NDBjj7gjGJxBQnhgBCK0h0bQEwM6CQkIOEb1oueoYVQIpNYDBtBVeArQC5VsMBNni0gNM2iLY6OapMUhR0kpkypuOxby0Y4D5NiEeoGARInZ3O2LgbzN5TK982TjEROU/DqquDZxNwz/2Kb/egS+wE9gnwnweMDpMs2Yb2livFqOhvYDYJg1NbnGSz+gPqreBVCH6o7cFQ/fKDlAAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 可疑的图案</a></li>
+          <li><a href="#patterns/great_spells/craftgrandscroll" class="toc-elem "><img
+      title="末地水晶"
+      alt="末地水晶"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/end_crystal.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 自然搜索</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/grand_spells" class="toc-elem "><img
+      title="凋零"
+      alt="凋零"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/mob_effect/wither.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 卓伟法术</a></summary>
+      <ul>
+          <li><a href="#patterns/grand_spells/massmindflay" class="toc-elem "><img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA5UlEQVQ4y22TMQ4CMQwE/RYahERDgaBGUNBeS0XLD3j9oY00p8FKEfly9m7W66Rej+t6O+3XxPNhN1a+s56X49gnpob8Z7mPfGKxMdH3vYzFP4NDBjj7gjGJxBQnhgBCK0h0bQEwM6CQkIOEb1oueoYVQIpNYDBtBVeArQC5VsMBNni0gNM2iLY6OapMUhR0kpkypuOxby0Y4D5NiEeoGARInZ3O2LgbzN5TK982TjEROU/DqquDZxNwz/2Kb/egS+wE9gnwnweMDpMs2Yb2livFqOhvYDYJg1NbnGSz+gPqreBVCH6o7cFQ/fKDlAAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 群体剥离意识</a></li>
+          <li><a href="#patterns/grand_spells/reroll" class="toc-elem "><img
+      title="发射器"
+      alt="发射器"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.19.2/1.0.dev1/assets/minecraft/textures/block/dispenser.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 重骰图案</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/grand_spells/mass_mindflay" class="toc-elem spoilered"><img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA5UlEQVQ4y22TMQ4CMQwE/RYahERDgaBGUNBeS0XLD3j9oY00p8FKEfly9m7W66Rej+t6O+3XxPNhN1a+s56X49gnpob8Z7mPfGKxMdH3vYzFP4NDBjj7gjGJxBQnhgBCK0h0bQEwM6CQkIOEb1oueoYVQIpNYDBtBVeArQC5VsMBNni0gNM2iLY6OapMUhR0kpkypuOxby0Y4D5NiEeoGARInZ3O2LgbzN5TK982TjEROU/DqquDZxNwz/2Kb/egS+wE9gnwnweMDpMs2Yb2livFqOhvYDYJg1NbnGSz+gPqreBVCH6o7cFQ/fKDlAAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 群体剥离意识仪式</a></summary>
+      <ul>
+          <li><a href="#patterns/grand_spells/mass_mindflay/destroy_slipway" class="toc-elem spoilered"><img
+      title="紫水晶粉块"
+      alt="紫水晶粉块"
+      src="https://hexcasting.hexxy.media/v/0.10.3/1.0/assets/hexcasting/textures/block/amethyst_dust_block.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 坍缩质道</a></li>
+          <li><a href="#patterns/grand_spells/mass_mindflay/create_slipway" class="toc-elem spoilered"><img
+      title="紫水晶块"
+      alt="紫水晶块"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.19.2/1.0.dev1/assets/minecraft/textures/block/amethyst_block.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 创造质道</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="书架"
+      alt="书架"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.19.2/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>我所发现的各式图案，和它们的功用。</p>
+<div id="patterns/hextweaks_dict" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="书"
+      alt="书"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >咒法调整：字典<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hextweaks_dict"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <h4>Dictionary Iotas</h4>
+    <p>字典是咒法调整新增的一种 iota，类似便携式阿卡夏记录，但最多只能包含 32 条记录。<br />key（键）类型代表除字典和列表外的所有 iota 类型，字典和列表不可出现于字典内。</p>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/new" class="">
+<h4 class="pattern-title">书记员空无之精思 (→ dict)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/new"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaq"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaq</canvas>
+  </details>
+      <p>压入一个空的新字典。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/from" class="">
+<h4 class="pattern-title">书记员之馏化 ([key], [any] → dict)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/from"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqeqdweeew"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqeqdweeew</canvas>
+  </details>
+      <p>将两个列表组合为一个字典，无效键对应的值会被丢弃。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/break" class="">
+<h4 class="pattern-title">书记员之分解 (dict → [key], [any])<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/break"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqdwqqqwae"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqdwqqqwae</canvas>
+  </details>
+      <p>将一个字典拆解为键列表和值列表。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/break/single" class="">
+<h4 class="pattern-title">书记员之分解，第二型 (dict → key, value)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/break/single"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqdwqqqwq"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqdwqqqwq</canvas>
+  </details>
+      <p>仅将字典中第一对键值拆出，其余丢弃。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/size" class="">
+<h4 class="pattern-title">书记员算盘之纯化 (dict → num)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/size"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqeewaqaeaq"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqeewaqaeaq</canvas>
+  </details>
+      <p>弹出字典，并返回其大小。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/set" class="">
+<h4 class="pattern-title">书记员整合之提整 (dict, key, any → dict)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/set"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqdqedqde"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqdqedqde</canvas>
+  </details>
+      <p>将键值对加入字典，字典会留在栈内。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/get" class="">
+<h4 class="pattern-title">书记员外科医师之提整 (dict, key → dict, any)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/get"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqdadeeed"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqdadeeed</canvas>
+  </details>
+      <p>返回字典中键对应的值，字典会留在栈内。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/remove" class="">
+<h4 class="pattern-title">书记员切除器之馏化 (dict, key → dict)<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/remove"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqeqdd"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqeqdd</canvas>
+  </details>
+      <p>从字典中移除键。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_dict@hextweaks:dict/thoths" class="">
+<h4 class="pattern-title">书记员托特之策略 ([patterns], dict → [any])<a
+    href="#patterns/hextweaks_dict@hextweaks:dict/thoths"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwaqedadad"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwaqedadad</canvas>
+  </details>
+      <p>适用于字典的托特之策略。<br />会将键值对分别压入栈顶，而非仅压入值。</p>
+  </div>
+<br />
+</div>
+<div id="patterns/hextweaks_utility" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="木棍"
+      alt="木棍"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/stick.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >咒法调整：实用<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hextweaks_utility"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/hextweaks_utility@hextweaks:page/right" class="">
+<h4 class="pattern-title">页进之策略<a
+    href="#patterns/hextweaks_utility@hextweaks:page/right"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqaw"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqaw</canvas>
+  </details>
+      <p>将我所持的法术书向右翻一页。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_utility@hextweaks:page/left" class="">
+<h4 class="pattern-title">页退之策略<a
+    href="#patterns/hextweaks_utility@hextweaks:page/left"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eedw"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eedw</canvas>
+  </details>
+      <p>将我所持的法术书向左翻一页。</p>
+  </div>
+<br />
+  <div id="patterns/hextweaks_utility@hextweaks:itter" class="">
+<h4 class="pattern-title">石子之纯化 (number → [number])<a
+    href="#patterns/hextweaks_utility@hextweaks:itter"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wdwaw"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wdwaw</canvas>
+  </details>
+      <p>接受一个数，并返回从 0 开始至 n - 1 的所有数，共计 n 个。务必小心，以免往栈中塞进太多 iota。</p>
+  </div>
+<br />
+</div>
+</section>
+<section id="patterns/spells">
+    <h2 class="category-title page-header">
+    <img
+      title="附魔书"
+      alt="附魔书"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >法术<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>能以魔法影响到世界的图案和操作。</p>
+<div id="patterns/spells/nausea" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="item.minecraft.water_bottle"
+      alt="item.minecraft.water_bottle"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAJElEQVQoz2NkwAF+MPzAKs7EQCIY1UAMYMQV3hwMHKOhRD8NAPogBA/DVsDEAAAAAElFTkSuQmCC"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >反胃之西沉<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/nausea"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/spells/nausea@hextweaks:nausea" class="">
+<h4 class="pattern-title">反胃之西沉 (entity, number, number →)<a
+    href="#patterns/spells/nausea@hextweaks:nausea"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="weed"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：weed</canvas>
+  </details>
+      <p>给予<span style="color: #8d6acc">反胃</span>。每 4 秒持续时间的基础消耗为 1 个紫水晶粉。</p><p>完全不是“weed”笑话<a href="https://discord.com/channels/936370934292549712/1011455473528098857/1098374462333788242" target="_blank">链接</a></p>
+  </div>
+<br />
+</div>
+</section>
+<section id="patterns/great_spells">
+    <h2 class="category-title page-header">
+    <img
+      title="潮涌能量"
+      alt="潮涌能量"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/mob_effect/conduit_power.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >卓越法术<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>这类法术据信极难施放，但也极为强力。记载它们的文献极为少见（据称理由充分）。这也许只是某些消亡的老古董口中的胡言乱语，不过——它们只是简单的图案罢了。试试看又能出什么错呢？</p>
+<div id="patterns/great_spells/suspicious_glyph" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="骷髅头颅"
+      alt="骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA5UlEQVQ4y22TMQ4CMQwE/RYahERDgaBGUNBeS0XLD3j9oY00p8FKEfly9m7W66Rej+t6O+3XxPNhN1a+s56X49gnpob8Z7mPfGKxMdH3vYzFP4NDBjj7gjGJxBQnhgBCK0h0bQEwM6CQkIOEb1oueoYVQIpNYDBtBVeArQC5VsMBNni0gNM2iLY6OapMUhR0kpkypuOxby0Y4D5NiEeoGARInZ3O2LgbzN5TK982TjEROU/DqquDZxNwz/2Kb/egS+wE9gnwnweMDpMs2Yb2livFqOhvYDYJg1NbnGSz+gPqreBVCH6o7cFQ/fKDlAAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >可疑的图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells/suspicious_glyph"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/great_spells/suspicious_glyph@hextweaks:suicide" class="">
+<h4 class="pattern-title">可疑的图案<a
+    href="#patterns/great_spells/suspicious_glyph@hextweaks:suicide"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="dewdeqwwedaqedwadweqewwd"
+        data-start="west"
+        data-per-world="True"
+      >浏览器不支持图案的可视化。图案代码见此：dewdeqwwedaqedwadweqewwd</canvas>
+  </details>
+      <p>似乎是某种图案，真想知道它有什么效果。</p>
+  </div>
+<br />
+</div>
+<div id="patterns/great_spells/craftgrandscroll" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="末地水晶"
+      alt="末地水晶"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/items/end_crystal.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >自然搜索<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/great_spells/craftgrandscroll"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/great_spells/craftgrandscroll@hextweaks:craft/grandscroll" class="">
+<h4 class="pattern-title">自然搜索 (entity, vector →)<a
+    href="#patterns/great_spells/craftgrandscroll@hextweaks:craft/grandscroll"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wqqewawqwqedawdweewaeqwawdaqwdewawdadwawqwawdadwaw"
+        data-start="west"
+        data-per-world="True"
+      >浏览器不支持图案的可视化。图案代码见此：wqqewawqwqedawdweewaeqwawdaqwdewawdadwawqwawdadwaw</canvas>
+  </details>
+      <p>接受一份远古卷轴、和一个紫水晶母岩的位置，并随机搜索出一个卓伟法术。</p>
+  </div>
+<br />
+</div>
+</section>
+<section id="patterns/grand_spells">
+    <h2 class="category-title page-header">
+    <img
+      title="凋零"
+      alt="凋零"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.19.1/mob_effect/wither.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >卓伟法术<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand_spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>本节记载着真正遗落散尽的法术。正因此，我只能搜寻到少量有关细节，难以知全貌。也许我能到<a href="#patterns/great_spells/craftgrandscroll"><span style="color: #fc77be">自然那里碰碰运气</span></a>……</p>
+<div id="patterns/grand_spells/massmindflay" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA5UlEQVQ4y22TMQ4CMQwE/RYahERDgaBGUNBeS0XLD3j9oY00p8FKEfly9m7W66Rej+t6O+3XxPNhN1a+s56X49gnpob8Z7mPfGKxMdH3vYzFP4NDBjj7gjGJxBQnhgBCK0h0bQEwM6CQkIOEb1oueoYVQIpNYDBtBVeArQC5VsMBNni0gNM2iLY6OapMUhR0kpkypuOxby0Y4D5NiEeoGARInZ3O2LgbzN5TK982TjEROU/DqquDZxNwz/2Kb/egS+wE9gnwnweMDpMs2Yb2livFqOhvYDYJg1NbnGSz+gPqreBVCH6o7cFQ/fKDlAAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >群体剥离意识<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand_spells/massmindflay"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/grand_spells/massmindflay@hextweaks:grand/massbrainsweep" class="">
+<h4>Mass Mindflay<a
+    href="#patterns/grand_spells/massmindflay@hextweaks:grand/massbrainsweep"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+    <p>需要一个由实体组成的列表，还有一个参量应自行推断，我目前就发现这么多了……<a href="https://hexcasting.hexxy.media/v/0.10.3/1.0/en_us#patterns/great_spells/brainsweep"><span style="color: #fc77be">我应该记下了些相关的笔记。</span></a>即使如此，也务必万分注意，这些法术的力量不像是常人所能掌控的。</p>
+  </div>
+<br />
+</div>
+<div id="patterns/grand_spells/reroll" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="发射器"
+      alt="发射器"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.19.2/1.0.dev1/assets/minecraft/textures/block/dispenser.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >重骰图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand_spells/reroll"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/grand_spells/reroll@hextweaks:grand/reroll" class="">
+<h4>Reroll Pattern<a
+    href="#patterns/grand_spells/reroll@hextweaks:grand/reroll"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+    <p>没有收集需要的远古卷轴已经堆积如山，好在这个法术能在世界中搜索新图案。可惜我没法永远这么做，不然它的消耗会指数式增长……<br />接受一个远古卷轴或晶化卷轴实体，并重骰其上图案。<br />消耗 10 * 1.25 ^ (重骰次数) 个充能紫水晶。</p>
+  </div>
+<br />
+</div>
+</section>
+<section id="patterns/grand_spells/mass_mindflay">
+    <div class="spoilered">
+      <h2 class="category-title page-header">
+    <img
+      title="凋灵骷髅头颅"
+      alt="凋灵骷髅头颅"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA5UlEQVQ4y22TMQ4CMQwE/RYahERDgaBGUNBeS0XLD3j9oY00p8FKEfly9m7W66Rej+t6O+3XxPNhN1a+s56X49gnpob8Z7mPfGKxMdH3vYzFP4NDBjj7gjGJxBQnhgBCK0h0bQEwM6CQkIOEb1oueoYVQIpNYDBtBVeArQC5VsMBNni0gNM2iLY6OapMUhR0kpkypuOxby0Y4D5NiEeoGARInZ3O2LgbzN5TK982TjEROU/DqquDZxNwz/2Kb/egS+wE9gnwnweMDpMs2Yb2livFqOhvYDYJg1NbnGSz+gPqreBVCH6o7cFQ/fKDlAAAAABJRU5ErkJggg=="
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >群体剥离意识仪式<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand_spells/mass_mindflay"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>此处记载着似乎需要大量剥离意识的法术。我认为施放如此宏大的法术，需要极大量的活体媒质。<br />村民的熟练度是不错的高密度媒质源。交易极少的村民对仪式的贡献也极少，熟练度每增一级贡献就会翻倍。<br />而且似乎仪式间存在着某种自然顺序，所需较多的仪式会优先于所需较少的仪式执行。<br />并且每次施法貌似只能执行一次仪式。</p>
+    </div>
+<div id="patterns/grand_spells/mass_mindflay/destroy_slipway" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="紫水晶粉块"
+      alt="紫水晶粉块"
+      src="https://hexcasting.hexxy.media/v/0.10.3/1.0/assets/hexcasting/textures/block/amethyst_dust_block.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >坍缩质道<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand_spells/mass_mindflay/destroy_slipway"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <h4>坍缩质道</h4>
+    <p>接受质道位置向量，并将其摧毁。<br />消耗 1 个大师村民。</p>
+<br />
+    </div>
+</div>
+<div id="patterns/grand_spells/mass_mindflay/create_slipway" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="紫水晶块"
+      alt="紫水晶块"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.19.2/1.0.dev1/assets/minecraft/textures/block/amethyst_block.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >创造质道<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/grand_spells/mass_mindflay/create_slipway"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <h4>创造质道</h4>
+    <p>接受一个位置向量，并在该位置处创造质道，且该位置需无方块，否则什么都不会发生。<br />消耗 5 个大师村民。</p>
+<br />
+    </div>
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>该页面不是Minecraft的官方产品，不隶属于Mojang和Microsoft，且不代表Mojang和Microsoft的意见。</p><p>Minecraft的游戏内容和资源均为各自所有者的知识财产。</p><p>使用<a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>精心制作。❤️</p>
+        </div>
+      </footer>
+  </body>
+</html>
