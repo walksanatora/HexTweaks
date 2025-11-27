@@ -16,6 +16,7 @@ import at.petrak.hexcasting.api.utils.otherHand
 import at.petrak.hexcasting.api.utils.putInt
 import at.petrak.hexcasting.common.lib.HexItems
 import com.thunderbear06.computer.peripherals.DummyPocket
+import com.thunderbear06.entity.android.BaseAndroidEntity
 import dan200.computercraft.api.peripheral.IComputerAccess
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
@@ -25,7 +26,6 @@ import dan200.computercraft.shared.computer.core.ServerComputer
 import dan200.computercraft.shared.turtle.core.TurtleBrain
 import dev.architectury.platform.Platform
 import io.sc3.plethora.gameplay.neural.NeuralPocketAccess
-import com.thunderbear06.entity.android.BaseAndroidEntity
 import net.minecraft.Util.NIL_UUID
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -34,12 +34,11 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.Container
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.Vec3
-import net.walksanator.hextweaks.HexTweaks
 import net.walksanator.hextweaks.HexTweaksRegistry
-import net.walksanator.hextweaks.mixin.NeuralAccessor
 import java.util.function.Predicate
 
 class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : CastingEnvironment(level) {
@@ -294,14 +293,19 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
     }
 
     override fun isEnlightened(): Boolean {
-        val family = getServerComputer().family
-        return when (family) {
-            ComputerFamily.NORMAL -> false
-            else -> true
-        }
+        if (pocketData!=null) return (pocketData.entity as ServerPlayer)
+            .advancements
+            .getOrStartProgress(world.server.advancements
+            .getAdvancement(HexAPI.modLoc("enlightenment"))!!)
+            .isDone
+        return true
     }
 
-    override fun isCreativeMode(): Boolean = getServerComputer().family == ComputerFamily.COMMAND
+    override fun isCreativeMode(): Boolean {
+        if (pocketData!=null) return (pocketData.entity as ServerPlayer).gameMode.isCreative
+        //Implementing creative mode turtles would need more access ig?
+        return false
+    }
 
     override fun printMessage(message: Component) {
         computer.queueEvent("reveal",
@@ -310,19 +314,20 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         )
     }
 
-    private fun getServerComputer(): ServerComputer {
-        return if (pocketData != null) {
-            if (Platform.isModLoaded("plethora") && (pocketData is NeuralPocketAccess)) {
-                (pocketData as net.walksanator.hextweaks.mixin.NeuralAccessor).neural as ServerComputer as ServerComputer
-            } else if (Platform.isModLoaded("cc-androids") && pocketData is DummyPocket) {
-                (pocketData.entity!! as BaseAndroidEntity).computer.serverComputer as ServerComputer
-            } else {
-                pocketData as ServerComputer
-            }
-        } else {
-            (turtleData!!.first as TurtleBrain).owner.serverComputer!!
-        }
-    }
+//We only have access to limited interfaces, not actual ServerComputer child classes. It's better to give up with this at this point.
+//    private fun getServerComputer(): ServerComputer {
+//        return if (pocketData != null) {
+//            if (Platform.isModLoaded("plethora") && (pocketData is NeuralPocketAccess)) {
+//                (pocketData as net.walksanator.hextweaks.mixin.NeuralAccessor).neural as ServerComputer as ServerComputer
+//            } else if (Platform.isModLoaded("cc-androids") && pocketData is DummyPocket) {
+//                (pocketData.entity!! as BaseAndroidEntity).computer.serverComputer as ServerComputer
+//            } else {
+//                pocketData as ServerComputer
+//            }
+//        } else {
+//            (turtleData!!.first as TurtleBrain).owner.serverComputer!!
+//        }
+//    }
 
 
     override fun postExecution(result: CastResult?) {
