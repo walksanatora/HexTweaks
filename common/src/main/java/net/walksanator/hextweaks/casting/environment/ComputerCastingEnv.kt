@@ -15,17 +15,12 @@ import at.petrak.hexcasting.api.utils.compareMediaItem
 import at.petrak.hexcasting.api.utils.otherHand
 import at.petrak.hexcasting.api.utils.putInt
 import at.petrak.hexcasting.common.lib.HexItems
-import com.thunderbear06.computer.peripherals.DummyPocket
 import com.thunderbear06.entity.android.BaseAndroidEntity
 import dan200.computercraft.api.peripheral.IComputerAccess
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
-import dan200.computercraft.shared.computer.core.ComputerFamily
-import dan200.computercraft.shared.computer.core.ServerComputer
-import dan200.computercraft.shared.turtle.core.TurtleBrain
 import dev.architectury.platform.Platform
-import io.sc3.plethora.gameplay.neural.NeuralPocketAccess
 import net.minecraft.Util.NIL_UUID
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -34,7 +29,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.Container
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.Vec3
@@ -43,21 +37,21 @@ import java.util.function.Predicate
 
 class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val pocketData: IPocketAccess?,level: ServerLevel,val computer: IComputerAccess) : CastingEnvironment(level) {
 
-    constructor(old: net.walksanator.hextweaks.casting.environment.ComputerCastingEnv, newWorld: ServerLevel) : this(old.turtleData,old.pocketData,newWorld,old.computer)
+    constructor(old: ComputerCastingEnv, newWorld: ServerLevel) : this(old.turtleData,old.pocketData,newWorld,old.computer)
 
     private val mishap = run {
         if (turtleData == null) {
             if (pocketData!!.entity is ServerPlayer) {
-                net.walksanator.hextweaks.casting.environment.ComputerMishapEnvironment(
+                ComputerMishapEnvironment(
                     world,
                     pocketData.entity as ServerPlayer,
                     this
                 )
             } else {
-                net.walksanator.hextweaks.casting.environment.ComputerMishapEnvironment(world, null, this)
+                ComputerMishapEnvironment(world, null, this)
             }
         }
-        net.walksanator.hextweaks.casting.environment.ComputerMishapEnvironment(world, null, this)
+        ComputerMishapEnvironment(world, null, this)
     }
 
     override fun getCastingEntity(): LivingEntity? {
@@ -160,7 +154,7 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
         } else {
             val ent = pocketData!!.entity
             if (Platform.isModLoaded("cc-androids") && (ent is BaseAndroidEntity)) {
-                val downcast = ent as LivingEntity;// loom is stupid and fails to remap the upcasted BaseAndroidEntity in the next line
+                val downcast = ent as LivingEntity// loom is stupid and fails to remap the upcasted BaseAndroidEntity in the next line
                 if (downcast.getItemInHand(InteractionHand.MAIN_HAND).item == HexItems.STAFF_MINDSPLICE) {
                     InteractionHand.MAIN_HAND
                 } else {
@@ -298,12 +292,11 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             .getOrStartProgress(world.server.advancements
             .getAdvancement(HexAPI.modLoc("enlightenment"))!!)
             .isDone
-        return true
+        return true //Default case since we're using mindsplice staff to begin with
     }
 
     override fun isCreativeMode(): Boolean {
         if (pocketData!=null) return (pocketData.entity as ServerPlayer).gameMode.isCreative
-        //Implementing creative mode turtles would need more access ig?
         return false
     }
 
@@ -313,22 +306,6 @@ class ComputerCastingEnv(val turtleData: Pair<ITurtleAccess, TurtleSide>?, val p
             message.string
         )
     }
-
-//We only have access to limited interfaces, not actual ServerComputer child classes. It's better to give up with this at this point.
-//    private fun getServerComputer(): ServerComputer {
-//        return if (pocketData != null) {
-//            if (Platform.isModLoaded("plethora") && (pocketData is NeuralPocketAccess)) {
-//                (pocketData as net.walksanator.hextweaks.mixin.NeuralAccessor).neural as ServerComputer as ServerComputer
-//            } else if (Platform.isModLoaded("cc-androids") && pocketData is DummyPocket) {
-//                (pocketData.entity!! as BaseAndroidEntity).computer.serverComputer as ServerComputer
-//            } else {
-//                pocketData as ServerComputer
-//            }
-//        } else {
-//            (turtleData!!.first as TurtleBrain).owner.serverComputer!!
-//        }
-//    }
-
 
     override fun postExecution(result: CastResult?) {
         super.postExecution(result)
