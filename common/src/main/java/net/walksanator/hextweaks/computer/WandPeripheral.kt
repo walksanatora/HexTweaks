@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.iota.GarbageIota
 import at.petrak.hexcasting.api.casting.iota.IotaType
+import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.iota.PatternIota
 import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
@@ -20,7 +21,6 @@ import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.turtle.ITurtleAccess
 import dan200.computercraft.api.turtle.TurtleSide
 import net.minecraft.server.level.ServerLevel
-import net.walksanator.hextweaks.casting.environment.ComputerCastingEnv
 
 class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocketData: IPocketAccess?) : IPeripheral {
     lateinit var vm: CastingVM
@@ -135,7 +135,9 @@ class WandPeripheral(val turtleData: Pair<ITurtleAccess,TurtleSide>?, val pocket
                 )
             )
         }
-        vm.queueExecuteAndWrapIota(iota,getWorld())
+
+        if (iota.type== ListIota.TYPE) vm.queueExecuteAndWrapIotas((iota as ListIota).list.toList(), world)
+        else vm.queueExecuteAndWrapIota(iota,getWorld())
     }
 
 }
