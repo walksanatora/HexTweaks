@@ -150,7 +150,7 @@ object PatternRegistry {
                 if (adv != null) {
                     caster.advancements.award(adv, ItemLoreFragment.CRITEREON_KEY)
                 } else {
-                    net.walksanator.hextweaks.HexTweaks.LOGGER.warn("Advancement from grand spell {} does not exists",advid)
+                    //net.walksanator.hextweaks.HexTweaks.LOGGER.warn("Advancement from grand spell {} does not exists",advid)
                 }
             } else {
                 net.walksanator.hextweaks.HexTweaks.LOGGER.info("There is no player to grant advancement to for grand spell")

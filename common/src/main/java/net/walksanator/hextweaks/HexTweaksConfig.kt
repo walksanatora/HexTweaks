@@ -12,7 +12,9 @@ class HexTweaksConfig(
     val computerAmbitMult: Float = 1.0f,
     val computerCostMult: Float = 1.0f,
     val computerBanList: List<String> = emptyList(),
-    val allowUnsafeDeserialization: SecurityLevel = SecurityLevel.TRUENAME
+    val allowUnsafeDeserialization: SecurityLevel = SecurityLevel.TRUENAME,
+    val nadithEffectBlacklist: List<String> = emptyList(),
+    val nadithEffectMultipliers: Map<String,Double> = emptyMap()
 ) {
 
 
@@ -29,6 +31,15 @@ class HexTweaksConfig(
             return allowed
         }
     }
+
+    fun isNadithEffectAllowed(effectString: String): Boolean {
+        return !nadithEffectBlacklist.contains(effectString)
+    }
+
+    fun gatNadithEffectMultiplier(effectString: String): Double {
+        return nadithEffectMultipliers.get(effectString) ?: -1.0
+    }
+
     companion object {
         val DEFAULT = HexTweaksConfig()
         val CODEC = Codec.either<HexTweaksConfig,HexTweaksConfig>(
@@ -37,7 +48,9 @@ class HexTweaksConfig(
                     Codec.FLOAT.fieldOf("computerAmbitMult").forGetter({it.computerAmbitMult}),
                     Codec.FLOAT.fieldOf("computerCostMult").forGetter({it.computerCostMult}),
                     Codec.STRING.listOf().fieldOf("computerBanList").forGetter({it.computerBanList}),
-                    StringRepresentable.fromEnum(SecurityLevel::values).fieldOf("allowUnsafeDeserialization").forGetter({it.allowUnsafeDeserialization})
+                    StringRepresentable.fromEnum(SecurityLevel::values).fieldOf("allowUnsafeDeserialization").forGetter({it.allowUnsafeDeserialization}),
+                    Codec.STRING.listOf().fieldOf("nadithEffectBlacklist").forGetter({it.nadithEffectBlacklist}),
+                    Codec.unboundedMap(Codec.STRING, Codec.DOUBLE).fieldOf("nadithEffectMultipliers").forGetter{it.nadithEffectMultipliers}
                 ).apply(it, ::HexTweaksConfig)
             },
             Codec.unit(DEFAULT)
